@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Restore password' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/restore/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/restore/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+{% endblock %}
+{% block content %}
+    <body style="background:#636363 !important;">
+	    <div id="wrapper" class="green">
+		    <div class="container">
+			    <div class="user-img"></div>
+			    <div id="form-box" class="rf2">
+				    <div class="user-container-form">
+					    <div id="reg-title">{% trans 'Recover password via e-mail' %}</div>
+					    <form action="{% url 'accounts:restore_send_email' %}" method="post">
+                            {{ form_email.email|add_placeholder_to_field:'e-mail'|add_class_to_formfield:'mail' }}
+                            {% csrf_token %}
+                            <input type="submit" id="input-link" value="">
+                        </form>
+						    <div class="clear"></div>
+						    <div id="introtext">
+                                {% if messages or form_email.email.errors %}
+                                    {{ form_email.email.errors.as_text }}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                {% else %}
+                                    {% blocktrans %}
+                                        Enter your e-mail, which you used when registering for Sell-n-Buy.
+                                        <br>  We will send your password to this address.
+                                    {% endblocktrans %}
+                                {% endif %}
+                            </div>
+						    <div id="reg-title">{% trans 'Reset your password using the telephone' %}</div>
+						    <div class="rmobile">
+                                <form action="{% url 'accounts:restore_send_sms' %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form_phone.phone|add_class_to_formfield:"mail mobile-number" }}
+                                    <input type="submit" id="input-link" value="">
+                                </form>
+							    <div class="clear"></div>
+						    </div>
+                            <form action="{% url 'accounts:password_confirm_code' %}" method="post">
+                                {% csrf_token %}
+                                {{ form_confirm.confirm_code|add_class_to_formfield:"mail code" }}
+                                <input type="submit" id="button-code" value="">
+                            </form>
+						    <div class="clear"></div>
+						    <div id="introtext">
+                                {% blocktrans %}
+                                    Enter the phone number that you used when registering for Sell-n-Buy.
+                                    <br> We will send your password to this number.
+                                {% endblocktrans %}
+                            </div>
+						    <a href="#" class="precovery-back">{% trans 'back' %}</a>
+					    </form>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+</body>
+{% endblock %}

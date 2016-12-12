@@ -1,0 +1,402 @@
+@font-face {
+    font-family: 'pragmaticacbold';
+    src: url('../../fonts/pragmaticac-bold-webfont.eot');
+    src: url('../../fonts/pragmaticac-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/pragmaticac-bold-webfont.woff2') format('woff2'),
+         url('../../fonts/pragmaticac-bold-webfont.woff') format('woff'),
+         url('../../fonts/pragmaticac-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'pragmaticacregular';
+    src: url('../../fonts/pragmaticac-webfont.eot');
+    src: url('../../fonts/pragmaticac-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/pragmaticac-webfont.woff2') format('woff2'),
+         url('../../fonts/pragmaticac-webfont.woff') format('woff'),
+         url('../../fonts/pragmaticac-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.clear{clear:both;}
+
+* { margin: 0; padding: 0; list-style: none; text-decoration: none;}
+html, body { 
+}
+
+textarea:focus, input:focus{
+	outline: none;
+}
+
+#logo{
+	width:400px;
+	height:399px;
+	position:absolute;
+	left:50%;
+	margin-left:-200px;
+	margin-top:100px;
+}
+
+.orange .search{
+	border:0;
+	width:290px;
+	height:30px;
+	position:relative;
+	text-align:center;
+	left:50%;
+	margin-left:-145px;
+	top:213px;
+	background:#000;
+	color:#ff6600;
+	font-family:pragmaticacregular;
+}
+
+.orange .search::-webkit-input-placeholder         {color:#ff6600;}
+.orange .search::-moz-placeholder     {color:#ff6600;}
+.orange .search::-moz-placeholder      {color:#ff6600;}
+.orange .search::-ms-input-placeholder {color:#ff6600;}
+
+.orange #logo{background:url(../../images/login/orange-logo.png) no-repeat;}
+
+.green .search{
+	border:0;
+	width:290px;
+	height:30px;
+	position:relative;
+	text-align:center;
+	left:50%;
+	margin-left:-145px;
+	top:213px;
+	background:#000;
+	color:#b1fe00;
+	font-family:pragmaticacregular;
+}
+
+.green .search::-webkit-input-placeholder         {color:#b1fe00;}
+.green .search::-moz-placeholder     {color:#b1fe00;}
+.green .search::-moz-placeholder      {color:#b1fe00;}
+.green .search::-ms-input-placeholder {color:#b1fe00;}
+
+.green #logo{background:url(../../images/login/green-logo.png) no-repeat;}
+
+#main-menu{
+	width:100%; float:left; overflow:hidden; position:relative; top:600px;
+}
+
+#main-menu ul{
+	text-align:center; clear:left; float:left; position:relative; left:52%;
+}
+
+#main-menu li{
+	float:left;
+	display: table;
+	width:180px;
+	text-align:center;
+	height:40px;
+	position:relative; right:51%;
+	margin:0 10px;
+}
+
+#main-menu li a{
+	font-family:pragmaticacregular;
+	font-size:16px;
+	text-transform:uppercase;
+	display: table-cell;
+	vertical-align: middle;	
+	color:#bbbbbb;
+	width:auto;
+}
+
+.orange #main-menu li a:hover{color:#ff6600;}
+
+.green #main-menu li a:hover{color:#b1fe00;}
+
+#form-box{
+	width:404px;
+	height:333px;
+	position:absolute;
+	left:50%;
+	margin-left:-202px;
+	margin-top:100px;
+	background:url(../../images/login/bg-form.png) no-repeat;
+	padding:70px 0 0 0;
+	text-align:center;
+}
+
+.new-reg{
+	text-transform:uppercase;
+	color:#000000;
+	font-size:17px;
+	font-family:Arial;
+	margin-bottom:5px;
+	font-weight:bold;
+}
+
+#form-box h3{
+	text-transform:uppercase;
+	color:#000000;
+	font-size:16px;
+	font-family:Arial;
+	margin-bottom:5px;
+}
+
+#form-box span{
+	color:#cacaca;
+	font-size:14px;
+	font-family:Arial;
+	margin-bottom:5px;
+	margin-top:5px;
+	display:block;
+	font-weight:bold;
+}
+
+#form-box p{
+	color:#000000;
+	font-size:16px;
+	font-family:Arial;
+	margin-bottom:2px;
+	font-weight:bold;
+}
+
+#reg-form input{
+	display:block;
+}
+
+.inpt{
+	width:278px;
+	height:21px;
+	background:#dfdfdf;
+	color:#999;
+	border:0px;
+	text-align:center;
+	margin:0 auto 6px;
+	font-size:13px;
+	font-weight:Arial !important;
+	font-weight:bold;
+}
+
+.inpt::-webkit-input-placeholder         {color:#999;}
+.inpt::-moz-placeholder     {color:#999;} 
+.inpt::-moz-placeholder      {color:#999;} 
+.inpt::-ms-input-placeholder {color:#999;} 
+
+#display-pass{
+	color:#000000;
+	font-family:Arial;
+	font-size:11px;
+	top:0px;
+	position:relative;	
+	text-decoration:none;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+#display-pass:hover{text-decoration:none;}
+
+.btn-sub{
+	width:144px;
+	height:21px;
+	color:#000000;
+	text-transform:uppercase;
+	text-align:center;
+	border:0px;
+	cursor:pointer;
+	font-family:Arial;
+	font-size:12px;
+	font-weight:bold;
+	margin:15px auto 0px;
+}
+
+.orange .btn-sub{background:#ff6600;}
+
+.green .btn-sub{background:#a6eb1e;}
+
+#recovery-pass{
+	color:#cccccc;
+	font-size:11px;
+	font-family:Arial;
+	top:-2px;
+	position:relative;
+}
+
+#social-title{
+	color:#000000;
+	font-family:Arial;
+	font-size:16px;
+	width:100%;
+	font-weight:bold;
+	text-align:center;
+	margin:6px 0 0 0;
+}
+
+#social{background:url(../../images/login/social.png) no-repeat; width:155px; height:20px; margin:12px auto;}
+
+#social li{float:left; margin-left:6px;}
+
+#social li:first-child{margin:0;}
+
+#social li a{
+	width:20px;
+	height:20px;
+	display:block;
+}
+
+#line{
+	width:1px;
+	height:48px;
+	position:relative;
+	background:#d7d9da;
+	float:left;
+	left:201px;
+	top: -10px;
+}
+
+#rev1{
+	width:86px;
+	float:left;
+	color:#000000;
+	font-family:Arial;
+	font-size:12px;	
+	margin:0 0 0 111px;
+	font-weight:bold;
+}
+
+#rev1 span{
+	color:#000000;
+	font-family:Arial;
+	font-size:13px;	
+	font-weight:bold;
+}
+
+#rev2{
+	width:80px;
+	float:right;
+	color:#000000;
+	font-family:Arial;
+	font-size:12px;	
+	margin:0 117px 0 0px;
+	font-weight:bold;
+}
+
+#rev2 span{
+	color:#000000;
+	font-family:Arial;
+	font-size:12px;	
+	font-weight:bold;
+	display:inline;
+}
+
+.rf2{padding-top:60px !important; height:343px !important;}
+
+#reg-title{
+	color:#000000;
+	font-size:16px;
+	font-family:Arial;
+	margin-bottom:5px;
+	width:185px;
+	margin:0 0 8px 105px;
+	font-weight:bold;
+}
+
+.mail{
+	width:156px;
+	height:19px;
+	background:#dfdfdf;
+	color:#000;
+	font-family:Arial;
+	font-size:12px;
+	padding:2px 6px 0px 6px;
+	border:0px;
+	float:left;
+	margin:0 0 0 105px;
+	font-weight:bold;
+}
+
+.mail::-webkit-input-placeholder         {color:#999;}
+.mail::-moz-placeholder     {color:#999;} 
+.mail::-moz-placeholder      {color:#999;} 
+.mail::-ms-input-placeholder {color:#999;} 
+
+#input-link{
+	width:23px;
+	height:21px;
+	background:url(../../images/login/pointer.png) no-repeat;
+	display:block;
+	float:left;
+	margin:0 0 0 2px;
+}
+
+#introtext{
+	width:200px;
+	margin:4px 0 12px 105px;
+	font-family:Arial;
+	font-size:9px;
+	text-align:left;
+	color:#6d6e70;
+	display:block;
+}
+
+.code{margin-top:8px;}
+
+#button-code{
+	width:21px;
+	height:21px;
+	background:url(../../images/login/button-code.png) no-repeat;
+	display:block;
+	float:left;
+	margin:8px 0 0 5px;
+}
+
+#check-box{position:relative;}
+
+.orange input[type="checkbox"]{display:none;}
+
+.orange input[type="checkbox"] + span {
+ position: absolute; /* ���������� ���������������� */
+ left: 82px; top: -6px;
+ width: 23px; height: 19px;
+ background: url(../../images/login/check.png) no-repeat; /* ������� ������� */
+ cursor: pointer; /* ������ � ���� ���� */
+}
+
+.orange input[type="checkbox"]:checked + span  	{
+ background: url(../../images/login/check-orange.png) no-repeat;
+}
+
+.green input[type="checkbox"]{display:none;}
+
+.green input[type="checkbox"] + span {
+ position: absolute; /* ���������� ���������������� */
+ left: 82px; top: -11px;
+ width: 23px; height: 19px;
+ background: url(../../images/login/check.png) no-repeat; /* ������� ������� */
+ cursor: pointer; /* ������ � ���� ���� */
+}
+
+.green input[type="checkbox"]:checked + span  	{
+ background: url(../../images/login/check-green.png) no-repeat;
+}
+
+.reg-button{
+	width:140px;
+	height:21px;
+	text-align:center;
+	color:#000;
+	font-size:12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:0px;
+	cursor:pointer;
+	font-family:Arial;
+	position:relative;
+	top:-5px;
+}
+
+.orange .reg-button{background:#ff6600;}
+
+.green .reg-button{background:#b1fe00;}

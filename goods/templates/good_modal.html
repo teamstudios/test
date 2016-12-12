@@ -1,0 +1,296 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>{{ good.title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'semantic/dist/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mosaic/images-grid.css' %}">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'fotorama/fotorama.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/goods_modal/modal-slider.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/goods_modal/jquery.easing.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/goods_modal/jquery.mousewheel.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'fotorama/fotorama.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="{% static 'mosaic/images-grid.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/good_modal.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/goods_modal/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/goods_modal/html5.js' %}"></script>
+    <![endif]-->
+    <script src="{% static 'js/good/jquery.collagePlus.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/categories/fb-style.css' %}">
+    {% trans 'Unfollow' as unfollow %}
+    {% trans 'Follow' as follow %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/good_modal.css' %}">
+</head>
+<body>
+	<div id="modal" class="ui grid">
+		<div id="modal-left-block" class="ten wide center aligned column">
+			<div id="modal-slider">
+                {% if good.deal == AUCTION %}
+                    <div class="auction">
+					    <p>до конца осталось</p>
+					    <div class="auction-first">1</div>
+					    <div class="auction-second">0</div>
+					    <div class="auction-first">0</div>
+					    <div class="auction-second">5</div>
+					    <div class="auction-first">2</div>
+					    <div class="auction-last">5</div>
+				    </div>
+                {% elif good.deal == SALE %}
+                    <div class="discount">{{ good.get_sale_percent }}%</div>
+                {% endif %}
+				<!--<img src="#" id="big-main-modal-slider">-->
+				<div class="fotorama" data-nav="thumbs" data-height="320" data-allowfullscreen="true" thumbmargin="4">
+                        {% for photo in photos %}
+                                <a href="{{ photo.image.url }}">
+                                    <img src="{{ photo.image.url }}">
+                                </a>
+                        {% empty %}
+                                <a href="{% static 'images/no-good-image.png' %}">
+                                    <img src="{% static 'images/no-good-image.png' %}" width="99" height="66">
+                                </a>
+                        {% endfor %}
+				</div>
+				<h3 id="good_title">
+                    {{ good.title }}
+                </h3>
+				<div id="modal-condition">
+                    {% trans 'State: ' %} {{ good.get_state_display }}
+                </div>
+				<div id="modal-adress">
+				    <i class="marker icon"></i>
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.get_country_display }}" target="_top">
+                        {{ profile.get_country_display }}
+                    </a><br>
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.city}}" target="_top">
+                        {{ profile.city }}
+                    </a>
+                </div>
+				<div id="modal-delivery">
+                    {% trans 'Delivery: ' %}{{ good.cooperation|truncatechars:30 }}
+                </div>
+				<div id="modal-number">
+                    {% trans 'Number of items available: ' %}{{ good.quantity }}
+                </div>
+                {% if good.deal == BUY_SELL %}
+				    <div id="modal-price">{{ good.price }} $</div>
+                {% elif good.deal == SALE %}
+                    <div id="modal-old-price">{{ good.old_price }} $</div>
+				    <div id="modal-price2">{{ good.new_price }} $</div>
+                {% else %}
+                    <div class="modal-fix-price"><p>{{ good.max_price }} $</p> <span>fix price</span></div>
+				    <div class="auction-price"><p>{{ good.reserve_price }} $</p> <span>{{ good.bids.count }} {% trans 'bids' %}</span></div>
+                {% endif %}
+				<a href="#" id="modal-sale" class="ui small olive button">{% trans 'BUY' %}</a><br>
+				<a id="about-cart" class="ui small basic olive button" onclick="addToCart({{ good.id }}); event.preventDefault();" data-id="{{ good.id }}" data-action="{% if good.id in cart.get_list_items %}remove{% else %}add{% endif %}">
+                    {% if good.id in cart.get_list_items %}
+                        {% trans 'IN CART' %}
+                    {% else %}
+                        {% trans 'ADD TO CART' %}
+                    {% endif %}
+                </a>
+				<!--<ul id="modal-statistics">
+					<li>50</li>
+					<li>50</li>
+					<li>50</li>
+					<li>50</li>
+					<li>50</li>
+				</ul>-->
+				<div id="social">
+					<a href="{{ site_root|social_share:VK }}{{ good.get_absolute_url }}" class="ui mini circular grey icon button" target="_blank">
+                        <i class="vk icon"></i>
+                    </a>
+                    <a href="{{ site_root|social_share:FACEBOOK }}{{ good.get_absolute_url }}" class="ui mini circular grey icon button" target="_blank">
+                        <i class="facebook f icon"></i>
+                    </a>
+                    <button class="ui mini circular grey icon button">
+                        <i class="odnoklassniki icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="google plus icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="twitter icon"></i>
+                    </button>
+                    <a href="{{ site_root|social_share:PINTEREST }}{{ good.get_absolute_url }}" class="ui mini circular grey icon button" target="_blank">
+                        <i class="pinterest icon"></i>
+                    </a>
+			    </div>
+			</div>
+		</div>
+        {% with users_likes=good.users_like.all likes_count=good.users_like.count %}
+		    <div id="modal-right-block" class="six wide column">
+		        <table class="ui very basic table">
+		            <tr>
+		                <td class="center aligned collapsing bordered">
+		                    <div id="modal-like-button" data-id="{{ good.pk }}" data-action="{% if request.user in users_likes  %}remove{% else %}add{% endif %}">
+		                        <i class="heart icon"></i><br>like
+		                    </div>
+		                </td>
+		                <td class="center aligned collapsing bordered">
+		                    <div id="modal-wish-button" data-id="{{ good.pk }}" data-action="{% if good in request.user.wishlist.goods.all  %}remove{% else %}add{% endif %}">
+		                       <i class="star icon"></i><br>wish
+		                    </div>
+		                </td>
+		                <td class="center aligned">
+		                    <a href="{% url 'goods:good_view' good.pk %}" id="modal-more-info" class="copy" target="_blank">{% trans "More..." %}</a>
+		               </td>
+		            </tr>
+		        </table>
+
+                            <!--<a href="{% url 'goods:goods_modal' good.pk %}">-->
+
+		        <div id="modal-user-block">
+				    <div id="modal-avatar">
+				        <div>
+					        <img src="{{ profile.avatar.url }}">
+					    </div>
+					    <div id="modal-user-name">
+                            {{ profile.user.username }}<br>
+                            <div id="modal-subscription" class="ui mini olive button" data-id="{{ profile.user.pk }}" data-action="{% if profile.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">
+                                {{ follow|upper }}
+                            </div>
+                        </div>
+				    </div>
+
+			    </div>
+			    <a href="{{ profile.site|check_http_prefix }}" id="modal-from-site" target="_top">с
+                    {{ profile.site }}
+                </a>
+			    <div id="modal-tags">
+                    {% for tag in good.tags.all %}
+                        <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.name }}" >
+                            {{ tag.name }}, 
+                        </a>
+                    {% endfor %}
+			    </div>
+			    <div id="modal-likes-block">
+			        <i class="heart icon"></i>
+                    {% for like in users_likes|slice:":2" %}
+                        <a href="{{ like.profile.get_absolute_url }}">{{ like.username }}</a>
+                    {% endfor %}
+                    {% if likes_count > 0 and likes_count <= 2 %}
+                        {% trans 'like this product' %}
+                    {% elif likes_count >= 3 %}
+                        {% trans 'and' %} {{ likes_count|add:"-2" }} {% trans 'others like this product' %}
+                    {% else %}
+                        {% trans 'Be first who like this product' %}
+                    {% endif %}
+			    </div>
+		        <div id="more_images"></div>
+                <script type="text/javascript">
+                    var img = []
+                    {% for good in goods_with_tags_right %}
+                        {% if good.get_first_image %}
+                            img.push('{{ good.get_first_image.image.url }}');
+                        {% else %}
+                            img.push('{% static "images/no-good-image.png" %}');
+                        {% endif %}
+                    {% endfor %}
+                    $('#more_images').imagesGrid({
+                        images: img,
+                        cells: 4,
+                    });
+                </script>
+                    
+                
+        <!-- Deleted comments block -->
+{#			<div id="mcs_container">#}
+{#				<div class="customScrollBox">#}
+{#					<div class="container">#}
+{#						<div class="content">#}
+{#							<ul id="modal-scroll-comments">#}
+{#                                {% for comment in goods_comments %}#}
+{#                                    <li>#}
+{#                                        <div id="scroll-users">#}
+{#                                            {% thumbnail comment.user.profile.avatar "36x36" as avatar %}#}
+{#                                                <img src="{{ avatar.url }}">#}
+{#                                            {% endthumbnail %}#}
+{#                                            <a href="#" id="scroll-users-ramka"></a>#}
+{#                                        </div>#}
+{#                                        <div id="modal-user-message">{{ comment.text|linebreaksbr }}</div>#}
+{#                                        <div class="clear"></div>#}
+{#                                    </li>#}
+{#                                {% endfor %}#}
+{#							</ul>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="dragger_container">#}
+{#						<div class="dragger"></div>#}
+{#					</div>#}
+{#				</div>#}
+{#				<a href="#" class="scrollUpBtn"></a> <a href="#" class="scrollDownBtn"></a>#}
+{#			</div>#}
+{#            {% if request.user.is_authenticated %}#}
+{#			    <div id="modal-user-block">#}
+{#				    <div id="modal-avatar">#}
+{#                        {% thumbnail request.user.profile.avatar "43x43" as avatar %}#}
+{#					        <img src="{{ avatar.url }}">#}
+{#                        {% endthumbnail %}#}
+{#				    </div>#}
+{#				    <a href="#" id="modal-avatar-border"></a>#}
+{#			    </div>#}
+{#			    <form>#}
+{#				    <input type="text" name="new_comment" placeholder="написать комментарий" class="modal-input-comment">#}
+{#				    <input type="image" class="modal-sendsubmit" src="{% static 'images/goods_modal/send-comment.png' %}" name="send">#}
+{#			    </form>#}
+{#            {% endif %}#}
+        <!-- End comments block -->
+		    </div>
+        {% endwith %}
+	<!--	<div id="modal-bottom-block">
+			<div id="more-goods">
+				<ul>
+                    {% for good in goods_with_max_likes %}
+                        <li>
+                            <a href="{% url 'goods:goods_modal' good.pk %}">
+                                {% if good.get_first_image %}
+                                        <img src="{{ good.get_first_image.image.url }}" height="82px" width="88px">
+                                {% else %}
+                                    <img src="{% static 'images/no-good-image.png' %}" width="88px" height="82px">
+                                {% endif %}
+                                <span>{{ good.get_good_price_by_deal }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div id="modal-more-goods-category">
+                <a href="{% url 'goods:search' %}?filter=1&{% for id in tags_ids %}tag_id[]={{ id }}&{% endfor %}" target="_top">
+                    {% trans 'Other products in this category' %}
+                </a>
+            </div>
+		</div>-->
+	</div>
+
+<script>
+/* Функция для обхода ошибки с 10000 px для jquery.animate */
+$.fx.prototype.cur = function(){
+    if ( this.elem[this.prop] != null && (!this.elem.style || this.elem.style[this.prop] == null) ) {
+      return this.elem[ this.prop ];
+    }
+    var r = parseFloat( jQuery.css( this.elem, this.prop ) );
+    return typeof r == 'undefined' ? 0 : r;
+}
+
+/* Функция для динамической загрузки содержания */
+function LoadNewContent(id,file){
+	$("#"+id+" .customScrollBox .content").load(file,function(){
+		mCustomScrollbars();
+	});
+}
+</script>
+
+<script src="{% static 'js/add_to_cart.js' %}"></script>
+</body>
+</html>

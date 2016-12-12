@@ -1,0 +1,123 @@
+#modal{
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+}
+
+#big-main-modal-slider{
+    width:100%;
+    margin-left: 14px;
+}
+
+#modal-slider-button{
+    width:100%;
+    text-align: center;
+    height:50px;
+    margin:15px;
+}
+
+#modal-slider-button  img{
+    height:50px;
+}
+
+#modal-left-block{
+    border-right: 10px solid #191919;
+    padding: 0;
+}
+
+#modal-right-block{
+    padding: 0;
+}
+
+#good_title{
+    text-transform: uppercase;
+    margin: 5px;
+}
+
+#modal-adress {
+    margin: 8px;
+}
+
+#modal-adress a{
+    text-decoration: none;
+    color:black;
+}
+
+#modal-number{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 8px;
+}
+
+#modal-sale, #about-cart {
+    width: 120px;
+    margin: 3px;
+}
+
+#social{
+    margin:15px;
+}
+
+#modal-right-block .ui.table td.collapsing{
+    width:60px!important;
+}
+
+.bordered{
+    border-right:1px solid #bfbfbf;
+}
+
+#modal-right-block .divider{
+    margin-top:0;
+    color:black;
+}
+
+#modal-avatar{
+    display: flex;
+}
+
+#modal-avatar img{
+    height: 50px;
+    width:50px;
+    border-radius:50em;
+    margin-left:10px;
+}
+
+#modal-user-name{
+    margin-left:8px;
+    text-transform:uppercase;
+}
+
+#modal-subscription{
+    margin-top:6px;
+    padding-top:6px;
+    padding-bottom:6px;
+}
+
+#modal-likes-block{
+    border-top:1px solid #bfbfbf;
+    border-bottom:1px solid #bfbfbf;
+    padding:5px;
+}
+
+#modal-tags{
+    margin:5px;
+}
+
+#modal-from-site{
+    margin-left:10px;
+}
+
+#more_images .image-wrap{
+    /*display: flex;*/
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height:120px;
+}
+
+#more_images .image-wrap img{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+}

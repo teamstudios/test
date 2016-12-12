@@ -1,0 +1,301 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load cart_tags %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% trans 'Calculator' %}</title>
+    <link rel="stylesheet" href="{% static 'css/calculator/Mstyle.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/calculator/modal_styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/calculator/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/calculator/calc.js' %}"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!--[if IE]>
+        <link rel="stylesheet" href="{% static 'css/calculator/styleIE.css' %}" type="text/css" media="all">
+        <script type="text/javascript" src="{% static 'js/calculator/html5.js' %}"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#up').fadeIn();
+                } else {
+                    $('#up').fadeOut();
+                }
+            });
+            $('#up').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+
+        $(document).ready(function () {
+            // Get CSRF cookie protection
+            var csrftoken = $.cookie('csrftoken');
+            function csrfSafeMethod (method) {
+                // These HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        // Set X-CSRFToken HTTP Header
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+
+            // Modal window
+            var card_link = document.getElementById('snap_card');
+            card_link.onclick = function (e) {
+                e.preventDefault();
+                modal.style.display = "block";
+            }
+            var modal = document.getElementById('card-modal');
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="green">
+        <div id="up"></div>
+        {% include 'cart_showcase_block.html' %}
+        <header class="black">
+            {% if request.user.is_authenticated %}
+                <ul>
+                    <li class="search-modal"><div ></div></li>
+                    <li>
+                        <a href="{% url 'accounts:show_subscriptions' %}"></a>
+                        {{ request.user|show_count_subscriptions|safe }}
+                    </li>
+                    <li>
+                        <a href="#"></a><span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'chat:show_thread_list' %}"></a>
+                        {{ request.user|show_unread_message_count|safe }}
+                    </li>
+                    <li>
+                        <a href="{% url 'goods:show_wishlist' %}"></a>
+                        {{ request.user|show_count_goods_in_wishlist|safe }}
+                    </li>
+                    <li>
+                        <a href="{{ request.user.profile.get_absolute_url }}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:calculator' %}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:user_search' %}"></a>
+                    </li>
+                    <li>
+                        <a href="#"></a>
+                        <span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:profile' %}"></a>
+                    </li>
+                    <li>
+                        <div>
+                            <a href="{% url 'accounts:logout' %}"></a>
+                        </div>
+                    </li>
+                </ul>
+            {% else %}
+                <div class="sign-up">
+                    <div>
+                        <span>
+                            <a href="{% url 'accounts:login' %}" class="sign-up-link">{% trans 'SIGN UP' %}</a>
+                        </span>
+                    </div>
+                </div>
+            {% endif %}
+		    <div class="clear"></div>
+	    </header>
+	    <div class="search-box">
+			<img class="img-search" src="{% static 'images/calculator/search-green-icon_03.png' %}">
+            <form action="{% url 'goods:search' %}" method="get">
+                {{ form.query|add_class_to_formfield:"search" }}
+            </form>
+		</div>
+        <div id="wrapper-calc">
+            <div id="headerbtn">
+{#                <div id="pursebtn" class="hbtn">{% trans 'Purse' %}</div>#}
+                <div id="calcbtn" class="hbtn bbtn-active">{% trans 'Calculator' %}</div>
+			<div class="clear"></div>
+		</div>
+		<div class="calc-boxes-wrapper">
+			<div id="leftcalcbox">
+				<div class="calculator-panel">
+					<h3>{% trans 'Select the type of deal' %}</h3>
+					<div id="bbtn1" class="bbtn bbtn-active">{% trans 'Buy/Sell' %}</div>
+					<div id="bbtn2" class="bbtn">{% trans 'Acution' %}</div>
+					<div id="bbtn3" class="bbtn">{% trans 'Sale' %}</div>
+					<div id="ibox1"></div>
+					<h3>{% trans 'Enter a currency and the price of goods' %}</h3>
+					<div id="calc1">
+						<!-- <div id="currency1"></div> -->
+						<div class="iblock" id="m0">
+							<p>{% trans 'The price of the product' %}</p>
+							<input type="text" class="nonnumb iptclear" id="firstSale" value="0">
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div id="calc2" style="display:none;">
+						<!-- <div id="currency"></div> -->
+						<div class="iblock">
+							<p>{% trans 'Starting price' %}</p>
+							<input type="text" class="nonnumb iptclear" id="secondSale1" value="0">
+						</div>
+						<div class="iblock">
+							<p>{% trans 'Reserve price' %}</p>
+							<input type="text" class="nonnumb iptclear" id="secondSale2" value="0">
+						</div>
+						<div class="iblock">
+							<p>{% trans 'Final price' %}</p>
+							<input type="text" class="nonnumb iptclear" id="secondSale3" value="0">
+						</div>
+					</div>
+					<div id="calc3" style="display:none;">
+						<!-- <div id="currency2"></div> -->
+						<div class="iblock">
+							<p>{% trans 'Starting price' %}</p>
+							<input type="text" class="nonnumb iptclear" id="thirdSale1" value="0">
+						</div>
+						<div class="iblock" style="float:right !important">
+							<p>{% trans 'Price with discount' %}</p>
+							<input type="text" class="nonnumb iptclear" id="thirdSale2" value="0">
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="ibox1"></div>
+					<h3>{% trans 'Enter the postage' %}</h3>
+					<input type="text" id="delivery" class="nonnumb iptclear" value="0">
+				</div>
+			</div>
+			<div id="rightcalcbox">
+				<h3>{% trans 'Your final price' %}</h3>
+				<p>{% trans 'Total cost' %}</p>
+				<span id="main-sale">0</span>
+				<p>{% trans 'Commission' %} <span>Sell-n-buy</span></p>
+				<span id="commission">0</span>
+				<h4>{% trans 'Total' %}:</h4>
+				<div id="return-block">
+					<h3>{% trans 'Your profit' %}</h3>
+					<span id="return-sale">0</span>
+					<input type="button" value="{% trans 'Calculate' %}" class="rbtn" id="btnStart1">
+					<input type="button" value="{% trans 'Calculate' %}" class="rbtn" id="btnStart2" style="display:none;">
+					<input type="button" value="{% trans 'Calculate' %}" class="rbtn" id="btnStart3" style="display:none;">
+					<input type="button" value="{% trans 'Reset' %}" class="rbtn" id="resetbtn">
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+{#            TODO: commented for future use #}
+{#		<div class="wallet-panel">#}
+{#            <div class="wallet clearfix">#}
+{#                <h2 class="wallet-headline cash">CASH</h2>#}
+{#                <div class="act-replenish">#}
+{#                    <div class="replenish">#}
+{#                        <a href="#">{% trans 'Refill' %}</a>#}
+{#                    </div>#}
+{#                    <div class="withdraw">#}
+{#                        <a href="#">{% trans 'Withdraw' %}</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="total-eliminate">#}
+{#                    0#}
+{#                </div>#}
+{#                <a href="#" class="binding-card main-cta" id="snap_card">{% trans 'Snap a card' %}</a>#}
+{#                <div class="binding-card-words">#}
+{#                    {% blocktrans %}#}
+{#                        <p>Tie your bank card,</p>#}
+{#                        <p>to securely pay for purchases with it,</p>#}
+{#                        <p>even when there is no money purse.</p>#}
+{#                    {% endblocktrans %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+	</div>
+</div>
+<!-- The Card modal -->
+    <div id="card-modal" class="card-modal">
+        <div class="card-modal-content">
+            <div class="card-modal-header">
+                <h4>{% trans 'Snap a card' %}</h4>
+                <span class="close">×</span>
+            </div>
+            <div class="card-modal-body">
+                <h4>{% trans 'Enter your card data' %}</h4>
+                <label for="id_card">{% trans 'Enter card number' %}</label>
+                <br>
+                <input type="number" name="card" id="id_card">
+                <br>
+                <label for="id_month">{% trans 'Enter card month' %}</label>
+                <br>
+                <input type="number" name="month" id="id_month">
+                <br>
+                <label for="id_year">{% trans 'Enter card year' %}</label>
+                <br>
+                <input type="number" name="year" id="id_year">
+                <button type="submit" class="add-card-button" onclick="snapCard()">
+                    {% trans 'Snap a card' %}
+                </button>
+            </div>
+        </div>
+    </div>
+<footer>
+	<h3>{% trans 'Join us' %}</h3>
+	<ul id="social">
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+		<li><a href="#"></a></li>
+	</ul>
+	<div id="copyright">Sell-n-buy. all rigths reserved. все права защищены<br> arton</div>
+</footer>
+<script>
+	$('#pursebtn').click(function(){
+		$('.wallet-panel').show();
+		$('#headerbtn div').removeClass('bbtn-active');
+		$(this).addClass('bbtn-active');
+		$('.calc-boxes-wrapper').hide();
+	});
+	$('#calcbtn').click(function(){
+		$('.wallet-panel').hide();
+		$('#headerbtn div').removeClass('bbtn-active');
+		$(this).addClass('bbtn-active');
+		$('.calc-boxes-wrapper').show();
+	});
+	$('.search-modal').click(function (){
+		$('.search-box').show();
+		$(this).parents('header').hide();
+	});
+	$('.img-search').click(function (){
+		$(this).parent().hide();
+		$('header').show();
+	});
+	$('input[class="search"]').keypress(function (e) {
+	    var key = e.which;
+        if(key == 13)  // the enter key code
+        {
+            $(this).parent().hide();
+            $('header').show();
+        }
+	});
+</script>
+</body>
+</html>

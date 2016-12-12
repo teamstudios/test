@@ -1,0 +1,474 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load thumbnail %}
+{% load main_tags %}
+{% load goods_tags %}
+{% load cart_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% trans 'User search' %}</title>
+    <link rel="stylesheet" href="{% static 'css/user_search/filter.css' %}" type="text/css" media="all">
+	<link rel="stylesheet" href="{% static 'css/user_search/main.css' %}" type="text/css" media="all">
+	<script type="text/javascript" src="{% static 'js/user_search/jquery.min.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick-theme.css"/>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.5.6/slick.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!--[if IE]>
+        <link rel="stylesheet" href="{% static 'css/user_search/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/user_search/html5.js' %}"></script>
+	<![endif]-->
+    <script>
+
+        {% trans 'Unfollow' as unfollow %}
+        {% trans 'Follow' as follow %}
+        $(document).ready(function () {
+            // Get CSRF cookie protection
+            var csrftoken = $.cookie('csrftoken');
+            function csrfSafeMethod (method) {
+                // These HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        // Set X-CSRFToken HTTP Header
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            // lazy load
+            var page = 1;
+            var empty_page = false;
+            var block_request = false;
+            $(window).scroll(function() {
+                var margin = $(document).height() - $(window).height() - 200;
+                if ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+                    block_request = true;
+                    page += 1;
+                    {% if page_id == 'query' %}
+                        var query = '?query=1&{{ search_request|safe }}&page=' + page;
+                    {% else %}
+                        var query='?page=' +page;
+                    {% endif %}
+                    $.get(query, function (data) {
+                        if (data == ''){
+                            empty_page = true;
+                        } else {
+                            block_request = false;
+                            var $content = $(data);
+                            $('#search_results').append($content);
+                            var allLinks = document.getElementsByClassName('results-block-item-header-cta-wrapper');
+                            for (var i = 0; i < allLinks.length; i++) {
+                                if ($(allLinks[i]).data('action') == 'remove') {
+                                    $(allLinks[i]).text('{{ unfollow }}');
+                                    $(allLinks[i]).toggleClass('alternate_color');
+                                } else {
+                                    $(allLinks[i]).text('{{ follow }}');
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Subscribe action scripts
+            var allLinks = document.getElementsByClassName('results-block-item-header-cta-wrapper');
+            for (var i = 0; i < allLinks.length; i++) {
+                if ($(allLinks[i]).data('action') == 'remove') {
+                    $(allLinks[i]).text('{{ unfollow }}');
+                    $(allLinks[i]).toggleClass('alternate_color');
+                } else {
+                    $(allLinks[i]).text('{{ follow }}');
+                }
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="white">
+        <div id="up"></div>
+        {% include 'cart_showcase_block.html' %}
+		<header class="blackheader green">
+            {% if request.user.is_authenticated %}
+                {% include 'main_menu.html' %}
+            {% else %}
+                {% include 'sign_in.html' %}
+            {% endif %}
+			<div class="clear"></div>
+		</header>
+		<div class="search-box">
+			<img class="img-search" src="{% static 'images/user_search/search-green-icon_03.png' %}">
+            <form action="{% url 'goods:search' %}" method="get">
+                {{ search_form.query|add_class_to_formfield:"search" }}
+            </form>
+		</div>
+		<div class="clear"></div>
+		<h1 class="section-title">{% trans 'Users' %}</h1>
+        <section class="filter clearfix">
+			<div class="first-block">
+				<div class="second-search-box">
+					<p class="black">{% trans 'Name' %}</p>
+					<input type="text" class="name" id="nameField">
+				</div>
+			</div>
+			<div id="open-category">
+                <img class="open-bottom" src="{% static 'images/user_search/sort-down.png' %}">
+            </div>
+			<div class="big-hidden-block">
+				<div class="info">
+					<p class="black">{% trans 'Info' %}</p>
+					<div class="open-window">
+						<div class="info-words clearfix">
+							<div class="location">
+								<p>{% trans 'Location' %}</p>
+								<div class="location-block">
+									<img class="location-img" src="{% static 'images/user_search/pointer-icon.png' %}">
+									<input class="location-input" type="text" id="locationField">
+								</div>
+							</div>
+							<div class="form-deal">
+								<p>{% trans 'Is an' %}</p>
+								<div id='slider-popup-1' class="popup-slider">
+									<div data-orgform="{{ NOT_DEFINED }}">{% trans 'not defined' %}</div>
+									<div data-orgform="{{ LEGAL_ENTITY }}">{% trans 'Legal entity' %}</div>
+									<div data-orgform="{{ PRIVATE_PERSON }}">{% trans 'Private person' %}</div>
+								</div>
+							</div>
+							<div class="condition">
+								<p>{% trans 'Status' %}</p>
+								<div id='slider-popup-2' class="popup-slider">
+									<div data-status="{{ NOT_DEFINED }}">{% trans 'not defined' %}</div>
+									<div data-status="1">online</div>
+									<div data-status="0">offline</div>
+								</div>
+							</div>
+							<div class="options">
+								<p>{% trans 'Sex' %}</p>
+								<div id='slider-popup-3' class="popup-slider">
+									<div data-sex="{{ NOT_DEFINED }}">{% trans 'not defined' %}</div>
+									<div data-sex="{{ MALE }}">{% trans 'male' %}</div>
+									<div data-sex="{{ FEMALE }}">{% trans 'female' %}</div>
+								</div>
+							</div>
+							<div class="cooperation">
+								<p>{% trans 'Cooperation' %}</p>
+								<div class="location-block">
+									<img class="location-img" src="{% static 'images/user_search/pointer-icon.png' %}">
+									<input class="location-input" type="text" id="cooperationField">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block-category clearfix">
+					<div class="black">
+						<p>{% trans 'Tags' %}</p>
+					</div>
+					<div class="open-window">
+						<div style="column-count: 4; padding-left: 45px" id="tagList">
+                            {% for tag in tags %}
+                                <p>
+                                    <a href="#" onclick="tagFunctionCliked({{ tag.id }}); event.preventDefault();" data-action="add" id="tag{{ tag.id }}">
+                                        {{ tag.name }}
+                                    </a>
+                                </p>
+                            {% endfor %}
+                        </div>
+					</div>
+				</div>
+                <div class="block-new-category">
+                    <div class="black"><p>{% trans 'Do you want add a tag?' %}</p></div>
+                    <div class="open-window">
+                        <input type="text" id="your-own-category">
+                        <div class="hidden-new-category">
+                            <div class="new-name">
+                                <div class="new-witrin-name">{% trans 'Enter tag name' %}</div>
+                                <div class="add-img-new">
+                                    <a href="#" onclick="addTagFunctionCliked()">
+                                        <img src="{% static 'images/user_search/vitrin-icon.png' %}">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="results-block clearfix">
+                <div class="black active">
+                    <p onclick="sendRequest()">{% trans 'Result' %}</p>
+                </div>
+                <div class="open-window" id="search_results">
+                    {% include 'user_search_ajax.html' %}
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        {% include 'social_links.html' %}
+    </footer>
+    <div class="overlay"></div>
+    <script type="text/javascript" src="{% static 'js/user_search/masonry.pkgd.js' %}"></script>
+    <script>
+        $deliveryBlock = $('.top-pin-container');
+        $('.block-delivery .row.center').click(function(){
+            $('.block-delivery').append($deliveryBlock);
+        });
+
+        $('.button-icons .green-buttons').click(function(){
+            $(this).removeClass('active');
+            $('.orange-buttons').addClass('active');
+            $('.discount').css("background", "#bdfe42");
+            $('.hidden-price-panel .pay').css("background", "#ff6600").text("Редактировать");
+        });
+
+        $('.button-icons .orange-buttons').click(function(){
+            $(this).removeClass('active');
+            $('.green-buttons').addClass('active');
+            $('.discount').css("background", "#ff6600");
+            $('.hidden-price-panel .pay').css("background", "#bdfe42").text("Оплатить");
+        });
+
+        $('.search-modal').click(function (){
+            $('.search-box').show();
+            $(this).parents('header').hide();
+        });
+
+        $('.img-search').click(function (){
+            $(this).parent().hide();
+            $('.blackheader.green').show();
+        });
+
+        $('input[class="search"]').keypress(function (e) {
+            var key = e.which;
+            if(key == 13)  // the enter key code
+	        {
+	 	        $(this).parent().hide();
+	 	        $('.blackheader.green').show();
+            }
+        });
+
+        $('.dress-section').show();
+
+        $('.category-goods p').click(function(ev){
+            ev.preventDefault();
+	        var ID = $(this).attr('id'), openSection = "."+ ID + "-section", allCats = $('.category-goods p');
+	        allCats.removeClass('highlighted-link');
+	        $(this).addClass('highlighted-link');
+            $('.block-subcategory').find('.hidden-goods').hide();
+            $('.block-subcategory').find(openSection).show();
+        });
+
+        $('#your-own-category').click(function() {
+            $('.hidden-new-category').show();
+            $('.goods-img').click(function(ev){
+                ev.preventDefault();
+                ev.stopPropagation();
+                var theText = $(this).find('.selected-category');
+                $('#your-own-category').val($(theText).text());
+                $('.hidden-new-category').hide();
+            });
+        });
+
+        $('.hidden-new-category').click(function(){
+            $(this).hide();
+            $('.goods-img').click(function(ev){
+                ev.preventDefault();
+                ev.stopPropagation();
+            });
+        });
+
+        $('.hidden-goods p').click(function(ev){
+            ev.preventDefault();
+            $('.hidden-goods p').removeClass();
+            $(this).addClass('highlighted-link');
+        });
+
+        function validateNumber(event) {
+            var key = window.event ? event.keyCode : event.which;
+            if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+                return true;
+            } else if (key < 48 || key > 57) {
+                return false;
+            } else return true;
+        };
+
+        $('.number-input, .validate-me').keypress(validateNumber);
+
+        $('.filter-toggle').click(function(){
+            $('#slider').slider();
+            $(this).next().show();
+            $(this).hide();
+            $('.overlay').show();
+        });
+
+        var the_height = $(document).height();
+
+        $('#open-category').click(function(){
+            $('.big-hidden-block').toggleClass('show');
+            $('.filter').addClass('active');
+            $('footer').toggleClass("sticky");
+        });
+
+        $('.info .black, .block-subcategory .black, .block-category .black, .block-new-category .black').click(function() {
+            $(this).toggleClass('active');
+            $(this).next().toggle();
+        });
+
+        $('.filter-toggle-inner, .closeAll').click(function() {
+            $('.filter').hide();
+            $('.overlay').hide();
+            $('.filter-toggle').show();
+            $('.filter').removeClass('filter-open');
+            $('.big-hidden-block').removeClass('show');
+            $('.black').removeClass("active");
+            $('.black').next().hide();
+        });
+
+        $('.info').click(function() {
+            $('#slider-popup-1').slick();
+            $('#slider-popup-2').slick();
+            $('#slider-popup-3').slick();
+        });
+
+        $('.input-costs').bind("change keyup input click", function() {
+            if (this.value.match(/[^0-9]/g)) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            }
+        });
+
+        $(window).scroll(function(){
+            if (($(window).innerHeight()+$(window).scrollTop() >= $('body').height()-110 )){
+	    		$('#vitrina-icon-bottom, #cart-icon-bottom').css('bottom', '200px');
+	    	} else {
+	    		$('#vitrina-icon-bottom, #cart-icon-bottom').css('bottom', '20px');
+	    	}
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#up').fadeIn();
+                } else {
+                    $('#up').fadeOut();
+                }
+            });
+            $('#up').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+
+        var requestBody = {};
+
+        $('#nameField').keyup(function () {
+            requestBody.name = $(this).val();
+        });
+
+        $('#locationField').keyup(function () {
+            requestBody.location = $(this).val();
+        });
+
+        $('#slider-popup-1').on('afterChange', function (event, slick, currentSlide) {
+            requestBody.orgform = $(slick.$slides.get(currentSlide)).data('orgform');
+        });
+
+        $('#slider-popup-2').on('afterChange', function (event, slick, currentSlide) {
+            requestBody.status = $(slick.$slides.get(currentSlide)).data('status');
+        });
+
+        $('#slider-popup-3').on('afterChange', function (event, slick, currentSlide) {
+            requestBody.sex = $(slick.$slides.get(currentSlide)).data('sex');
+        });
+
+        $('#cooperationField').keyup(function () {
+            requestBody.cooperation = $(this).val();
+        });
+
+        function tagFunctionCliked(tag_id) {
+            // Get tag id and add it to request body
+            var tag_id_attr = '#tag' + tag_id; // form tagid selector
+            if ($(tag_id_attr).data('action') == 'add') {
+                // if array doesn't exist - create it
+                if (!Array.isArray(requestBody.tag_id)) {
+                    requestBody.tag_id = [];
+                }
+                requestBody.tag_id.push(tag_id);
+                // change css and action
+                $(tag_id_attr).data('action', 'remove');
+                $(tag_id_attr).css('color', '#b1fe00');
+            } else {
+                // Remove selected id from array
+                requestBody.tag_id = $.grep(requestBody.tag_id, function (value) {
+                    return value != tag_id;
+                });
+                $(tag_id_attr).data('action', 'add');
+                $(tag_id_attr).css('color', '#000000');
+            }
+        }
+
+        function check_login_url(xhr) {
+            var login_url = '{% url "accounts:login" %}' + "?next={% url 'goods:add_good' %}";
+            if (xhr.responseText.indexOf('login') != -1 ) {
+                // Check if response doesn't contain redirect to login. If it contains - redirect to login window
+                window.location = login_url;
+            }
+        }
+
+        function addTagFunctionCliked() {
+            // add tag
+            var new_tag_name = $('#your-own-category').val();
+            $.post('{% url "goods:add_new_tag" %}', {
+                    tag_name: new_tag_name
+                },
+                function (data, status, xhr) {
+                    // Check if user logged in
+                    check_login_url(xhr);
+                    if (data['status'] == 'ok') {
+                        // if creation success append html with new tag link to div
+                        $('#tagList').append('<p><a href="#" onclick="tagFunctionCliked(' + data['id'] +')" data-action="add" id="tag' +
+                                data['id'] + '">' + new_tag_name + '</a></p>');
+                        $('#your-own-category').val('');
+                    }
+                }
+            );
+        }
+        
+        function sendRequest() {
+            var recursiveEncoded = $.param(requestBody);
+            var filter_url = '{% url "accounts:user_search" %}' + "?query=1&" + recursiveEncoded;
+            window.location = filter_url;
+        }
+
+        function followClicked (usr_pk){
+                var followId = '#follow' + usr_pk;
+                $.post('{% url "accounts:add_subscriber" %}',
+                    {
+                        pk: usr_pk,
+                        action: $(followId).data('action')
+                    },
+                    function (data, status, xhr) {
+                        check_login_url(xhr);
+                        if (data['status'] == 'ok') {
+                            var previous_action = $(followId).data('action');
+                            $(followId).data('action', previous_action == 'add' ? 'remove' : 'add');
+                            if (previous_action == 'add') {
+                                $(followId).text('{{ unfollow }}');
+                                $(followId).toggleClass('alternate_color');
+                            } else {
+                                $(followId).text('{{ follow }}');
+                                $(followId).toggleClass('alternate_color');
+                            }
+                        }
+                    }
+                );
+            }
+
+    </script>
+</body>
+</html>

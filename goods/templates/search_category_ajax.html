@@ -1,0 +1,92 @@
+{% load staticfiles %}
+{% load thumbnail %}
+{% load i18n %}
+{% load main_tags %}
+        {% if objects_count > 0 and objects_count <= 3 and objects.number == 1 %}
+            {% include "search_sellers.html" %}
+        {% endif %}
+        {% for object in objects %}
+            {% if objects_count > 3 and forloop.counter0 == 2 and objects.number == 1 %}
+                {% include "search_sellers.html" %}
+            {% endif %}
+            <div class="ui card" data-deal-filter='{{ object.deal }}' class="{% if object.deal == AUCTION %}auction{% elif object.deal == SALE %}sale{% endif %} deal">
+                <a rel="example_group" class="image fancybox fancybox.iframe" href="{% url 'goods:goods_modal' object.pk %}">
+                    {% if object.get_first_image %}
+                        <img src="{{ object.get_first_image.image.url }}">
+                    {% else %}
+                        <img src="{% static 'images/no-good-image.png' %}">
+                    {% endif %}
+                </a>
+                <div class="additional-stats show content">
+                    <a href="{{ object.user.profile.site|check_http_prefix }}" id="site-min">
+                        {{ object.user.profile.site }}
+                    </a>
+                    <div class="rev-min">
+                        {{ object.title }}
+                    </div>
+                    <div class="place-min">
+                        <i class="marker icon"></i>
+                        <a href="{% url 'goods:search' %}?filter=1&location={{ object.user.profile.get_country_display }}">{{ object.user.profile.get_country_display }},</a>
+                        <a href="{% url 'goods:search' %}?filter=1&location={{ object.user.profile.city}}">{{ object.user.profile.city }}</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <div id="tags-min-block">
+                        {% for tag in object.tags.all %}
+                            <a href="#" class="ui small olive label">{{ tag.name }}</a>
+                        {% empty %}
+                            Good without tags
+                        {% endfor %}
+                    </div>
+                </div>
+                <!--<div class="content">
+                        <ul id="modal-statistics">
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <li>50</li>
+                            <div class="clear"></div>
+                        </ul>
+                </div>-->
+                <div class="content">
+                <a class="ui left floated meta icon-min" href="{{ object.user.profile.get_absolute_url }}">
+                    <img src="{{ object.user.profile.avatar.url }}">
+                </a>
+                <a class="user_link" href="{{ object.user.profile.get_absolute_url }}">{{ object.user.username }}</a><br>
+                <span class="user_status">{{ object.user.profile.get_status_display }}</span>
+                <div class="right floated meta header price-min">
+                    {% if object.deal == SALE %}
+                        {{ object.new_price }}
+                        {% trans 'new price' %}
+                        {{ object.old_price }} $
+                        {% trans 'old price' %}
+                    {% elif object.deal == BUY_SELL %}
+                        {{ object.price|floatformat }}
+                    {% else %}
+                        {{ object.reserve_price }}
+                        {{ object.bids.count }} {% trans 'bids' %}
+                        {{ object.max_price }} $
+                        {% trans 'fix price' %}
+                    {% endif %}
+                </div>
+                <!--<div class="hidden-price-panel">
+                    <button class="pay">{% trans 'Pay' %}</button>
+                </div>
+                {% if object.deal == SALE %}
+                    <div class="discount">{{ object.get_sale_percent }} %</div>
+                {% elif object.deal == AUCTION %}
+                    <div class="counter"> 10 | 05 | 25</div>
+                {% endif %}
+                <div class="cross-goods">
+                    <img src="{% static 'images/categories/cross-little-icon.png' %}">
+                </div>-->
+                </div>
+            </div>
+        {% empty %}
+            <div class="sixteen wide center aligned column">
+            <h2>
+                <p class="sum-text">{% trans 'No results found' %}</p>
+            </h2>
+            </div>
+        {% endfor %}

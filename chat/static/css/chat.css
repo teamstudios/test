@@ -1,0 +1,136 @@
+div.col-md-4.text-center {
+    padding-bottom: 10px;
+}
+div.col-md-4.text-center button {
+    margin-top: 20px;
+}
+.chat_link {
+    font-weight: 500;
+    font-size: 18px;
+}
+.chat_username {
+    color: black;
+}
+.chat_image {
+    width: 30px;
+    height: 30px;
+    display: inline;
+}
+.chat_sender {
+    float: right;
+    margin-left: 10px;
+}
+.chat_receiver {
+    float: left;
+    margin-right: 10px;
+}
+.users {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.border-green {
+    border-color: #b1fe00;
+}
+.conversation {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: auto;
+    border-style: solid;
+    height: 400px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+
+/* bubble styles */
+.sender-bubble
+{
+    position: relative;
+    width: 325px;
+    /*height: 120px;*/
+    background: #b1fe00;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.sender-bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 11px 28px 11px 0;
+    border-color: transparent #b1fe00;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -28px;
+    top: 23px;
+}
+.partner-bubble
+{
+    position: relative;
+    width: 325px;
+    /*height: 120px;*/
+    background: #ff6600;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    /*right: 58px;*/
+    margin-left: 188px;
+}
+.partner-bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 11px 0 11px 28px;
+    border-color: transparent #ff6600;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -28px;
+    top: 23px;
+}
+
+/* end bubble styles */
+
+.chat_message, .sender, .receiver {
+    color: black;
+    font-family: Arial;
+}
+.sender, .receiver {
+    font-weight: 600;
+}
+.message_date {
+    font-weight: normal;
+    color: black;
+    text-decoration: underline;
+    font-size: xx-small;
+}
+#idSend {
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 480px) {
+    .username_block {
+        display: none;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 1080px){
+    .username_block {
+        display: none;
+    }
+    .col-center-block {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

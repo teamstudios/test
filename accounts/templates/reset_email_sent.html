@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Reset email was sent' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/login/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/login/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+{% endblock %}
+{% block content %}
+    <body style="background:#636363 !important;">
+	    <div id="wrapper" class="green">
+		    <div id="form-box">
+			    {% blocktrans %}
+                    <p style="font-size: 8px; margin-top: 130px">We've mailed you instructions for setting your password.</p>
+                    <p style="font-size: 8px">
+                        If you don't receive an email, please make sure you've entered the address you registered with.
+                    </p>
+                {% endblocktrans %}
+            </div>
+        </div>
+    </body>
+{% endblock %}

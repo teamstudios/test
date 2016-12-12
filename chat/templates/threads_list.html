@@ -1,0 +1,109 @@
+{% extends 'chat_base.html' %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load chat_tags %}
+{% load i18n %}
+    {% block title %}{{ user.username }} chat list{% endblock %}
+    {% block scripts %}
+        {{ block.super }}
+        <script src="{% static 'js/check_username.js' %}"></script>
+    {% endblock %}
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h3 class="headline">
+                    {% if user.profile.avatar %}
+                     {% thumbnail user.profile.avatar "63x63" as avatar %}
+                         <img src="{{ avatar.url }}" class="circular" alt="{{ user.username }}">
+                     {% endthumbnail %}
+                {% endif %}
+                    <a href="{{ user.profile.get_absolute_url }}">
+                        {{ user.username }}
+                    </a>
+                </h3>
+                <button data-toggle="modal" data-target="#SendMessageModal" class="button-style">{% trans 'Write message' %}</button>
+                <div class="modal fade text-left" id="SendMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title">{% blocktrans %}Send new message{% endblocktrans %}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="modal_error"></div>
+                                <form action="{% url 'chat:send_message' %}" method="post" id="idSendMessageForm">
+                                    {% csrf_token %}
+                                    <label for="idReceiver">{% trans 'Enter username' %}</label>
+                                    <div class="green" id="usernameHint"></div>
+                                    <input type="text" name="partner" class="form-control" placeholder="{% trans 'Enter username' %}" id="idReceiver">
+                                    <label for="messageText">{% trans 'Enter message' %}:</label>
+                                    <textarea name="text" class="form-control" placeholder="{% trans 'Enter message' %}" id="messageText"></textarea>
+                                    <input type="submit" value="{% trans 'Send' %}" class="mybtn mybtn-small">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="id_sendCloseButton">
+                                    {% trans 'Close' %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h3 class="text-center">{% blocktrans %}Your contacts{% endblocktrans %}</h3>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'User' %}</th>
+                            <th>{% trans 'Total messages' %}</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for thread in threads %}
+                            <tr>
+                                <td>
+                                    {% if thread.partner %}
+                                        {% if user|check_user_in_blocklist_tag:thread.partner %}
+                                            {{ thread.partner }} add you in blocklist.
+                                        {% else %}
+                                            <a href="{{ thread.get_absolute_url }}">
+                                                <h4>{{ thread.partner }}</h4>
+                                            </a>
+                                        {% endif %}
+                                    {% else %}
+                                        {% trans 'No partner' %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ thread.get_message_count }}
+                                </td>
+                                <td>
+                                    {% if thread.has_new %}
+                                        New message
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if thread.has_unread %}
+                                        <span class="unread-green"> Unread message</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">
+                                    {% blocktrans %}You haven't contacts{% endblocktrans %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

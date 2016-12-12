@@ -1,0 +1,564 @@
+* { margin: 0; padding: 0; list-style: none; text-decoration: none;}
+html, body { 
+
+}
+
+textarea:focus, input:focus{
+	outline: none;
+}
+
+.clear{clear:both;}
+
+#modal{
+	width:902px;
+	height:901px;
+}
+
+#modal-left-block{
+	width:533px;
+	height:745px;
+	float:left;
+	margin:0 6px 6px 0;
+	background:#fffefc;
+	overflow:hidden;
+}
+
+#modal-right-block{
+	width:363px;
+	height:745px;
+	float:right;
+	margin:0 0px 6px 0;
+	background:#fffefc;
+	position:relative;
+	overflow:hidden;
+}
+
+#modal-bottom-block{
+	width:902px;
+	height:145px;
+	background:#fffefc;
+	padding:4px 0 0 0;
+}
+
+#modal-slider{
+	position: relative;
+}
+
+.discount{
+	position: absolute;
+	width: 112px;
+	height: 32px;
+	background: #ff6600;
+	color:#fff;
+	text-align: center;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 13px;
+}
+
+.auction{
+	width: 112px;
+	height: 39px;
+	background: #fff;
+	position: absolute;
+	text-align: center;
+	padding: 5px 0 0 0;
+}
+
+.auction p{
+	color: #000000;
+	font-size: 9px;
+	font-family: Arial;
+}
+
+.auction-first{
+	float: left;
+	height: 16px;
+	padding-right: 3px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #000000;
+	position: relative;
+	left:7px;
+	top:5px;
+}
+
+.auction-second{
+	float: left;
+	height: 16px;
+	border-right: 1px solid #bfbfbf;
+	padding-right: 10px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #000000;
+	margin-right: 10px;
+	position: relative;
+	left:7px;
+	top:5px;
+}
+
+.auction-last{
+	float: left;
+	height: 16px;
+	font-size: 14px;
+	font-family: Arial;
+	color: #000000;
+	position: relative;
+	left:7px;
+	top:5px;
+}
+
+.modal-fix-price{
+	color:#848689;
+	font-size: 15px;
+	font-family: Arial;
+	float: left;
+	text-align: center;
+	margin-left: 181px;
+	margin-right: 3px;
+	margin-top: 5px;
+	width: 80px;
+	font-weight: bold;
+}
+
+.modal-fix-price span{
+	color:#848689;
+	font-size: 10px;
+	font-family: Arial;
+}
+
+.auction-price{
+	color:#000000;
+	font-size: 15px;
+	font-family: Arial;
+	float: left;
+	text-align: center;
+	margin-top: 5px;
+	width: 80px;
+	font-weight: bold;
+}
+
+.auction-price span{
+	color:#848689;
+	font-size: 10px;
+	font-family: Arial;
+}
+
+#mini-thumbs-modal-slider{
+	width:99px;
+	height:66px;
+	display:block;
+	float:left;
+	padding:1px;
+}
+
+#modal-slider-button{
+	width:100%; float:left; overflow:hidden; position:relative;
+}
+
+#modal-slider-button ul{
+	text-align:center; clear:left; float:left; position:relative; left:50%;
+}
+
+#modal-slider-button ul li{
+	display:block; float:left; position:relative; right:50%;
+	margin:0 0px 0 5px;
+}
+
+#modal-slider-button ul li:first-child{margin-left:0px;}
+
+#modal-title{
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	color:#000;
+	width:100%;
+	text-align:center;
+	text-transform:uppercase;
+	margin:11px 0 0 0;
+}
+
+#modal-condition{
+	font-family:Arial;
+	font-size:14px;
+	color:#000;
+	width:100%;
+	text-align:center;
+	margin:6px 0 0 0;
+}
+
+#modal-adress{
+	font-family:Arial;
+	font-size:14px;
+	color:#000;
+	text-align:center;
+	margin:1px 0 0 0;
+	background:url(../../images/goods_modal/adress-icon.png) no-repeat;
+	padding:0 0 0 12px;
+	width:160px;
+	height:14px;
+	margin:10px auto 0;
+}
+
+#modal-adress a{
+	font-family:Arial;
+	font-size:14px;
+	color:#000;
+}
+
+#modal-delivery{
+	font-family:Arial;
+	font-size:14px;
+	color:#000;
+	width:100%;
+	text-align:center;
+	margin:10px 0 0 0;
+}
+
+#modal-number{
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	color:#000;
+	width:100%;
+	text-align:center;
+	text-transform:uppercase;
+	margin:11px 0 0 0;
+}
+
+#modal-price{
+	font-family:Arial;
+	font-size:20px;
+	color:#000;
+	width:100%;
+	text-align:center;
+	margin:11px 0 11px 0;
+}
+
+#modal-old-price{
+	font-family:Arial;
+	font-size:15px;
+	color:#848689;
+	width:100%;
+	text-align:center;
+	margin:7px 0 0px 0;
+	text-decoration: line-through;
+	font-weight: bold;
+}
+
+#modal-price2{
+	font-family:Arial;
+	font-size:15px;
+	color:#000;
+	width:100%;
+	text-align:center;
+	margin:0px 0 11px 0;
+	font-weight: bold;
+}
+
+#modal-sale{
+	width:90px;
+	height:15px;
+	text-transform:uppercase;
+	font-family:Arial;
+	font-size:10px;
+	color:#fff;
+	display:block;
+	text-align:center;
+	padding:4px 0 0 0;
+	margin:6px auto 0;
+}
+
+.green #modal-sale{background:#b1fe00;}
+.orange #modal-sale{background:#ff6600;}
+
+#about-cart{
+	width:88px;
+	height:14px;
+	text-transform:uppercase;
+	font-family:Arial;
+	font-size:10px;
+	display:block;
+	text-align:center;
+	padding:3px 0 0 0;
+	margin:7px auto 0;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+.green #about-cart{color:#b1fe00; border:1px solid #b1fe00;}
+.orange #about-cart{color:#ff6600; border:1px solid #ff6600;}
+
+#modal-statistics{
+	background:url(../../images/goods_modal/statistics-icon-modal.png) no-repeat;
+	width:146px;
+	height:12px;
+	margin:12px auto 0;
+}
+
+#modal-statistics li{
+	float:left;
+	width:14px;
+	height:12px;
+	padding:2px 0 0 14px;
+	margin:0 0 0 0px;
+	color:#bbbdbf;
+	font-size:9px;
+	font-family:Arial;
+}
+
+#modal-statistics li:first-child{margin:0;}
+#modal-statistics li:nth-of-type(4){padding-left:18px;}
+#modal-statistics li:nth-of-type(5){padding-left:16px;}
+
+#social{background:url(../../images/goods_modal/social.png) no-repeat; width:155px; height:20px; margin:8px auto 0;}
+
+#social li{float:left; margin-left:6px;}
+
+#social li:first-child{margin:0;}
+
+#social li a{
+	width:20px;
+	height:20px;
+	display:block;
+}
+
+#more-goods{width:100%; float:left; overflow:hidden; position:relative;}
+
+#more-goods ul { text-align:center; clear:left; float:left; position:relative; left:50%; 	margin-left: -3px;}
+
+#more-goods ul li{
+	float:left;
+	margin:0 0 0 4px;
+	display:block;
+	position:relative; 
+	right:50%;
+}
+
+#more-goods ul li:first-child{margin-left:0px;}
+
+#more-goods ul li span{
+	display:block;
+	width:88px;
+	text-align:right;
+	color:#000;
+	font-size:14px;
+	font-family:Arial;
+	text-transform:uppercase;
+	font-weight:Bold;
+}
+
+#modal-more-goods-category{
+	width:100%;
+	text-align:center;
+	margin:10px 0 0 0;
+}
+
+#modal-more-goods-category a{
+	color:#000;
+	font-size:14px;
+	font-family:Arial;
+	text-transform:uppercase;
+}
+
+#modal-close{
+	background:url(../../images/goods_modal/close-modal.png) no-repeat;
+	width:11px;
+	height:11px;
+	display:block;
+	position:absolute;
+	right:5px;
+	top:5px;
+}
+
+#modal-more-info{
+	position:absolute;
+	right:28px;
+	top:25px;
+	color:#000;
+	font-size:14px;
+	font-family:Arial;
+	text-transform:uppercase;
+	font-weight:normal;
+}
+
+#modal-like-button{
+	display:block;
+	width:57px;
+	height:18px;
+	border-right:1px solid #1c1c1c;
+	background:url(../../images/goods_modal/like-icon.png) no-repeat 19px 12px;
+	color:#000;
+	font-size:11px;
+	font-family:Arial;
+	text-align:center;
+	padding:28px 0 0 0;
+	float:left;
+	cursor:pointer;
+}
+
+#modal-wish-button{
+	display:block;
+	width:57px;
+	height:18px;
+	border-right:1px solid #1c1c1c;
+	background:url(../../images/goods_modal/wish-icon.png) no-repeat 19px 9px;
+	color:#000;
+	font-size:11px;
+	font-family:Arial;
+	text-align:center;
+	padding:28px 0 0 0;
+	float:left;
+	cursor:pointer;
+}
+
+#modal-more-goods-right li{
+	float:left;
+	height:82px;
+}
+
+#modal-user-block{
+	position:relative;
+	width:43px;
+	height:43px;
+	margin:9px 0 0 7px;
+	float:left;
+}
+
+#modal-avatar{
+	width:43px;
+	height:43px;	
+}
+
+#modal-avatar-border{
+	background:url(../../images/goods_modal/ramka.png) no-repeat;
+	position:absolute;
+	width:43px;
+	height:43px;
+	top:0px;
+	left:0px;
+	display:block;
+}
+
+#modal-user-block2{
+	float:left;
+	margin:10px 0 0 8px;
+}
+
+#modal-user-name{
+	color:#000;
+	font-size:14px;
+	font-family:Arial;
+}
+
+#modal-subscription{
+	width:88px;
+	height:14px;
+	text-transform:uppercase;
+	font-family:Arial;
+	font-size:10px;
+	cursor:pointer;
+	text-align:center;
+	padding:3px 0 0 0;
+	margin:5px auto 0;
+	font-weight:bold;
+	float:left;
+}
+
+.green #modal-subscription{color:#b1fe00; border:1px solid #b1fe00;}
+.orange #modal-subscription{color:#ff6600; border:1px solid #ff6600;}
+
+#modal-from-site{
+	float:right;
+	background:url(../../images/goods_modal/site.png) no-repeat right center;
+	color:#000;
+	font-size:12px;
+	font-family:Arial;
+	height:18px;
+	padding:10px 36px 0 0;
+	margin:50px 9px 0 0;
+	display:block;
+	font-weight:bold;
+}
+
+#modal-tags{
+	padding:0 11px;
+	width:341px;
+}
+
+#modal-tags a{
+	color:#000;
+	font-size:12px;
+	font-family:Arial;	
+	margin:0 4px;
+}
+
+#modal-likes-block{
+	border-top:1px solid #bfbfbf;
+	border-bottom:1px solid #bfbfbf;
+	padding:8px 10px 8px 40px;
+	color:#000;
+	font-size:12px;
+	font-family:Arial;	
+	font-weight:bold;
+	background:url(../../images/goods_modal/likes-icon.png) no-repeat 10px 12px;
+	margin:4px 0 0 0;
+}
+
+#modal-likes-block a{
+	color:#0f4bf7;
+	font-size:11px;
+	font-family:Arial;	
+	font-weight:bold;
+}
+
+#scroll-users{
+	position:relative;
+	width:36px;
+	height:36px;
+	float:left;
+}
+
+#scroll-users-ramka{
+	position:absolute;
+	top:0px;
+	left:0px;
+	background:url(../../images/goods_modal/ramka-scroll.png) no-repeat;
+	width:36px;
+	height:36px;
+	display:block;
+}
+
+#modal-user-message{
+	float:left;
+	color:#000;
+	font-size:14px;
+	font-family:Arial;
+	margin:10px 0 0 14px;
+}
+
+#modal-scroll-comments li{
+	margin:0 0 14px 0;
+}
+
+.modal-input-comment{
+	width:233px;
+	height:28px;
+	border:1px solid #d1d2d3;
+	color:#b5b5b5;
+	font-size:14px;
+	font-family:Arial;
+	padding:0 10px;
+	margin:16px 0 0 10px;
+}
+
+.modal-input-comment::-webkit-input-placeholder         {color:#b5b5b5;}
+.modal-input-comment::-moz-placeholder     {color:#b5b5b5;} 
+.modal-input-comment::-moz-placeholder      {color:#b5b5b5;} 
+.modal-input-comment::-ms-input-placeholder {color:#b5b5b5;} 
+
+.modal-sendsubmit{
+	position:relative;
+	top:10px;
+}

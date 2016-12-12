@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.title }}</title>
+    <meta name="description" content="{{ object.ceo_description }}">
+    <meta name="keywords" content="{{ object.ceo_keywords }}">
+</head>
+<body>
+    <h1>{{ object.title }}</h1>
+    {{ object.content|safe }}
+</body>
+</html>

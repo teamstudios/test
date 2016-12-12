@@ -1,0 +1,12 @@
+{% extends 'chat_base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="custom-caption">
+        <form action="" method="post" style="margin-left: 37%">
+            {% csrf_token %}
+            {% trans 'Are you sure you want to delete' %} "{{ object.title }}"?
+            <br>
+            <input type="submit" value="{% trans 'Delete' %}" class="mybtn mybtn-small" style="margin-left: 9%">
+        </form>
+    </div>
+{% endblock %}

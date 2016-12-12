@@ -1,0 +1,121 @@
+{% load staticfiles %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block scripts %}
+        <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/npm.js' %}"></script>
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main_styles.css' %}">
+        <script src="{% static 'js/jquery.cookie.js' %}"></script>
+        <script>
+            $(document).ready(function () {
+                var csrftoken = $.cookie('csrftoken');
+                function csrfSafeMethod (method) {
+                    // These HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+                $.ajaxSetup({
+                    beforeSend: function (xhr, settings) {
+                        if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            // Set X-CSRFToken HTTP Header
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
+</head>
+<body>
+    <div id="wrapper" class="green">
+        <header class="black blackheader">
+            {% if request.user.is_authenticated %}
+                <ul>
+                    <li>
+                        <div class="search-modal"></div>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:show_subscriptions' %}"></a>
+                        {{ request.user|show_count_subscriptions|safe }}
+                    </li>
+                    <li>
+                        <a href="#"></a>
+                        <span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'chat:show_thread_list' %}"></a>
+                        {{ request.user|show_unread_message_count|safe }}
+                    </li>
+                    <li>
+                        <a href="{% url 'goods:show_wishlist' %}"></a>
+                        {{ request.user|show_count_goods_in_wishlist|safe }}
+                    </li>
+                    <li>
+                        <a href="{{ request.user.profile.get_absolute_url }}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:calculator' %}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:user_search' %}"></a>
+                    </li>
+                    <li>
+                        <a href="#"></a>
+                        <span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:profile' %}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">
+                            <div></div>
+                        </a>
+                    </li>
+                </ul>
+            {% else %}
+                {% include 'sign_in.html' %}
+            {% endif %}
+		    <div class="clear"></div>
+	    </header>
+        <div class="search-box">
+			<img class="img-search" src="{% static 'images/search-green-icon_03.png' %}">
+            <form action="{% url 'goods:search' %}" method="get">
+                {{ form.query|add_class_to_formfield:"search" }}
+            </form>
+		</div>
+		<div class="clear"></div>
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+	    {% include 'social_links.html' %}
+    </footer>
+    <script>
+        $('.search-modal').click(function (){
+		    $('.search-box').show();
+		    $(this).parents('header').hide();
+	    });
+	    $('.img-search').click(function (){
+		    $(this).parent().hide();
+		    $('.blackheader').show();
+	    });
+	    $('input[class="search"]').keypress(function (e) {
+	        var key = e.which;
+	        if(key == 13)  // the enter key code
+	        {
+	            $(this).parent().hide();
+	            $('.blackheader').show();
+	        }
+	    });
+    </script>
+</body>
+</html>

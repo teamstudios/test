@@ -1,0 +1,33 @@
+/*
+Custom styling for fancybox plugin.
+Created by Victor Yamchinov.
+*/
+.fancybox-nav {
+    width: 60px;
+}
+
+.fancybox-nav span {
+    visibility: visible;
+    opacity: 0.5;
+}
+.mNext {
+    background-image: url("../../images/goods_modal/fancy_nav_right.png");
+    width: 22px;
+    height: 40px;
+    margin-right: -50px;
+    margin-top: 45%;
+}
+.mPrev {
+    background-image: url("../../images/goods_modal/fancy_nav_left.png");
+    width: 22px;
+    height: 40px;
+    margin-left: -50px;
+    margin-top: 45%;
+}
+.mClose {
+    background-image: url("../../images/goods_modal/close-modal.png");
+    width: 11px;
+    height: 11px;
+    top: 5px;
+    right: 5px;
+}

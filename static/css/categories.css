@@ -1,0 +1,132 @@
+#post-header .segment{
+    padding: 0;
+}
+
+#post-header{
+    margin-top: 5px;
+}
+
+#post-header-button1 {
+    width: 100%;
+    height: auto;
+    display: block;
+    text-align: center;
+}
+
+#add_cell{
+    background-color: #fff;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    text-align: center;
+    padding-top: 14px;
+    
+}
+
+.orange-buttons{
+    width: 50px;
+}
+
+
+#post-header-button3 {
+    width: 100%;
+    height: auto;
+    display: block;
+    text-align: center;
+}
+
+#wrapper-tabs .divider{
+    margin-bottom: 3px;
+    margin-top: 5px;
+}
+
+#category-container{
+    margin-left: 15px;
+    margin-right:15px;
+    position: relative;
+    min-height: 350px;
+}
+
+#category-container h2{
+    text-transform: uppercase;
+    color: #7a7a7a;
+}
+
+#category-container .card{
+    width: 180px;
+    margin:0;
+    box-shadow: 0px 3px 5px 0px #a2a2a2, 0px 0px 0px 1px #909090;
+}
+
+#category-container .content{
+  padding: 5px;
+}
+
+#category-container .content.more{
+  text-align: center;
+}
+
+#category-container .card a {
+    text-decoration: none;
+    color: #7a7a7a;
+}
+
+#category-container .icon-min > img{
+  width:3em;
+  height: 3em;
+  margin-right: 0.3em;
+  border-radius: 500em;
+}
+
+#category-container .rev-min{
+  font-size: 16px;
+}
+
+#category-container .place-min{
+  font-size: 12px;
+}
+
+#category-container .user_link{
+  text-transform: uppercase;
+}
+
+#category-container .user_status{
+  text-transform: lowercase;
+  font-size: 12px;
+  color: #bbb;
+}
+
+#category-container .price-min{
+  margin-top: 20px;
+}
+
+#category-container .label{
+  margin: 2px;
+}
+
+#category-container .clearfix > .user_link{
+  text-transform: uppercase;
+  float: left;
+  margin-left: 10px;
+}
+
+#category-container .more_link{
+  text-transform: uppercase;
+}
+
+.headSeller {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #7a7a7a;
+    margin-top: 5px;
+    text-align: center;
+}
+
+#sellers .image img{
+    width: 3em;
+    height: 3em;
+    margin-right: 0.3em;
+    float: left;
+    border-radius: 500em;
+    margin-left: 15px;
+}

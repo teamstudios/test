@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Login' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/login/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/login/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        var i = 1;
+	        $('#display-pass').click(function(){
+	            if(i==1) {
+		            $('#id_password').attr('type', 'text');
+		            i = 2;
+	            } else {
+		            $('#id_password').attr('type', 'password');
+		            i = 1;
+	            }
+	        });
+	    }); //Конец ready
+    </script>
+{% endblock %}
+{% block content %}
+    <body style="background:#636363 !important;">
+	    <div id="wrapper" class="green">
+		    <div id="form-box">
+			    <a href="{% url 'accounts:registration' %}" class="new-reg">{% trans 'Sign up' %}</a>
+			    <span>{% trans 'or' %}</span>
+			    <p>{% trans 'Do you have an account?' %}</p>
+			    <form id="reg-form" action="{% url 'accounts:login' %}" method="post">
+                    <div style="width: 350px; margin-left: 25px">
+                        {% for error in form.non_field_errors %}
+                            {{ error|escape }}
+                        {% endfor %}
+                    </div>
+                    {{ form.username|add_placeholder_to_field:'USERNAME'|add_class_to_formfield:'inpt' }}
+                    {{ form.username.errors.as_text }}
+                    {{ form.password|add_placeholder_to_field:'PASSWORD'|add_class_to_formfield:'inpt' }}
+                    {{ form.password.errors.as_text }}
+                    <input type="hidden" name="next" value="{{ next }}">
+				    <div id="display-pass" >{% trans 'show password' %}</div>
+                    {% csrf_token %}
+				    <input type="submit" value="{% trans 'Sign in' %}" class="btn-sub">
+			    </form>
+			<a href="{% url 'accounts:restore_password' %}" id="recovery-pass">{% trans 'Did you forget your account or password?' %}</a>
+			<div id="social-title">{% trans 'Or you can sign in via' %}</div>
+			<ul id="social">
+				<li><a href="{% url 'social:begin' 'vk-oauth2' %}"></a></li>
+				<li><a href="{% url 'social:begin' 'facebook' %}"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="{% url 'social:begin' 'pinterest' %}"></a></li>
+			</ul>
+			<div id="line"></div>
+			<div id="rev1">{% trans 'More than a 1000 items' %}</div>
+			<div id="rev2">
+                {% blocktrans %}
+                    Register in <span>45</span> seconds!
+                {% endblocktrans %}
+            </div>
+		</div>
+	</div>
+</body>
+{% endblock %}

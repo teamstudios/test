@@ -1,0 +1,290 @@
+#imageCover {
+    min-height: 222px;
+    background-color: #e9e9e9;
+    text-align: center;
+    height: 222px;
+    cursor: pointer;
+}
+
+.image-holder-title{
+  font-size: 22px;
+  text-transform: uppercase;
+  color:#bbb;
+  padding-top: 84px;
+}
+
+.retailer-logo-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto;
+    font-size: 9px;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    margin-top: -45px;
+}
+
+.retailer-logo-wrapper .inner {
+    background-image: url(/static/images/user_page/blank-photo-logo.png);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 60px;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+}
+
+#retailer-location{
+  height: 222px;
+}
+
+
+#revtoggle{
+  cursor:pointer;
+}
+
+#bannerLoad, #avaLoad{
+  cursor: pointer;
+}
+
+#bannerLoadContainer, #avatarLoadContainer{
+  text-align: center;
+}
+
+#btnBannerLoad, #clsBannerLoad, #btnAvatarLoad, #clsAvatarLoad, #loadAvFile{
+  margin: 5px;
+}
+
+/*--------------------------------------------------------------------------CROPIT---------------------------------------------------*/
+
+#bannerLoadContainer > .cropit-preview {
+  background-color: #f8f8f8;
+  background-size: cover;
+  border: 1px solid #ccc;
+  margin: 7px 0;
+  width: 680px;
+  height: 157px;
+}
+
+#avatarLoadContainer > .cropit-preview , #avatarLoadContainer .cropit-preview-image-container{
+  background-color: #f8f8f8;
+  background-size: cover;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 250px;
+  height: 250px;
+  z-index: 1000;
+}
+
+
+input.cropit-image-input {
+  display:none;
+}
+
+
+.marker-first-img {
+    margin-top: 10px;
+}
+
+.marker-img {
+    margin-top: 15px;
+}
+
+#reviews{
+  height: 90px;
+  min-height:90px;
+  overflow:hidden;
+}
+
+#rev_pointer{
+  margin-top: 15px;
+}
+
+#user_menu{
+  box-shadow: 0px 1px 0 0 #ffffff;
+}
+
+#user_menu .item{
+  color:#7a7a7a;
+  font-size: 24px;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+#user_menu .item:before{
+  display: none;
+}
+
+#user_stat .counts{
+  color:#7a7a7a;
+  font-size: 32px;
+  margin-bottom: -2px;
+}
+
+#user_stat p{
+  margin-bottom: 10px;
+}
+
+#reviews .ui.table td {
+    padding: 0 0.78571429em!important;
+}
+
+#rate_scale > .ui.small.rating{
+  margin: 11px;
+}
+
+/*--------------------------------------------------USER LOTS--------------------------------------*/
+
+#user_lots{
+  position: relative;
+}
+
+#user_lots .card{
+  width: 180px;
+  margin:0;
+  box-shadow: 0px 3px 5px 0px #a2a2a2, 0px 0px 0px 1px #909090;
+}
+
+#user_lots .card a{
+  text-decoration: none;
+  color:#7a7a7a;
+}
+
+#user_lots .content{
+  padding: 5px;
+}
+
+#user_lots .content > img{
+  width:3em;
+  height: 3em;
+  margin-right: 0.3em;
+}
+
+#user_lots .rev-min{
+  font-size: 16px;
+}
+
+#user_lots .place-min{
+  font-size: 12px;
+}
+
+#user_lots .user_link{
+  text-transform: uppercase;
+}
+
+#user_lots .user_status{
+  text-transform: lowercase;
+  font-size: 12px;
+  color: #bbb;
+}
+
+#user_lots .price-min{
+  margin-top: 20px;
+}
+
+#user_lots .label{
+  margin: 2px;
+}
+
+/*-------------------------------------------INTEREST GOODS---------------------------------------------*/
+
+#interesting-goods-section .ui.card{
+  
+    width: calc( 16.66666667% - 0.5em );
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+    box-shadow: 0px 3px 5px 0px #a2a2a2, 0px 0px 0px 1px #909090;
+}
+
+#interesting-goods-section .ui.card > .image{
+  
+  height:160px;
+  overflow:hidden;
+  position: relative;
+  
+}
+
+#interesting-goods-section .ui.card > .image > .img{
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+
+#interesting-goods-section .content{
+  padding: 5px;
+  text-align: center;
+}
+
+#interesting-goods-section .content .header{
+  font-size: 16px;
+}
+
+.interesting-goods-price{
+  font-size: 20px;
+}
+
+.price_block{
+  height: 80px;
+}
+
+#interesting-goods-section .content .avatar{
+  width:3em;
+  height: 3em;
+  margin-right: 0.3em;
+  margin-left: 0.7em;
+}
+
+#interesting-goods-section .button{
+  text-transform: uppercase;
+}
+
+#interesting-goods-section .user_link{
+  text-decoration: none;
+  text-transform: uppercase;
+  color:#7a7a7a;
+}
+
+/*-----------------------------------------COMPLAINT MODAL-------------------------------------------------*/
+
+#complaint-popup .radiocust{
+  margin:7px;
+}
+
+#textComplaint{
+    margin: 0em;
+    -webkit-appearance: none;
+    tap-highlight-color: rgba(255, 255, 255, 0);
+    padding: 0.78571429em 1em;
+    background: #FFFFFF;
+    border: 0px solid #bfbfbf;
+    outline: none;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 0px;
+    box-shadow: 0em 0em 0em 0em transparent inset;
+    -webkit-transition: color 0.1s ease, border-color 0.1s ease;
+    transition: color 0.1s ease, border-color 0.1s ease;
+    font-size: 1em;
+    line-height: 1.2857;
+    resize: vertical;
+    width:90%;
+}
+
+#complaint-popup .headline{
+  font-size: 1em;
+  text-transform: uppercase;
+  color:#7a7a7a;
+}
+
+#block-user-module .radiocust{
+  display: inline-block;
+}
+
+#complaint_submit a{
+  width:100px;
+  margin-bottom: 10px;
+}

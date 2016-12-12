@@ -1,0 +1,74 @@
+{% extends 'chat_base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Chat with{% endblocktrans %} {{ partner }}{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="conversation border-green">
+                    {% for message in messages %}
+                        {% if message.sender == user %}
+                            <div class="sender-bubble">
+                                <p class="sender">
+                                    <span class="message_date">{{ message.datetime|date:'j-m-Y H:i' }}</span> {{ message.sender }}:
+                                </p>
+                        {% else %}
+                            <div class="partner-bubble">
+                                <p class="receiver">
+                                    <span class="message_date">{{ message.datetime|date:'j-m-Y H:i' }}</span> {{ message.sender }}:
+                                </p>
+
+                        {% endif %}
+                            <p class="chat_message">
+                                {{ message.text }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-right username_block">
+                <h2 class="users">
+                    <span class="chat_username">{{ user.username }}</span>
+                    {% if user.profile.avatar != None %}
+                        <img src="{{ user.profile.avatar.url }}" class="chat_image chat_sender circular">
+                    {% else %}
+                        <img src="{% static 'images/no-good-image.png' %}" class="chat_image chat_sender circular">
+                    {% endif %}
+                </h2>
+            </div>
+            <div class="col-md-6 text-center col-center-block">
+                <form method="post" id="idSendMessageForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="sender" value="{{ user.id }}" id="idSender">
+                    <input type="hidden" name="chat" value="{{ thread.id }}" id="idChat">
+                    <textarea class="form-control" placeholder="{% trans 'Enter message' %}" id="idText"></textarea>
+                    <input type="submit" value="{% trans 'Send!' %}" class="mybtn mybtn-small" id="idSend">
+                </form>
+            </div>
+            <div class="col-md-3 text-left username_block">
+                <h2 class="users">
+                    {% if partner %}
+                        <span class="chat_username"></span>
+                        <a href="{{ partner.profile.get_absolute_url }}">
+                            {{ partner.username }}
+                        </a>
+                        {% if partner.profile.avatar.url != None %}
+                            <img src="{{ partner.profile.avatar.url }}" class="chat_image chat_receiver circular">
+                        {% else %}
+                            <img src="{% static 'images/no-good-image.png' %}" class="chat_image chat_receiver circular">
+                        {% endif %}
+                    {% else %}
+                        {% trans 'No partner' %}
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}

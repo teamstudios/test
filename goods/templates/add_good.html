@@ -1,0 +1,963 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% load cart_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% trans 'Add good' %}</title>
+	    <link rel="stylesheet" href="{% static 'css/add_good/main.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/add_good/jquery.min.js' %}"></script>
+	    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css"/>
+	    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/add_good/table.css' %}">
+	    <script src="http://cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js" type="text/javascript"></script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.5/slick.css"/>
+	    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.5/slick.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.5/slick-theme.css"/>
+	    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/add_good/bootstrap/bootstrap.css' %}"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/add_good/bootstrap-datetimepicker.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+	    <script type="text/javascript" src="{% static 'js/add_good/bootstrap-datetimepicker.min.js' %}"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.js"></script>
+        <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+	    <script src="{% static 'js/add_good/validate-text.js' %}"></script>
+        <!--[if IE]>
+		    <link rel="stylesheet" href="{% static 'css/add_good/styleIE.css' %}" type="text/css" media="all">
+		    <script type="text/javascript" src="{% static 'js/add_good/html5.js' %}"></script>
+	    <![endif]-->
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
+        <script type="text/javascript">
+            $(function() {
+                $(window).scroll(function() {
+                    if($(this).scrollTop() != 0) {
+                        $('#up').fadeIn();
+                        $(".visibility-eye").css("top","75px")
+                    } else {
+                        $('#up').fadeOut();
+                        $(".visibility-eye").css("top","225px")
+                    }
+                });
+                $('#up').click(function() {
+                    $('body,html').animate({scrollTop:0},800);
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(window).load(function(){
+                $('.category-container-tab2').masonry({
+                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+                    itemSelector: '#category',
+	                // указываем класс элемента являющегося блоком в нашей сетке
+	                singleMode: true,
+	                // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+	                // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+	                // анимируем перестроение блоков
+	                animationOptions: {
+	                    queue: true,
+	                    duration: 500
+	                }
+	                // опции анимации - очередь и продолжительность анимации
+	            });
+	        });
+
+	        $(document).ready(function(){
+                /*
+                var inBlock = $('#category-container').html();
+                if(inBlock){
+                $('#category-container').append('<div id="non-content">У ВАС ПОКА НЕТ ТОВАРОВ</div>');
+                }
+
+	            $('#wrapper-tabs a').click(function() {
+	                if ($(this).attr('class') != $('#wrapper-tabs').attr('class') ) {
+	                    $('#wrapper-tabs').attr('class',$(this).attr('class'));
+	                }
+	            });
+	            */
+	            $(' #wrapper-tabs .tab3').hide();
+	            $('#wrapper-tabs .tab2').show();
+
+	            $('#wrapper-tabs a').click(function() {
+		            $('.category-container-tab2').masonry({
+	                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                itemSelector: '#category',
+	                // указываем класс элемента являющегося блоком в нашей сетке
+	                singleMode: true,
+	                // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+	                // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+	                // анимируем перестроение блоков
+	                animationOptions: {
+	                    queue: true,
+	                    duration: 500
+                    }
+	                // опции анимации - очередь и продолжительность анимации
+	                });
+	            });
+
+	            $('#wrapper-tabs a').click(function() {
+		            $('.category-container-tab1').masonry({
+	                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                    itemSelector: '#category',
+	                    // указываем класс элемента являющегося блоком в нашей сетке
+	                    singleMode: true,
+	                    // true - если у вас все блоки одинаковой ширины
+	                    isResizable: true,
+                        // перестраивает блоки при изменении размеров окна
+	                    isAnimated: true,
+	                    // анимируем перестроение блоков
+	                    animationOptions: {
+	                        queue: true,
+	                        duration: 500
+	                    }
+	                    // опции анимации - очередь и продолжительность анимации
+	                });
+	            });
+
+	            $('#wrapper-tabs a').click(function() {
+		            $('.category-container-tab3').masonry({
+	                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                    itemSelector: '#category',
+	                    // указываем класс элемента являющегося блоком в нашей сетке
+	                    singleMode: true,
+	                    // true - если у вас все блоки одинаковой ширины
+	                    isResizable: true,
+	                    // перестраивает блоки при изменении размеров окна
+	                    isAnimated: true,
+	                    // анимируем перестроение блоков
+	                    animationOptions: {
+	                        queue: true,
+	                        duration: 500
+	                    }
+	                    // опции анимации - очередь и продолжительность анимации
+	                });
+	            });
+
+                // File uploads
+                // Get CSRF cookie protection
+                var csrftoken = $.cookie('csrftoken');
+                function csrfSafeMethod (method) {
+                // These HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+                $.ajaxSetup({
+                    beforeSend: function (xhr, settings) {
+                        if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            // Set X-CSRFToken HTTP Header
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+                $("#file-input").click(function () {
+                    // If all div in upload state - disable file input
+                    var unload_els = Array.prototype.slice.call(document.querySelectorAll('[data-state="unload"]'));
+                    if (unload_els.length == 0) {
+                        $("#file-input").attr('disabled', 'disabled');
+                        $("#file-input-label").append("{% trans 'You should delete some item' %}");
+                    }
+                });
+
+                $("#file-input").change(function () {
+                    var unload_els = Array.prototype.slice.call(document.querySelectorAll('[data-state="unload"]'));
+                    var first_el = unload_els[0];
+                    if (unload_els.length == 0) {
+                        // disable file input
+                        $("#file-input").attr('disabled', 'disabled');
+                        $("#file-input-label").append("{% trans 'You should delete some item' %}");
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(first_el).attr('src', e.target.result);
+                    };
+                    var formdata = new FormData();
+                    var file = this.files[0];
+                    // upload image
+                    formdata.append("image", file);
+                    if (formdata) {
+                        $.ajax({
+                            url: '{% url "goods:upload_good_photo" %}',
+                            type: 'POST',
+                            data: formdata,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                if (data.status == 'ok') {
+                                    for (var i = 1; i < 6; i++) {
+                                        var id_img = "#id_image" + i;
+                                        if (!$(id_img).val()) {
+                                            $(id_img).val(data.photo);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    // set image on client
+                    reader.readAsDataURL($(this)[0].files[0]);
+                    $(first_el).attr('data-state', 'uploaded');
+                });
+
+	        });
+
+            function deleteImage(element) {
+                // delete image
+                var img_tag = $(element).find("img")[0];
+                var binded_field_id = $(element).attr('data-field');
+                var img_id = $(binded_field_id).val();
+                // send ajax to delete image
+                $.post('{% url "goods:delete_good_photo" %}', {'pk': img_id},
+                        function (data, status, xhr) {
+                            if (data.status == 'ok') {
+                                // if upload success set div data value
+                                $(binded_field_id).val('');
+                                $(img_tag).attr('src', "{% static 'images/add_good/Site_S_add_lot_ADD_LOTE_07.jpg' %}");
+                                $(img_tag).attr("data-state", "unload");
+                                $("#file-input").removeAttr("disabled");
+                                var old_text = $("#file-input-label").html();
+                                var new_text = old_text.replace("{% trans 'You should delete some item' %}", "");
+                                $("#file-input-label").html(new_text);
+                            }
+                });
+            }
+
+	    </script>
+	</head>
+	<body>
+        <div id="wrapper" class="white">
+	    <div id="up"></div>
+	    {% include 'cart_showcase_block.html' %}
+        <header class="blackheader green">
+            {% if request.user.is_authenticated %}
+                {% include 'main_menu.html' %}
+            {% else %}
+                {% include 'sign_in.html' %}
+            {% endif %}
+            <div class="clear"></div>
+        </header>
+        <div class="search-box">
+            <img class="img-search" src="{% static 'images/add_good/search-green-icon_03.png' %}">
+            <form action="{% url 'goods:search' %}" method="get">
+                {{ search_form.query|add_class_to_formfield:"search" }}
+            </form>
+	    </div>
+        <form id="mainForm" action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ image_upload_form.as_p }}
+            {% if good_form.errors %}
+                {% for field in good_form %}
+                    {% if field.errors %}
+                        <p>{{ field.name }}{{ field.errors.as_text }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if properties_form.errors %}
+                {% for field in properties_form %}
+                    {% if field.errors %}
+                        <p>{{ field.name }}{{ field.errors.as_text }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+	        <div class="clear"></div>
+	        <div class="container">
+	            <div class="block-add">
+	                <a href="#"><p>{% trans 'Add' %}</p></a>
+                </div>
+                <div class="block-photo">
+                    <div class="top-gray-line">
+                        <p>{% trans 'Photo' %}</p>
+                    </div>
+                    <div class="photo-img clearfix">
+                        <div class="image-background">
+                            <a href="#"><img class="first-img" src="{% static 'images/add_good/photo-icon.png' %}"></a>
+                        </div>
+                        <div class="parent-img-wrapper">
+                            <div class="parent-img" onclick="deleteImage(this)" data-field="#id_image1">
+                                <img class="general-img" src="{% static 'images/add_good/Site_S_add_lot_ADD_LOTE_07.jpg' %}" data-state="unload">
+                            </div>
+                            <div class="parent-img" onclick="deleteImage(this)" data-field="#id_image2">
+                                <img class="general-img" src="{% static 'images/add_good/Site_S_add_lot_ADD_LOTE_07.jpg' %}" data-state="unload">
+                            </div>
+	                        <div class="parent-img" onclick="deleteImage(this)" data-field="#id_image3">
+                                <img class="middle-img" src="{% static 'images/add_good/girl-photo-icon.jpg' %}" data-state="unload">
+                            </div>
+                            <div class="parent-img" onclick="deleteImage(this)" data-field="#id_image4">
+                                <img class="general-img" src="{% static 'images/add_good/Site_S_add_lot_ADD_LOTE_07.jpg' %}" data-state="unload">
+                            </div>
+                            <div class="parent-img" onclick="deleteImage(this)" data-field="#id_image4">
+                                <img class="general-img" src="{% static 'images/add_good/Site_S_add_lot_ADD_LOTE_07.jpg' %}" data-state="unload">
+                            </div>
+                            <div class="hidden-cross"></div>
+                        </div>
+                        <div class="image-background" style="font-size: 10px">
+                            <a href="#">
+                                <label for="file-input" class="input-label">
+                                    <img class="last-img" src="{% static 'images/add_good/clip-icon.png' %}">
+                                    <input type="file" id="file-input">
+                                </label>
+                                <span id="file-input-label"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-info">
+                    <div class="top-gray-line">
+                        <p>{% trans 'Info' %}</p>
+                    </div>
+                    <div class="business clearfix">
+                        <p>{% trans 'Type of deal' %}</p>
+                        {{ good_form.deal.as_hidden }}
+                        {{ good_form.title.as_hidden }}
+                        {{ good_form.quantity.as_hidden }}
+{#                        Bug - little hack for auction price fields #}
+                        {{ good_form.min_price.as_hidden }}
+                        {{ good_form.reserve_price.as_hidden }}
+                        {{ good_form.max_price.as_hidden }}
+                        <div class="auction clearfix" id="slider1">
+                            <div class="item" data-deal="{{ AUCTION }}">
+                                <div class="auction-line"> {% trans 'auction' %}</div>
+                                <div class="price clearfix">
+                                    <div class="col-33">
+                                        <input name="startPrice" type="text" class="price-input validate-me" placeholder="{% trans 'start price' %}" id="startPrice">
+                                    </div>
+                                    <div class="col-33">
+                                        <input name="reservePrice" type="text" class="price-input validate-me" placeholder="{% trans 'reserve price' %}" id="reservePrice">
+                                    </div>
+                                    <div class="col-33">
+                                        <input name="endPrice" type="text" class="price-input validate-me" placeholder="{% trans 'end price' %}" id="endPrice">
+                                    </div>
+                                </div>
+                                <div class="large">
+                                    <input type="text" class="large-input" placeholder="{% trans 'enter product name' %}" id="auc_title">
+                                </div>
+                                <div class="number standalone">
+                                    <input name="quantityOne" type="text" class="number-input" placeholder="{% trans 'product quantity' %}" id="auc_quantity">
+                                </div>
+                            </div>
+                            <div class="item" data-deal="{{ BUY_SELL }}">
+                                <div class="auction-line">{% trans 'buy-sell' %}</div>
+                                <div class="price clearfix">
+                                    <div class="block-center-input">
+                                        {{ good_form.price|add_placeholder_to_field:"enter price"|add_class_to_formfield:"price-input validate-me" }}
+                                    </div>
+                                </div>
+                                <div class="large">
+                                    <input type="text" class="large-input" placeholder="{% trans 'enter product name' %}" id="bs_title">
+                                </div>
+                                <div class="number standalone">
+                                    <input name="quantityTwo" type="text" class="number-input" placeholder="{% trans 'product quantity' %}" id="bs_quantity">
+                                </div>
+                            </div>
+                            <div class="item" data-deal="{{ SALE }}">
+                                <div class="auction-line">{% trans 'sale' %}</div>
+                                <div class="price clearfix">
+                                    <div class="col-33">
+                                        {{ good_form.old_price|add_placeholder_to_field:"enter old price"|add_class_to_formfield:"price-input validate-me" }}
+                                    </div>
+                                    <div class="col-33">&nbsp;</div>
+                                    <div class="col-33">
+                                        {{ good_form.new_price|add_placeholder_to_field:"enter new price"|add_class_to_formfield:"price-input validate-me" }}
+                                    </div>
+                                </div>
+                                <div class="large">
+                                    <input type="text" class="large-input" placeholder="{% trans 'enter product name' %}" id="sl_title">
+                                </div>
+                                <div class="number standalone">
+                                    <input name="quantityThree" type="text" class="number-input" placeholder="{% trans 'product quantity' %}" id="sl_quantity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="condition-block clearfix">
+                            <div class="location pin-container">
+                                <p>{% trans 'Location' %}</p>
+                                <div class="location-block">
+                                    <img class="location-img" src="{% static 'images/add_good/pointer-icon.png' %}">
+                                    {{ good_form.location|add_class_to_formfield:"price-input pin-container-input" }}
+                                </div>
+                            </div>
+                            <div class="status">
+                                <p>{% trans 'status' %}</p>
+                                {{ good_form.state.as_hidden }}
+                                <div class="auction new-block" id="slider2">
+                                    <div class="item auction-line" data-state="{{ NEW }}">{% trans 'new' %}</div>
+                                    <div class="item auction-line" data-state ={{ USED }}>{% trans 'used' %}</div>
+
+                                </div>
+                            </div>
+                            <div class="lots-time">
+                                <p>{% trans 'The term of the lot' %}</p>
+                                {{ good_form.valid_through|add_class_to_formfield:"price-input" }}
+                            </div>
+                        </div>
+                        <div class="block-delivery clearfix">
+                            <div class="top-gray-line">
+                                Доставка
+                            </div>
+                            <div class="top-pin-container clearfix">
+                                <div class="cooperation location pin-container">
+                                    <p class="delivery-terms-label">{% trans 'Cooperation' %}</p>
+                                    <div>
+                                        <img class="location-img" src="{% static 'images/add_good/pointer-icon.png' %}">
+                                        {{ good_form.cooperation|add_class_to_formfield:"price-input pin-container-input" }}
+                                    </div>
+                                </div>
+                                <div class="status post-office">
+                                    <div class="shipment">{% trans 'Delivery type' %}</div>
+                                    {{ good_form.delivery_form.as_hidden }}
+                                    <div class="auction post clearfix delivery-slider-generic" id="delivery_slider">
+                                        <div class="item auction-line" data-delivery="{{ MAIL }}">{% trans 'mail' %}</div>
+                                        <div class="item auction-line" data-delivery="{{ COURIER }}">{% trans 'courier' %}</div>
+                                        <div class="item auction-line" data-delivery="{{ HANDS }}">{% trans 'hands' %}</div>
+                                        <div class="item auction-line" data-delivery="{{ PICKUP }}">{% trans 'pickup' %}</div>
+                                        <div class="item auction-line" data-delivery="{{ LOGISTIC }}">{% trans 'Transport companies' %}</div>
+                                    </div>
+                                </div>
+                                <div class="delivery-right">
+                                    <p class="delivery-terms-label">{% trans 'Estimated delivery time' %}</p>
+                                    {{ good_form.delivery_time|add_class_to_formfield:"price-input validate-me" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-return clearfix">
+                            <div class="top-gray-line">{% trans 'refund' %}</div>
+                            <section class="clearfix">
+                                <div class="return">
+                                    <p>{% trans 'Reimbursement of the cost of goods' %}</p>
+                                    {{ good_form.refund.as_hidden }}
+                                    <div class="arrows-wrapper ecvivalent clearfix" id="slider5" >
+                                        <div class="auction-line money" data-refund="{{ MONETARY }}">{% trans 'monetary equivalent' %}</div>
+                                        <div class="auction-line money" data-refund="{{ REPLACEMENT }}">{% trans 'commodity exchange' %}</div>
+                                    </div>
+                                </div>
+                                <div class="data-return">
+                                    <p>{% trans 'Term of return of goods' %}</p>
+                                    {{ good_form.purchase_returns_time|add_class_to_formfield:"validate-me" }}
+                                </div>
+                                <div class="redelivery">
+                                    <p>{% trans 'redelivery' %}</p>
+                                    {{ good_form.back_delivery_form.as_hidden }}
+                                    <div class="arrows-wrapper bayer clearfix" id="slider6" >
+                                        <div class="auction-line money" data-backform="{{ TO_BUYER }}">{% trans 'by buyer' %}</div>
+                                        <div class="auction-line money" data-backform="{{ BY_SELLER }}">{% trans 'by seller' %}</div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-category clearfix">
+                <div class="top-gray-line">
+                    <p>{% trans 'Hashtags' %}</p>
+                </div>
+                <div style="column-count: 4; padding-left: 45px" id="tagslist">
+                    {{ good_form.tags.as_hidden }}
+                    {% for tag in all_tags %}
+                        <p>
+                            <a href="#" onclick="tagFunctionCliked({{ tag.id }}); event.preventDefault();" data-action="add" id="tag{{ tag.id }}">
+                                {{ tag.name }}
+                            </a>
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="block-new-category">
+                <div class="top-gray-line"><p>{% trans 'Do you want create a hashtag?' %}</p></div>
+                <input type="text" id="your-own-category">
+                <div class="hidden-new-category">
+                    <div class="new-name">
+                        <div class="new-witrin-name">{% trans 'Enter name' %}</div>
+                        <div class="add-img-new">
+                            <a href="#" onclick="addTagFunctionCliked(); event.preventDefault();"><img src="{% static 'images/add_good/vitrin-icon.png' %}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-product-characteristics clearfix">
+                <div class="top-gray-line"><p>{% trans 'Product properties' %}</p></div>
+                <div class="description-product">
+                    {{ properties_form.trade_mark|add_placeholder_to_field:"trade mark" }}
+                    {{ properties_form.model|add_placeholder_to_field:"model" }}
+                </div>
+                <div class="description-product">
+                    {{ properties_form.material|add_placeholder_to_field:"material" }}
+                    {{ properties_form.size|add_placeholder_to_field:"size"|add_class_to_formfield:"validate-me" }}
+                </div>
+                <div class="description-product">
+                    {{ properties_form.color|add_placeholder_to_field:"color" }}
+                    {{ properties_form.weight|add_placeholder_to_field:"weight"|add_class_to_formfield:"validate-me" }}
+                </div>
+                <div class="description-product-last">
+                    {{ properties_form.equipment|add_placeholder_to_field:"equipment" }}
+                    {{ properties_form.vendor|add_placeholder_to_field:"vendor" }}
+                </div>
+            </div>
+            <div class="block-description clearfix">
+                <div class="top-gray-line"><p>{% trans 'Description' %}</p></div>
+                <div class="description-goods">
+                    <p>{% trans 'Product description' %}</p>
+                    {{ properties_form.description|add_class_to_formfield:"input-description" }}
+                </div>
+                <div class="description-goods">
+                    <p>{% trans 'Delivery description' %}</p>
+                    {{ good_form.delivery_description|add_class_to_formfield:"input-description" }}
+                </div>
+                <div class="publish">
+                    <button class="btn-pub" type="submit">
+                            {% trans 'Publish' %}
+                    </button>
+                </div>
+            </div>
+            <div class="calendar clearfix">
+                <div class="block-left">
+                    <div class="block-top-left clearfix">
+                        <div class="img-arrow"><i class="fa fa-angle-left fa-lg"></i></div>
+                        <div class="month">Январь</div>
+                        <div class="img-arrow-last"><i class="fa fa-angle-right fa-lg"></i></div>
+                    </div>
+                    <div class="calendar-day clearfix">
+                        <ul class="days">
+                            <li>ПН</li>
+                            <li>ВТ</li>
+                            <li>СР</li>
+                            <li>ЧТ</li>
+                            <li>ПТ</li>
+                            <li>СБ</li>
+                            <li>ВС</li>
+                        </ul>
+                        <ul class="days">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                        </ul>
+                        <ul class="days">
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>10</li>
+                            <li>11</li>
+                        </ul>
+                        <ul class="days">
+                            <li>12</li>
+                            <li>13</li>
+                            <li>14</li>
+                            <li>15</li>
+                            <li>16</li>
+                            <li>17</li>
+                            <li>18</li>
+                        </ul>
+                        <ul class="days">
+                            <li>19</li>
+                            <li>20</li>
+                            <li>21</li>
+                            <li>22</li>
+                            <li>23</li>
+                            <li>24</li>
+                            <li>25</li>
+                        </ul>
+                        <ul class="days">
+                            <li>26</li>
+                            <li>27</li>
+                            <li>28</li>
+                            <li>29</li>
+                            <li>30</li>
+                            <li>31</li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="terms clearfix">
+                        <div class="half">C 23.05.2015</div>
+                        <div class="half">До 29.01.2015</div>
+                    </div>
+                </div>
+                <div class="block-right">
+                    <div class="top-time">13 : 30</div>
+                    <div class="top-pointer">
+                        <i class="fa fa-angle-up fa-4x"></i>
+                        <i class="fa fa-angle-up fa-4x"></i>
+                        <div class="big-time">23 : 30</div>
+                        <i class="fa fa-angle-down fa-4x"></i>
+                        <i class="fa fa-angle-down fa-4x"></i>
+                    </div>
+                    <div class="residue">
+                        <ul>
+                            <li class="residue-word">Осталось</li>
+                            <li class="residue-time">13 : 30 : 17</li>
+                        </ul>
+                        <ul class="residue-counter clearfix">
+                            <li class="hr">Чс</li>
+                            <li class="min">Мин</li>
+                            <li class="sec">Сек</li>
+                        </ul>
+                    </div>
+                    <div class="terms clearfix">
+                        <div class="half">C 13 : 30</div>
+                        <div class="half">До 20 : 00</div>
+                    </div>
+                </div>
+                <div class="remove clearfix">
+                    <ul>
+                        <li class="remove-date">Удалить дату</li>
+                        <li class="ok">ОК</li>
+                        <li class="remove-time">Удалить время</li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+        </div>
+
+        <footer>
+            {% include 'social_links.html' %}
+        </footer>
+        <script type="text/javascript" src="{% static 'js/add_good/masonry.pkgd.js' %}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", theDomHasLoaded, false);
+            window.addEventListener("load", pageFullyLoaded, false);
+            function theDomHasLoaded(e) {
+                $('#slider1').slick();
+                $('#slider2').slick();
+                $('#slider3').slick();
+                $('#slider4').slick();
+                $('#slider5').slick();
+                $('#slider6').slick();
+                $('#slider7').slick();
+            }
+
+            function pageFullyLoaded(e) {}
+		    //$('.hidden-price-panel').hide()
+		    /*
+		    $('.image-hover').hover(function(){
+			$(this).parent().find('.hide').hide()
+			$(this).parent().find('.hidden-price-panel').show()
+		    },
+			function (){
+			$(this).parent().find('.hide').show()
+			$(this).parent().find('.hidden-price-panel').hide()
+		    })
+		    $('.price-min-wrapper .hide').mouseover(function(){
+			$(this).next().show()
+			$(this).hide()
+		    })
+		    $('.hidden-price-panel').mouseout(function(){
+			$(this).prev().show()
+			$(this).hide()
+		    })
+	        */
+            $('.delivery-slider-generic').slick();
+            $(".parent-img-wrapper").sortable();
+            $deliveryBlock = $('.top-pin-container');
+	        $('.block-delivery .row.center').click(function(){
+		        $('.block-delivery').append($deliveryBlock);
+	        });
+
+	        $('.visibility-eye').click(function(){
+                $(this).toggleClass('active');
+                $('.additional-stats').toggleClass('show');
+                $('.category-container-tab2').masonry({
+                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                itemSelector: '#category',
+	                // указываем класс элемента являющегося блоком в нашей сетке
+	                singleMode: true,
+	                // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+	                // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+	                // анимируем перестроение блоков
+	                animationOptions: {
+	                    queue: true,
+	                    duration: 500
+	                }
+	                // опции анимации - очередь и продолжительность анимации
+                });
+	            $('.category-container-tab3').masonry({
+	                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                itemSelector: '#category',
+                    // указываем класс элемента являющегося блоком в нашей сетке
+	                singleMode: true,
+	                // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+	                // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+	                // анимируем перестроение блоков
+	                animationOptions: {
+	                    queue: true,
+	                    duration: 500
+	                }
+                    // опции анимации - очередь и продолжительность анимации
+	            });
+                $('.category-container-tab1').masonry({
+	                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                itemSelector: '#category',
+	                // указываем класс элемента являющегося блоком в нашей сетке
+	                singleMode: true,
+	                // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+	                // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+	                // анимируем перестроение блоков
+	                animationOptions: {
+	                    queue: true,
+	                    duration: 500
+	                }
+	                // опции анимации - очередь и продолжительность анимации
+	            });
+	        });
+
+	        position_left = $('#wrapper').css('margin-left').replace("px", "");
+	        position_left -=50;
+	        $('.visibility-eye').css('margin-left', position_left);
+
+	        window.onresize = function(){
+		        position_left = $('#wrapper').css('margin-left').replace("px", "");
+	            position_left -=50;
+	            $('.visibility-eye').css('margin-left', position_left);
+            };
+
+            $('#wrapper').hover(
+                    function(){
+                        $('.big-cross, .big-cross-right').hide();
+                    }, function(){
+                        $('.big-cross, .big-cross-right').show();
+                    }
+            );
+
+            $('.button-icons .green-buttons').click(function(){
+                $(this).removeClass('active');
+                $('.orange-buttons').addClass('active');
+                $('.discount').css("background", "#bdfe42");
+                $('.hidden-price-panel .pay').css("background", "#ff6600").text("Редактировать");
+            });
+            $('.button-icons .orange-buttons').click(function(){
+                $(this).removeClass('active');
+                $('.green-buttons').addClass('active');
+                $('.discount').css("background", "#ff6600");
+                $('.hidden-price-panel .pay').css("background", "#bdfe42").text("Оплатить");
+            });
+            $('.promotional-banner').slick({
+                infinite: true,
+                autoplay:true,
+                arrows:false,
+                autoplaySpeed:12000,
+                draggable:false
+            });
+            $('.search-modal').click(function (){
+                $('.search-box').show();
+                $(this).parents('header').hide();
+            });
+            $('.img-search').click(function (){
+                $(this).parent().hide();
+                $('.blackheader.green').show();
+            });
+            $('input[class="search"]').keypress(function (e) {
+                var key = e.which;
+                if(key == 13)  // the enter key code
+                {
+                    $(this).parent().hide();
+                    $('.blackheader.green').show();
+                }
+            });
+            $('#id_valid_through').datetimepicker();
+            $('.category-goods p').click(function(ev){
+                ev.preventDefault();
+                var ID = $(this).attr('id'), openSection = "."+ ID + "-section", allCats = $('.category-goods p');
+                allCats.removeClass('highlighted-link');
+                $(this).addClass('highlighted-link');
+                $('.block-subcategory').find('.hidden-goods').hide();
+                $('.block-subcategory').find(openSection).show();
+            });
+            $('#your-own-category').click(function() {
+                $('.hidden-new-category').show();
+                $('.goods-img').click(function(ev){
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    var theText = $(this).find('.selected-category');
+                    $('#your-own-category').val($(theText).text());
+                    $('.hidden-new-category').hide();
+                });
+            });
+            $('.hidden-new-category').click(function(){
+                $(this).hide();
+                $('.goods-img').click(function(ev){
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                });
+            });
+            $('.hidden-goods p').click(function(ev){
+                ev.preventDefault();
+                $('.hidden-goods p').removeClass();
+                $(this).addClass('highlighted-link');
+            });
+            function validateNumber(event) {
+                var key = window.event ? event.keyCode : event.which;
+                if (event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+                    return true;
+                } else if ( key < 48 || key > 57 ) {
+                    return false;
+                }
+                else return true;
+            };
+            $('.number-input, .validate-me').keypress(validateNumber);
+	        /*
+	        $('#mainForm').validate({
+		    rules: {
+    		startPrice: {
+    			number: true
+    		},
+    		reservePrice: {
+    			number: true
+    		},
+            endPrice: {
+            	number: true
+            },
+            quantity: {
+            	number: true
+            },
+
+            quantityTwo: {
+            	number: true
+            },
+            quantityThree: {
+            	number: true
+            },
+            inputPrice: {
+            	number: true
+            },
+            priceNew: {
+            	number: true
+            },
+            oldPrice: {
+            	number: true
+            },
+            deliveryPeriod: {
+            	data: true
+            },
+            repaymentPeriod: {
+            	data: true
+            }
+
+  		    }
+
+	        })*/
+
+            $('#slider1').on('afterChange', function (event, slick, currentSlide) {
+                $('#id_deal').val($(slick.$slides.get(currentSlide)).data('deal'));
+            });
+
+            $('#slider2').on('afterChange', function (event, slick, currentSlide) {
+                $('#id_state').val($(slick.$slides.get(currentSlide)).data('state'));
+            });
+
+            $('#delivery_slider').on('afterChange', function (event, slick, currentSlide) {
+                $('#id_delivery_form').val($(slick.$slides.get(currentSlide)).data('delivery'));
+            });
+
+            $('#slider5').on('afterChange', function (event, slick, currentSlide) {
+                $('#id_refund').val($(slick.$slides.get(currentSlide)).data('refund'));
+            });
+
+            $('#slider6').on('afterChange', function (event, slick, currentSlide) {
+                $('#id_back_delivery_form').val($(slick.$slides.get(currentSlide)).data('backform'));
+            });
+
+            $('#bs_title').keyup(function () {
+                $('#id_title').val($(this).val());
+            });
+
+            $('#auc_title').keyup(function () {
+                $('#id_title').val($(this).val());
+            });
+
+            $('#sl_title').keyup(function () {
+                $('#id_title').val($(this).val());
+            });
+
+            $('#bs_quantity').keyup(function () {
+                $('#id_quantity').val($(this).val());
+            });
+
+            $('#auc_quantity').keyup(function () {
+                $('#id_quantity').val($(this).val());
+            });
+
+            $('#sl_quantity').keyup(function () {
+                $('#id_quantity').val($(this).val());
+            });
+
+{#            HACK for auction price fields #}
+            $('#startPrice').keyup(function () {
+                $('#id_min_price').val($(this).val());
+            });
+
+            $('#reservePrice').keyup(function () {
+                $('#id_reserve_price').val($(this).val());
+            });
+
+            $('#endPrice').keyup(function () {
+                $('#id_max_price').val($(this).val());
+            });
+
+            function check_login_url(xhr) {
+                var login_url = '{% url "accounts:login" %}' + "?next={% url 'goods:add_good' %}";
+                if (xhr.responseText.indexOf('login') != -1 ) {
+                    // Check if response doesn't contain redirect to login. If it contains - redirect to login window
+                    window.location = login_url;
+                }
+            }
+
+            function addTagFunctionCliked() {
+                // add tag
+                var new_tag_name = $('#your-own-category').val();
+                $.post('{% url "goods:add_new_tag" %}', {
+                    tag_name: new_tag_name
+                },
+                function (data, status, xhr) {
+                    // Check if user logged in
+                    check_login_url(xhr);
+                    if (data['status'] == 'ok') {
+                        // if creation success append html with new tag link to div
+                        $('#tagslist').append('<p><a href="#" onclick="tagFunctionCliked(' + data['id'] +')" data-action="add" id="tag' +
+                                data['id'] + '">' + new_tag_name + '</a></p>');
+                        $('#your-own-category').val('');
+                    }
+                }
+                );
+            }
+
+             function tagFunctionCliked(tag_id) {
+                 // Get tag id and send AJAX request to filter
+                 var tag_id_attr = '#tag' + tag_id; // form tagid selector
+                 if ($(tag_id_attr).data('action') == 'add') {
+                    // if array doesn't exist - create it
+                    $('#id_tags').val($('#id_tags').val() + $(tag_id_attr).text() + ',');
+                    // change css and action
+                    $(tag_id_attr).data('action', 'remove');
+                    $(tag_id_attr).css('color', '#b1fe00');
+                } else {
+                     // Remove selected id from array
+                     $('#id_tags').val($('#id_tags').val().replace($(tag_id_attr).text() + ',', ''));
+                     $(tag_id_attr).data('action', 'add');
+                     $(tag_id_attr).css('color', '#000000');
+                 }
+            }
+
+	    </script>
+	</body>
+</html>

@@ -1,0 +1,271 @@
+{% extends "basis.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% load cart_tags %}
+{% load thumbnail %}
+{% block title %}
+    {% if page == 'search' %}
+        Search result for: {{ search_request }}
+    {% else %}
+        Filtered results
+    {% endif %}
+{% endblock %}
+{% block scripts %}
+    <!--<link rel="stylesheet" href="{% static 'css/categories/Mstyle-.css' %}" type="text/css" media="all">-->
+    <link rel="stylesheet" href="{% static 'css/categories/filter.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/categories.css'%}" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/good_modal.css' %}">
+    
+
+    <!-- Add modal window (fancybox) functionality -->
+        <link rel="stylesheet" href="{% static 'js/fancybox2_1_5/jquery.fancybox.css' %}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{% static 'js/fancybox2_1_5/jquery.fancybox.pack.js' %}"></script>
+    <!-- end -->
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/categories/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/categories/html5.js' %}"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/categories/fb-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <!-- Fancy box initialize and set options -->
+    <script type="text/javascript" src="/static/js/blocksit.js"></script>
+    
+{% endblock %}
+{% block content %}
+	<!--<div class="sixteen wide center aligned column">
+		<div class="slide">
+            <img src="{% static 'images/categories/banner-one_03.jpg' %}">
+        </div>
+	    <div class="slide">
+            <img src="{% static 'images/categories/banner-two_03.jpg' %}">
+        </div>
+    </div>-->
+    <input type="hidden" id="page_type" value="{{ page }}"/>
+	<div id="post-header" class="sixteen wide center aligned column padless">
+	    <div class="ui segment">
+	        <table id="goods_type" class="ui very basic fixed table">
+	            <tr>
+	                <td class="center floated">
+	                    <a href="#" id="post-header-button1" onclick="filterByDealType({{ SALE }})">
+                            <img src="{% static 'images/categories/procentage-icon.png' %}">
+                        </a>
+                    </td>
+                    <td id="add_cell" class="collapsing center floated">
+	                    <a href="{% url 'goods:add_good' %}" id="post-header-button2" class="button-icons">
+		                    <img class="orange-buttons" src="{% static 'images/categories/vitrin-icon.png' %}">
+		                    <!--<img class="green-buttons active" src="{% static 'images/categories/main-cart-icon.png' %}">-->
+                        </a>
+                    </td>
+                    <td class="center floated">
+	                    <a href="#" id="post-header-button3">
+                            <img src="{% static 'images/categories/hammer-icon.png' %}">
+                        </a>
+                    </td>
+	            </tr>
+	        </table>
+	    </div>
+	</div>
+	<div class="sixteen wide column padless">
+	    <div class="ui segment grid">
+	        <div id="wrapper-tabs" class="sixteen wide column center aligned">
+	        <!--<span>
+		        <a href="#" class="tab1">{% trans 'past' %}</a>
+		        <a href="#" class="tab2">{% trans 'present' %}</a>
+		        <a href="#" class="tab3">{% trans 'future' %}</a>
+		        <div class="clear"></div>
+	        </span>-->
+		    <span class="copy">
+                {% if page == 'search' %}
+                    {{ search_request }}
+                    <input type="hidden" id="requestVal" value="{{ search_request }}">
+                {% endif %}
+            </span>
+            
+	        <!--<div class="cross-goods">
+                <img src="{% static 'images/categories/cross-little-icon.png' %}">
+            </div>
+	        <div class="visibility-eye active">
+		        <img class="active" src="{% static 'images/categories/open-eye-icon.png' %}">
+		        <img src="{% static 'images/categories/closed-eye-icon.png' %}">
+	        </div>-->
+		    <div id="sort-min">
+		        <table class="ui very basic fixed table">
+                    <tbody>
+                        <tr>
+                            <td class="center aligned copy">
+                                <i id="sort-price-up" class="angle up icon"></i>
+				                <span>{% trans 'price' %}</span>
+				                <i id="sort-price-down" class="angle down icon"></i>
+                            </td>
+                            <td class="center aligned copy">
+                                {{ objects_count }} lot{{ objects_count|pluralize }}
+                            </td>
+                            <td class="center aligned copy">
+                                <i id="sort-down" id="sort-data-up" class="angle up icon"></i>
+				                <span>{% trans 'date' %}</span>
+				                <i id="sort-data-down" class="angle down icon"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+		    </div>
+		    <div class="ui divider"></div>
+		</div>
+		<div class="sixteen wide column padless">
+            <div id="category-container">
+                {% include "search_category_ajax.html" %}
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="sixteen wide center aligned column">
+        <a class="ui basic grey button" href="" id="lazy_more">{% trans 'MORE' %}</a>
+    </div>
+    <section class="filter-toggle">
+	    <img class="photo-centre" src="{% static 'images/categories/toggle-filter.png' %}">
+    </section>
+    <section class="filter clearfix">
+    <!-- Filters block -->
+        <section class="filter-toggle-inner">
+            <img class="photo-centre" src="{% static 'images/categories/toggle-filter.png' %}">
+        </section>
+        <div class="first-block">
+            <div class="second-search-box">
+                <input type="text" class="name" placeholder="{% trans 'Search by name' %}" id="name_search_filter">
+            </div>
+            <div id="price-range"></div>
+		        <div class="clearfix cost">
+		        	<div class="from">
+		        		<input type="text" class="input-costs walidate-me" id="min_cost_filter">
+		        	</div>
+		        	<div class="block-price">
+		        		<div class="rang">{% trans 'Price' %}</div>
+		        		<div id="open-category">
+		        	      <img class="open-bottom" src="{% static 'images/categories/sort-down.png' %}">
+		                </div>
+		        	</div>
+                    <div class="costs-end">
+		        		<input type="text" class="input-costs walidate-me" id="max_cost_filter">
+                    </div>
+		        </div>
+		    </div>
+		<div class="big-hidden-block">
+		        <div class="info">
+		    	    <p class="black">{% trans 'Info' %}</p>
+                    <div class="open-window">
+			    	    <div class="info-words clearfix">
+			    		    <div class="location">
+			    		        <p>{% trans 'Location' %}</p>
+	                            <div class="location-block">
+					       	        <img class="location-img" src="{% static 'images/categories/pointer-icon.png' %}">
+					       	        <input class="location-input" type="text" id="location_filter">
+					       	    </div>
+			    		    </div>
+			    		    <div class="form-deal">
+			    		        <p>{% trans 'Type of deal' %}</p>
+							    <div id='slider-popup-1' class="popup-slider">
+							        <div data-deal="{{ BUY_SELL }}">{% trans 'Buy/Sell' %}</div>
+							        <div data-deal="{{ SALE }}">{% trans 'Sale' %}</div>
+							        <div data-deal="{{ AUCTION }}">{% trans 'Auction' %}</div>
+							    </div>
+			    		    </div>
+			    		    <div class="condition">
+			    		        <p>{% trans 'Condition' %}</p>
+							    <div id='slider-popup-2' class="popup-slider">
+							        <div data-state="{{ NEW }}">{% trans 'New' %}</div>
+							        <div data-state="{{ USED }}">{% trans 'Used' %}</div>
+							    </div>
+			    		    </div>
+			    		    <div class="options">
+			    		        <p>{% trans 'Delivery options' %}</p>
+							    <div id='slider-popup-3' class="popup-slider">
+							        <div data-delivery="{{ MAIL }}">{% trans 'Mail' %}</div>
+							        <div data-delivery="{{ HANDS }}">{% trans 'Hands' %}</div>
+							        <div data-delivery="{{ LOGISTIC }}">{% trans 'Logistic' %}</div>
+							        <div data-delivery="{{ COURIER }}">{% trans 'Courier' %}</div>
+							        <div data-delivery="{{ PICKUP }}">{% trans 'Pickup' %}</div>
+							    </div>
+			    		    </div>
+			    		    <div class="cooperation">
+			    		        <p>{% trans 'Cooperation' %}</p>
+		 					    <div class="location-block">
+						       	    <img class="location-img" src="{% static 'images/categories/pointer-icon.png' %}">
+						       	    <input class="location-input" type="text" id="cooperation_filter">
+					       	    </div>
+			    		    </div>
+			    	    </div>
+		            </div>
+                </div>
+		        <div class="block-category clearfix">
+			        <div class="black">
+			            <p>{% trans 'Tags' %}</p>
+			        </div>
+			        <div class="open-window">
+                        <div style="column-count: 4" id="tagslist">
+                            {% for tag in all_tags %}
+                                <p>
+                                    <a href="#" onclick="tagFunctionCliked({{ tag.id }})" data-action="add" id="tag{{ tag.id }}">
+                                        {{ tag.name }}
+                                    </a>
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+	            </div>
+	            <div class="block-new-category">
+                    <div class="black">
+                        <p>
+                            {% trans 'Do you want to add a tag?' %}
+                        </p>
+                    </div>
+                    <div class="open-window">
+                        <input type="text" id="your-own-category">
+                        <div class="hidden-new-category">
+                            <div class="new-name">
+                                <div class="new-witrin-name">{% trans 'Enter tag name' %}</div>
+                                <div class="add-img-new">
+                                    <a href="#" onclick="addTagFunctionCliked()"><img src="{% static 'images/categories/vitrin-icon.png' %}"></a>
+                                </div>
+                            </div>
+				        </div>
+			        </div>
+	            </div>
+	            <div class="block-product-characteristics clearfix">
+                    <div class="black"><p>{% trans 'Product features' %}</p></div>
+                    <div class="open-window">
+                        <div class="description-product">
+                            <input type="text" placeholder="{% trans 'trade mark' %}" id="trade_mark_filter">
+                            <input type="text" placeholder="{% trans 'model' %}" id="model_filter">
+                        </div>
+                        <div class="description-product">
+                            <input type="text" placeholder="{% trans 'material' %}" id="material_filter">
+                            <input type="text" placeholder="{% trans 'size' %}" class="validate-me" id="size_filter">
+                        </div>
+                        <div class="description-product">
+                            <input type="text" placeholder="{% trans 'color' %}" id="color_filter">
+                            <input type="text" placeholder="{% trans 'weight' %}" class="validate-me" id="weight_filter">
+                        </div>
+                        <div class="description-product-last">
+                            <input type="text" placeholder="{% trans 'equipment' %}" id="equipment_filter">
+                            <input type="text" placeholder="{% trans 'vendor' %}" id="vendor_filter">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="bottom-filter">
+                <div class="result">
+                    <p>{% trans 'Result' %}</p>
+                    <p id="count_result">0</p>
+                </div>
+                <div class="">
+                    <ul class="done clearfix">
+                        <li class="clearAll">Сбросить</li>
+                        <li class="okay"><a href="#" onclick="redirectToFilterResults()">OK</a></li>
+                        <li class="closeAll">Закрыть</li>
+                    </ul>
+                </div>
+            </div>
+    </section>
+    <script type="text/javascript" src="{% static 'js/categories.js' %}"></script>
+{% endblock %}

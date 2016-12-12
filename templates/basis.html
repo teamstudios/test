@@ -1,0 +1,94 @@
+<!doctype html>
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% load cart_tags %}
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'semantic/dist/semantic.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/static/semantic/dist/semantic.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% block scripts %}{% endblock %}
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div id="up"><i class="angle up icon"></i></div>
+    <div id="content" class="ui grid container">
+      <a href="{% url 'cart:showcase_detail' %}" id="vitrina-icon-bottom">
+	         <img src="/static/images/account/vitrina-icon-bottom-n.png">
+	         {% if show_showcase_count %}<div class="ui red circular label">{% show_showcase_count %}</div>{% endif %}
+      </a>
+      <a href="{% url 'cart:cart_detail' %}" id="cart-icon-bottom">
+	       <img src="/static/images/account/cart-icon-bottom-n.png">
+	       {% if show_carts_count %}<div class="ui red circular label">{% show_carts_count %}</div>{% endif %}
+      </a>
+            <div class="sixteen wide center aligned column" id="topbar">
+                <table>
+                    <tr class="olive">
+                        <td><a id="search_button" href="javascript:;" class="icon-search"></a></td>
+                        <td class="hideon"><a href="#" class="icon-bf"></a></td>
+                        <td class="hideon">
+                            <a href="{% url 'chat:show_thread_list' %}" class="icon-message"></a>
+                            {% if request.user|show_unread_message_count %}<div class="ui red circular label">{{ request.user|show_unread_message_count|safe }}</div>{% endif %}
+                        </td>
+                        <td class="hideon">
+                            <a href="{% url 'goods:show_wishlist' %}" class="icon-wishlist"></a>
+                            
+                        </td>
+                        <td class="hideon">{% if request.user.is_authenticated %}
+                            <a href="{{ request.user.profile.get_absolute_url }}" class="icon-main"></a>
+                            {% endif %}
+                        </td>
+                        <td class="hideon">
+                            <a href="{% url 'accounts:show_subscriptions' %}" class="icon-users"></a>
+                            {% if request.user|show_count_subscriptions > 0 %}<div class="ui red circular label">{{ request.user|show_count_subscriptions }}</div>{% endif %}
+                        </td>
+                        <td class="hideon"><a href="#" class="icon-statistic"></a></td>
+                        <td class="hideon"><a href="{% url 'accounts:profile' %}" class="icon-settings"></a></td>
+                        <td class="hideon"><a href="#" class="icon-globe"></a></td>
+                        <td id="search_input" class="hiden" colspan="8">
+                            <form action="/goods/search/" method="get">
+                                <input autocomplete="off" class="search olive" id="id_query" name="query" placeholder="{% trans 'Search' %}" type="text">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% block content %}{% endblock %}
+        <div id="footer" class="sixteen wide center aligned column">
+                ПРИСОЕДИНЯЙТЕСЬ К НАМ<br></br>
+                <button class="ui circular grey icon button">
+                    <i class="vk icon"></i>
+                </button>
+                <button class="ui circular grey icon button">
+                    <i class="facebook f icon"></i>
+                </button>
+                <button class="ui circular grey icon button">
+                    <i class="odnoklassniki icon"></i>
+                </button>
+                <button class="ui circular grey icon button">
+                    <i class="google plus icon"></i>
+                </button>
+                <button class="ui circular grey icon button">
+                    <i class="twitter icon"></i>
+                </button>
+                <button class="ui circular grey icon button">
+                    <i class="pinterest icon"></i>
+                </button>
+                <br></br>
+                SELL-N-BUY. ALL RIGHTS RESERVED. ВСЕ ПРАВА ЗАЩИЩЕНЫ.<br></br>
+                2016
+            </div>
+</body>
+</html>

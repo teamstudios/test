@@ -1,0 +1,17 @@
+.slider ul{
+	position: relative;
+	left: 3px;
+}
+
+.slider ul li{
+	float: left;
+	margin: 0 4px;
+}
+
+.slider ul li a img{
+	border: 1px solid #fff;
+}
+
+.slider ul li.active a img{
+	border: 1px solid #000;
+}

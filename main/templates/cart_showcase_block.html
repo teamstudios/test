@@ -1,0 +1,10 @@
+{% load staticfiles %}
+{% load cart_tags %}
+<a href="{% url 'cart:showcase_detail' %}" id="vitrina-icon-bottom">
+    <span>{% show_showcase_count %}</span>
+    <img src="{% static 'images/wishlist/vitrina-icon-bottom-n.png' %}">
+</a>
+<a href="{% url 'cart:cart_detail' %}" id="cart-icon-bottom">
+    <span>{% show_carts_count %}</span>
+    <img src="{% static 'images/wishlist/cart-icon-bottom-n.png' %}">
+</a>

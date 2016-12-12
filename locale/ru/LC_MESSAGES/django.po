@@ -1,0 +1,2673 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-30 11:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: accounts/forms.py:15 accounts/forms.py:39
+msgid "Your mobile phone number"
+msgstr "Ваш мобильный телефон"
+
+#: accounts/forms.py:16 accounts/forms.py:54
+msgid "Confirm code"
+msgstr "Код подтверждения"
+
+#: accounts/forms.py:17
+msgid "I agree to the user agreement"
+msgstr "Я согласен с пользовательским соглашением"
+
+#: accounts/forms.py:24 accounts/forms.py:46
+msgid "Your phone should be in format 79994567891 or 89994567891"
+msgstr "Ваш номер телефона должен быть в формате 79994567891 или 89994567891"
+
+#: accounts/forms.py:96
+#, python-format
+msgid "The new password must be at least %d characters long."
+msgstr "Новый пароль должен быть длинной %d символов."
+
+#: accounts/forms.py:100
+msgid ""
+"\n"
+"                The new password must contain at least one letter and at "
+"least one digit or punctuation character."
+msgstr ""
+"\n"
+"               Новый пароль должен содержать как минимум 1 букву, "
+"1 цифру и один специальный символ."
+
+#: accounts/functions.py:86
+msgid "Activation code expired or not valid!"
+msgstr "Код активации истек или не верен!"
+
+#: accounts/functions.py:102
+msgid "Profile activated successfully! You should change your password!"
+msgstr "Аккаунт активирован успешно! Вам необходимо изменить пароль!"
+
+#: accounts/models.py:29 goods/models.py:54 pages/models.py:18
+msgid "Title"
+msgstr "Название"
+
+#: accounts/models.py:30
+msgid "Network ID"
+msgstr "ID сети"
+
+#: accounts/models.py:55 accounts/templates/user_search.html:140
+msgid "Private person"
+msgstr "Частное лицо"
+
+#: accounts/models.py:56 accounts/templates/user_search.html:139
+msgid "Legal entity"
+msgstr "Юридическое лицо"
+
+#: accounts/models.py:60
+msgid "MALE"
+msgstr "Мужчина"
+
+#: accounts/models.py:61
+msgid "FEMALE"
+msgstr "Женщина"
+
+#: accounts/models.py:62 accounts/models.py:67
+msgid "NOT DEFINED"
+msgstr "Не определено"
+
+#: accounts/models.py:65
+msgid "LIME"
+msgstr ""
+
+#: accounts/models.py:66
+msgid "ORANGE"
+msgstr ""
+
+#: accounts/models.py:70
+msgid "Offline"
+msgstr "Не в сети"
+
+#: accounts/models.py:71
+msgid "Online"
+msgstr "В сети"
+
+#: accounts/models.py:75
+msgid "Avatar"
+msgstr "Аватар"
+
+#: accounts/models.py:76
+msgid "Cover"
+msgstr "Обложка"
+
+#: accounts/models.py:77 accounts/templates/account.html:160
+msgid "About"
+msgstr "Обо мне"
+
+#: accounts/models.py:78
+msgid "SEX"
+msgstr "Пол"
+
+#: accounts/models.py:79
+msgid "Form of incorporation"
+msgstr "Форма собственности"
+
+#: accounts/models.py:80 accounts/templates/account.html:130
+msgid "Country"
+msgstr "Страна"
+
+#: accounts/models.py:81 accounts/templates/account.html:131
+msgid "City"
+msgstr "Город"
+
+#: accounts/models.py:82 accounts/templates/account.html:125
+#: goods/templates/good.html:490
+msgid "Phone"
+msgstr "Телефон"
+
+#: accounts/models.py:83 accounts/templates/account.html:126
+#: accounts/templates/user_page.html:339 goods/templates/good.html:492
+msgid "Additional phone"
+msgstr "Доп. телефон"
+
+#: accounts/models.py:87
+msgid "Google map link"
+msgstr "ССылка на Google Maps"
+
+#: accounts/models.py:88
+msgid "Profile link"
+msgstr "Ссылка на профиль"
+
+#: accounts/models.py:89
+msgid "Theme"
+msgstr "Тема"
+
+#: accounts/models.py:90
+msgid "User online status"
+msgstr "Статус пользователя"
+
+#: accounts/models.py:91
+msgid "Allow auto post to"
+msgstr "Разрешить автопостинг в"
+
+#: accounts/models.py:96
+msgid "Current avatar"
+msgstr "Текущий аватар"
+
+#: accounts/models.py:174 accounts/templates/user_page.html:657
+#: goods/models.py:254
+msgid "Comment"
+msgstr "Комментарий"
+
+#: accounts/models.py:216
+msgid "Text"
+msgstr "Текст"
+
+#: accounts/models.py:227 chat/templates/threads_list.html:61
+msgid "User"
+msgstr "Пользователь"
+
+#: accounts/models.py:228
+msgid "Card number"
+msgstr "Номер карты"
+
+#: accounts/models.py:229
+msgid "Month"
+msgstr "Месяц"
+
+#: accounts/models.py:230
+msgid "Year"
+msgstr "Год"
+
+#: accounts/templates/account.html:5
+msgid "Edit your account"
+msgstr "Редактировать ваш аккаунт"
+
+#: accounts/templates/account.html:109
+msgid "Account settings"
+msgstr "Настройки аккаунта"
+
+#: accounts/templates/account.html:116 main/templates/index.html:5
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#: accounts/templates/account.html:121
+msgid "Profile"
+msgstr "Профиль"
+
+#: accounts/templates/account.html:123
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: accounts/templates/account.html:129
+msgid "Web-site"
+msgstr ""
+
+#: accounts/templates/account.html:132
+msgid "You are?"
+msgstr "Вы?"
+
+#: accounts/templates/account.html:133 accounts/templates/user_search.html:152
+#: goods/templates/good.html:506
+msgid "Sex"
+msgstr "пол"
+
+#: accounts/templates/account.html:158
+msgid "Information"
+msgstr "Инфомрация"
+
+#: accounts/templates/account.html:170
+msgid "Automaticly publish in"
+msgstr "Автоматически публиковать в"
+
+#: accounts/templates/account.html:181
+msgid "Your page addree"
+msgstr "Адрес вашей страницы"
+
+#: accounts/templates/account.html:183
+msgid "Page address"
+msgstr "Адрес страницы"
+
+#: accounts/templates/account.html:191
+msgid ""
+"\n"
+"                            You can change the short address of your page to "
+"a convenient and memorable. To do this, enter the page name consisting of "
+"letters, numbers or symbols \"_\".\n"
+"                        "
+msgstr ""
+"\n"
+"                            Вы можете изменить короткий адрес вашей страницы на "
+"более удобный и запоминающийся. Для этого введите название страницы, состоящее из "
+"букв, цифр или символов \"_\".\n"
+"                        "
+
+#: accounts/templates/account.html:198
+msgid "Change address"
+msgstr "Изменить адрес"
+
+#: accounts/templates/account.html:202 accounts/templates/user_page.html:1055
+#: goods/templates/good.html:333
+msgid "Edit"
+msgstr "Изменить"
+
+#: accounts/templates/account.html:203
+msgid "Delete account"
+msgstr "Удалить аккаунт"
+
+#: accounts/templates/account.html:208
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: accounts/templates/account.html:210
+msgid "Current password"
+msgstr ""
+
+#: accounts/templates/account.html:211
+msgid "New password"
+msgstr ""
+
+#: accounts/templates/account.html:212
+msgid "Confirm password"
+msgstr "Текущий пароль"
+
+#: accounts/templates/account.html:228
+#: accounts/templates/registration/login.html:50
+msgid "Did you forget your account or password?"
+msgstr "Вы забыли имя пользователя или пароль"
+
+#: accounts/templates/registration.html:5
+msgid "Registration"
+msgstr "Регистрация"
+
+#: accounts/templates/registration.html:37
+msgid "Sign up via e-mail"
+msgstr "Регистрация через email"
+
+#: accounts/templates/registration.html:49
+msgid "Sign up with your phone"
+msgstr "Регистрация через телефон"
+
+#: accounts/templates/registration.html:72
+msgid "Create account"
+msgstr "Создать аккаунт"
+
+#: accounts/templates/registration/logged_out.html:5
+#: accounts/templates/registration/logged_out.html:32
+msgid "Logged out"
+msgstr "Вы вышли"
+
+#: accounts/templates/registration/logged_out.html:38
+#: accounts/templates/registration/login.html:51
+msgid "Or you can sign in via"
+msgstr "Вы можете войти через"
+
+#: accounts/templates/registration/logged_out.html:48
+#: accounts/templates/registration/login.html:61
+msgid "More than a 1000 items"
+msgstr "Более чем 1000 вещей"
+
+#: accounts/templates/registration/logged_out.html:50
+#: accounts/templates/registration/login.html:63
+msgid ""
+"\n"
+"                    Register in <span>45</span> seconds!\n"
+"                "
+msgstr ""
+"\n"
+"                    Регистрация за <span>45</span> секунд!\n"
+"                "
+
+#: accounts/templates/registration/login.html:5
+msgid "Login"
+msgstr "Логин"
+
+#: accounts/templates/registration/login.html:32
+msgid "Sign up"
+msgstr "Регистрация"
+
+#: accounts/templates/registration/login.html:33
+msgid "or"
+msgstr "или"
+
+#: accounts/templates/registration/login.html:34
+msgid "Do you have an account?"
+msgstr "У вас уже есть аккаунт?"
+
+#: accounts/templates/registration/login.html:46
+msgid "show password"
+msgstr "Показать пароль"
+
+#: accounts/templates/registration/login.html:48
+msgid "Sign in"
+msgstr "Войти"
+
+#: accounts/templates/reset_email_sent.html:5
+msgid "Reset email was sent"
+msgstr "Email для сброса пароля было отправлено"
+
+#: accounts/templates/reset_email_sent.html:18
+msgid ""
+"\n"
+"                    <p style=\"font-size: 8px; margin-top: 130px\">We've "
+"mailed you instructions for setting your password.</p>\n"
+"                    <p style=\"font-size: 8px\">\n"
+"                        If you don't receive an email, please make sure "
+"you've entered the address you registered with.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+"\n"
+"                    <p style=\"font-size: 8px; margin-top: 130px\">Мы "
+"отправили вам инструкции для сброса пароля.</p>\n"
+"                    <p style=\"font-size: 8px\">\n"
+"                        Если вы не получили сообщение, убедитесь "
+"что вы ввели email, с которым вы регистрировались.\n"
+"                    </p>\n"
+"                "
+
+#: accounts/templates/reset_password.html:5
+msgid "Set up your password"
+msgstr "Установить пароль"
+
+#: accounts/templates/reset_password.html:32
+msgid "Set your password"
+msgstr "Установить пароль"
+
+#: accounts/templates/reset_password.html:46
+msgid "Set password"
+msgstr "Установить пароль"
+
+#: accounts/templates/restore.html:5
+msgid "Restore password"
+msgstr "Восстановить пароль"
+
+#: accounts/templates/restore.html:21
+msgid "Recover password via e-mail"
+msgstr "Восстановить пароль по email"
+
+#: accounts/templates/restore.html:35
+msgid ""
+"\n"
+"                                        Enter your e-mail, which you used "
+"when registering for Sell-n-Buy.\n"
+"                                        <br>  We will send your password to "
+"this address.\n"
+"                                    "
+msgstr ""
+"\n"
+"                                        Введите email, который вы использовали "
+"при регистрации на Sell-n-Buy.\n"
+"                                        <br>  Мы отправим вам пароль на "
+"этот адрес.\n"
+"                                    "
+
+#: accounts/templates/restore.html:41
+msgid "Reset your password using the telephone"
+msgstr "Сбросить пароль через телефон"
+
+#: accounts/templates/restore.html:57
+msgid ""
+"\n"
+"                                    Enter the phone number that you used "
+"when registering for Sell-n-Buy.\n"
+"<br> We will send your password to this number.\n"
+"                                "
+msgstr ""
+"\n"
+"                                    Введите номер телефона который вы использовали "
+"при регистрации на Sell-n-Buy.\n"
+"<br> мы отправим вам пароль на этот номер.\n"
+"                                "
+
+#: accounts/templates/restore.html:62
+msgid "back"
+msgstr "Назад"
+
+#: accounts/templates/user_page.html:171
+#: accounts/templates/user_search.html:26 goods/templates/good.html:96
+#: goods/templates/good_modal.html:23
+msgid "Unfollow"
+msgstr "отписаться"
+
+#: accounts/templates/user_page.html:172 accounts/templates/user_page.html:442
+#: accounts/templates/user_search.html:27
+#: accounts/templates/user_search_ajax.html:26 goods/templates/good.html:97
+#: goods/templates/good_modal.html:24
+msgid "Follow"
+msgstr "Подписаться"
+
+#: accounts/templates/user_page.html:307
+msgid "Contacts"
+msgstr "Контакты"
+
+#: accounts/templates/user_page.html:315 goods/templates/good.html:481
+msgid "Address"
+msgstr "Адрес"
+
+#: accounts/templates/user_page.html:323
+#: accounts/templates/user_search.html:136 goods/templates/good.html:504
+msgid "Is an"
+msgstr "Является"
+
+#: accounts/templates/user_page.html:327
+msgid "Contact phone"
+msgstr "Контактный телефон"
+
+#: accounts/templates/user_page.html:335
+msgid "sex"
+msgstr "пол"
+
+#: accounts/templates/user_page.html:354
+msgid "Reviews"
+msgstr "Отзывы"
+
+#: accounts/templates/user_page.html:363
+msgid "total marks"
+msgstr "Всего оценок"
+
+#: accounts/templates/user_page.html:404
+msgid "No reviews yet."
+msgstr "Нет отзывов"
+
+#: accounts/templates/user_page.html:409
+msgid "write review"
+msgstr "Написать отзыв"
+
+#: accounts/templates/user_page.html:465 cart/templates/cart_detail.html:222
+#: cart/templates/showcase_detal.html:144
+#: goods/templates/search_categories.html:297
+msgid "price"
+msgstr "цена"
+
+#: accounts/templates/user_page.html:471 cart/templates/cart_detail.html:228
+#: cart/templates/showcase_detal.html:150
+#: goods/templates/search_categories.html:303
+msgid "date"
+msgstr "Дата"
+
+#: accounts/templates/user_page.html:487
+msgid "Intresting goods"
+msgstr "Интересные товары"
+
+#: accounts/templates/user_page.html:499 cart/templates/cart_detail.html:295
+#: goods/templates/good.html:336 goods/templates/good.html:620
+#: goods/templates/good.html:641 goods/templates/good_modal.html:226
+#: goods/templates/wish_list.html:282 goods/templates/wish_list.html:398
+msgid "Buy"
+msgstr "Купить"
+
+#: accounts/templates/user_page.html:511 goods/templates/good.html:263
+#: goods/templates/good.html:648
+msgid "seller"
+msgstr "продавец"
+
+#: accounts/templates/user_page.html:519
+msgid "No goods found"
+msgstr "Товаров не найдено"
+
+#: accounts/templates/user_page.html:528 accounts/templates/user_page.html:543
+#: accounts/templates/user_page.html:558 accounts/templates/user_page.html:622
+msgid "Upload image"
+msgstr "Загрузить изображение"
+
+#: accounts/templates/user_page.html:532 accounts/templates/user_page.html:547
+msgid "Take photo from the device"
+msgstr "Сфотографировать с устройства"
+
+#: accounts/templates/user_page.html:536 accounts/templates/user_page.html:551
+msgid "Upload from the device"
+msgstr "Загрузить с устройства"
+
+#: accounts/templates/user_page.html:564 accounts/templates/user_page.html:627
+msgid "Choose file"
+msgstr "Выбрать файл"
+
+#: accounts/templates/user_page.html:643
+msgid "Complain"
+msgstr "Пожаловаться"
+
+#: accounts/templates/user_page.html:646
+msgid "Reason"
+msgstr "Причина"
+
+#: accounts/templates/user_page.html:648 complaints/models.py:18
+msgid "Owner profile is impersonating another"
+msgstr "Пользователь выдает себя за другого"
+
+#: accounts/templates/user_page.html:650 complaints/models.py:19
+msgid "Fraud"
+msgstr "Мошеничество"
+
+#: accounts/templates/user_page.html:652 complaints/models.py:20
+msgid "Spam"
+msgstr "Спам"
+
+#: accounts/templates/user_page.html:654 complaints/models.py:21
+msgid "Advertising page clog up search"
+msgstr "Реклама, засоряющая поиск"
+
+#: accounts/templates/user_page.html:662 accounts/templates/user_page.html:868
+msgid "Unblock"
+msgstr "Разблокировать"
+
+#: accounts/templates/user_page.html:664 accounts/templates/user_page.html:869
+msgid "Block"
+msgstr "Заблокировать"
+
+#: accounts/templates/user_page.html:669
+msgid "No, cancel"
+msgstr "Нет, отмена"
+
+#: accounts/templates/user_page.html:673
+msgid "Yes, confirm"
+msgstr "Да, подтверждаю"
+
+#: accounts/templates/user_page.html:676
+msgid "I do not want to this account could send me messages"
+msgstr "Я не хочу, что бы этот пользователь отправлял мне сообщения"
+
+#: accounts/templates/user_page.html:683
+msgid "Review"
+msgstr "Отзыв"
+
+#: accounts/templates/user_page.html:685
+msgid "Your mark"
+msgstr "Ваша оценка"
+
+#: accounts/templates/user_page.html:1062
+msgid "Checkout"
+msgstr ""
+
+#: accounts/templates/user_search.html:11
+msgid "User search"
+msgstr "Поиск пользователя"
+
+#: accounts/templates/user_search.html:112 chat/models.py:16
+msgid "Users"
+msgstr "Пользователи"
+
+#: accounts/templates/user_search.html:116
+msgid "Name"
+msgstr "Имя"
+
+#: accounts/templates/user_search.html:125 goods/templates/add_good.html:317
+#: goods/templates/search_categories.html:349
+msgid "Info"
+msgstr "инфо"
+
+#: accounts/templates/user_search.html:129 goods/models.py:74
+#: goods/templates/add_good.html:384 goods/templates/good.html:406
+#: goods/templates/search_categories.html:353
+msgid "Location"
+msgstr "Локация"
+
+#: accounts/templates/user_search.html:138
+#: accounts/templates/user_search.html:146
+#: accounts/templates/user_search.html:154
+msgid "not defined"
+msgstr "не определено"
+
+#: accounts/templates/user_search.html:144
+msgid "Status"
+msgstr "Статус"
+
+#: accounts/templates/user_search.html:155
+msgid "male"
+msgstr "мужчина"
+
+#: accounts/templates/user_search.html:156
+msgid "female"
+msgstr "женщина"
+
+#: accounts/templates/user_search.html:160 goods/models.py:67
+#: goods/templates/add_good.html:410
+#: goods/templates/search_categories.html:385
+msgid "Cooperation"
+msgstr "сотрудничество"
+
+#: accounts/templates/user_search.html:171
+#: goods/templates/search_categories.html:396
+msgid "Tags"
+msgstr "Теги"
+
+#: accounts/templates/user_search.html:186
+msgid "Do you want add a tag?"
+msgstr "Вы хотите добавить тег?"
+
+#: accounts/templates/user_search.html:191
+#: goods/templates/search_categories.html:420
+msgid "Enter tag name"
+msgstr "Введите имя тега"
+
+#: accounts/templates/user_search.html:204
+#: goods/templates/search_categories.html:452
+msgid "Result"
+msgstr "результат"
+
+#: accounts/views.py:63 accounts/views.py:66
+msgid "User with this email already exists"
+msgstr ""
+
+#: accounts/views.py:77
+msgid ""
+"Hello! You was registered on site storesb.com. \n"
+"\n"
+"                    Your username: {username} \n"
+"\n"
+"                    You should activate your account by clicking this link:\n"
+"                    <a href=\"http://{site}/accounts/activation/{token}\">\n"
+"                    http://{site}/accounts/activation/{token}\n"
+"                    </a> \n"
+"\n"
+"                    Thank you!"
+msgstr ""
+"Здравствуйте! Вы зарегистрировались на сайте storesb.com. \n"
+"\n"
+"                   Ваше имя пользователя: {username} \n"
+"\n"
+"                    Вам необходимо активировать аккаунт, перейдя по ссылке:\n"
+"                    <a href=\"http://{site}/accounts/activation/{token}\">\n"
+"                    http://{site}/accounts/activation/{token}\n"
+"                    </a> \n"
+"\n"
+"                    Спасибо!"
+
+#: accounts/views.py:86
+msgid ""
+"On this E-mail has been sent a letter.\n"
+"                Click the link contained in it to complete the registration."
+msgstr ""
+"На этот email было отправлено сообщение.\n"
+"                Для завершения регистрации перейдите по ссылке в письме."
+
+#: accounts/views.py:91 accounts/views.py:94
+msgid "User with this phone already exists"
+msgstr "Пользователь с таким телефоном уже зарегистрирован"
+
+#: accounts/views.py:110
+msgid ""
+"Enter the verification code in the SMS to complete the registration. You can "
+"request code again after 45 seconds"
+msgstr ""
+"Введите код из СМС для завершения регистрации. Вы можете запросить код снова "
+"через 45 секунд"
+
+#: accounts/views.py:176
+msgid "Your password was changed"
+msgstr "Ваш пароль был изменен"
+
+#: accounts/views.py:184
+msgid "Your profile was updated successfully"
+msgstr "Ваш профиль был успешно изменен"
+
+#: accounts/views.py:186
+msgid "Request error!"
+msgstr "Ошибка запроса"
+
+#: accounts/views.py:227
+msgid "User with this email doesn't exists"
+msgstr "Пользователь с таким email не существует"
+
+#: accounts/views.py:234
+msgid ""
+"Someone asked for password reset for email {email} on site storesb.com.\n"
+"                    Follow the link below: <a href=\"http://{site}"
+"{link}\">http://{site}{link}</a>\n"
+"                    Your username, in case you've forgotten: {username}\n"
+"                    Thank you!"
+msgstr ""
+"Кто-то запросил сброс пароля для email {email} на сайте storesb.com.\n"
+"                    Перейдите по ссылке: <a href=\"http://{site}"
+"{link}\">http://{site}{link}</a>\n"
+"                    Ваше имя пользователя, если вы забыли: {username}\n"
+"                    Спасибо!"
+
+#: accounts/views.py:270
+msgid "User with this phone doesn't exists"
+msgstr "Пользователь с таким телефоно не зарегистрирован"
+
+#: accounts/views.py:280
+msgid "Reset code was sent to your phone"
+msgstr "Код востановления был отправлен вам в СМС"
+
+#: cart/templates/cart_detail.html:11 cart/templates/showcase_detal.html:11
+msgid "Cart detail"
+msgstr "Корзина"
+
+#: cart/templates/cart_detail.html:285
+msgid "Punch"
+msgstr "Ставка"
+
+#: cart/templates/cart_detail.html:290
+msgid "Checkout (Bid is accepted)"
+msgstr "Заказчть"
+
+#: cart/templates/cart_detail.html:292
+msgid "Reject"
+msgstr "Отклонить"
+
+#: cart/templates/cart_detail.html:298 cart/templates/showcase_detal.html:204
+#: goods/templates/delete_confirmation.html:9 goods/templates/good.html:334
+msgid "Delete"
+msgstr "Удалить"
+
+#: cart/templates/cart_detail.html:304
+msgid "No goods in cart"
+msgstr "Нет товаров в корзине"
+
+#: cart/templates/cart_detail.html:314 cart/templates/showcase_detal.html:227
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: cart/templates/cart_detail.html:318 cart/templates/showcase_detal.html:231
+msgid "Next"
+msgstr "Следующий"
+
+#: cart/templates/cart_detail.html:334 cart/templates/showcase_detal.html:247
+msgid "Make a bid"
+msgstr "Сделать ставку"
+
+#: cart/templates/cart_detail.html:338 cart/templates/showcase_detal.html:251
+msgid "Enter your bid"
+msgstr "Введите вашу ставку"
+
+#: cart/templates/cart_detail.html:339 cart/templates/showcase_detal.html:252
+msgid "Last bid:"
+msgstr "Последняя ставка"
+
+#: cart/templates/cart_detail.html:339 cart/templates/showcase_detal.html:252
+msgid "by"
+msgstr "от"
+
+#: cart/templates/cart_detail.html:343 cart/templates/showcase_detal.html:256
+msgid "Add bid"
+msgstr "Добавить ставку"
+
+#: cart/templates/showcase_detal.html:209
+msgid "Sell"
+msgstr "Продать"
+
+#: cart/templates/showcase_detal.html:217
+msgid "No goods in showcase"
+msgstr "Нет товаров в витрине"
+
+#: chat/models.py:37
+msgid "Sender"
+msgstr "Отправитель"
+
+#: chat/models.py:38
+msgid "Thread"
+msgstr "Чат"
+
+#: chat/models.py:39
+msgid "Message"
+msgstr "Сообщение"
+
+#: chat/models.py:40
+msgid "Date and time"
+msgstr "Дата и время"
+
+#: chat/templates/thread.html:4
+msgid "Chat with"
+msgstr "Чат с"
+
+#: chat/templates/thread.html:51 chat/templates/threads_list.html:42
+#: chat/templates/threads_list.html:43
+msgid "Enter message"
+msgstr "Введите сообщение"
+
+#: chat/templates/thread.html:52
+msgid "Send!"
+msgstr "Отправить!"
+
+#: chat/templates/thread.html:68 chat/templates/threads_list.html:80
+msgid "No partner"
+msgstr "Нет собеседника"
+
+#: chat/templates/threads_list.html:25
+msgid "Write message"
+msgstr "Написать сообщение"
+
+#: chat/templates/threads_list.html:33
+msgid "Send new message"
+msgstr "Отправить новое сообщение"
+
+#: chat/templates/threads_list.html:39 chat/templates/threads_list.html:41
+msgid "Enter username"
+msgstr "Введите имя пользователя"
+
+#: chat/templates/threads_list.html:44 goods/templates/good.html:681
+msgid "Send"
+msgstr "Отправить"
+
+#: chat/templates/threads_list.html:49
+msgid "Close"
+msgstr "Закрыть"
+
+#: chat/templates/threads_list.html:57
+msgid "Your contacts"
+msgstr "Ваши контакты"
+
+#: chat/templates/threads_list.html:62
+msgid "Total messages"
+msgstr "Всего сообщений"
+
+#: chat/templates/threads_list.html:100
+msgid "You haven't contacts"
+msgstr "У вас нет контактов"
+
+#: chat/views.py:50
+msgid "Your partner doesn't exist or error in username"
+msgstr "Вашего собеседника не существует или ошибка в имени пользователя"
+
+#: chat/views.py:53
+msgid "You can't send messages to yourself"
+msgstr "Вы не можете отправлять сообщения себе"
+
+#: chat/views.py:57
+msgid "Your partner blocked messages from you"
+msgstr "Ваш партнер заблокировал сообщения от вас"
+
+#: complaints/models.py:17
+msgid "Not defined"
+msgstr "Не определено"
+
+#: complaints/views.py:55
+#, python-format
+msgid "Complaint from %(user_from)s to %(user_to)s"
+msgstr "Жалоба от %(user_from)s на %(user_to)s"
+
+#: complaints/views.py:56
+#, python-format
+msgid ""
+"Complaint from %(user_from)s to %(user_to)s.\n"
+"Reason: %(reason)s\n"
+"%(text)s"
+msgstr ""
+"Жалоба от %(user_from)s на %(user_to)s.\n"
+"Причина: %(reason)s\n"
+"%(text)s"
+
+#: goods/models.py:31 goods/templates/search_categories.html:370
+msgid "New"
+msgstr "Новый"
+
+#: goods/models.py:32 goods/templates/search_categories.html:371
+msgid "Used"
+msgstr "Б/У"
+
+#: goods/models.py:35
+msgid "Buy-Sell"
+msgstr "Купля-продажа"
+
+#: goods/models.py:36 goods/templates/search_categories.html:363
+#: main/templates/calculator.html:144
+msgid "Sale"
+msgstr "распродажа"
+
+#: goods/models.py:37 goods/templates/search_categories.html:364
+msgid "Auction"
+msgstr "Аукцион"
+
+#: goods/models.py:40 goods/templates/search_categories.html:379
+msgid "Logistic"
+msgstr "Логистика"
+
+#: goods/models.py:41 goods/templates/search_categories.html:377
+msgid "Mail"
+msgstr "Почта"
+
+#: goods/models.py:42 goods/templates/search_categories.html:380
+msgid "Courier"
+msgstr "Курьер"
+
+#: goods/models.py:43 goods/templates/search_categories.html:378
+msgid "Hands"
+msgstr "Из рук в руки"
+
+#: goods/models.py:44 goods/templates/search_categories.html:381
+msgid "Pickup"
+msgstr "Самовывоз"
+
+#: goods/models.py:47
+msgid "Due to buyer"
+msgstr "Покупателем"
+
+#: goods/models.py:48
+msgid "By seller"
+msgstr "Продавцом"
+
+#: goods/models.py:51
+msgid "Monetary equivalent"
+msgstr "Денежный эквивалент"
+
+#: goods/models.py:52
+msgid "Replacement product"
+msgstr "Замена товара"
+
+#: goods/models.py:55
+msgid "Quantity"
+msgstr "Количество"
+
+#: goods/models.py:56
+msgid "Old price (Sale)"
+msgstr "Старая цена (распродажа)"
+
+#: goods/models.py:57
+msgid "New price (Sale)"
+msgstr "Новая цена (Распродажа)"
+
+#: goods/models.py:58
+msgid "Price (Buy-Sell)"
+msgstr "Цена (Купля-продажа)"
+
+#: goods/models.py:59
+msgid "Min price (Auction)"
+msgstr "Минимальная цена (Аукцион)"
+
+#: goods/models.py:60
+msgid "Reserve price (Auction)"
+msgstr "Резервная цена (Аукцион)"
+
+#: goods/models.py:62
+msgid "Max price (Auction)"
+msgstr "Максимальная цена (Аукцион)"
+
+#: goods/models.py:64 goods/templates/good.html:312
+msgid "State"
+msgstr "Состояние"
+
+#: goods/models.py:65
+msgid "Delivery form"
+msgstr "Форма доставки"
+
+#: goods/models.py:66 goods/templates/good.html:446
+msgid "Delivery time"
+msgstr "Время доставки"
+
+#: goods/models.py:67
+msgid "All countries"
+msgstr "Все страны"
+
+#: goods/models.py:68 goods/templates/add_good.html:320
+#: goods/templates/search_categories.html:360
+msgid "Type of deal"
+msgstr "Тип сделки"
+
+#: goods/models.py:69 goods/templates/good.html:456
+msgid "Refund"
+msgstr "Вовзрат"
+
+#: goods/models.py:70
+msgid "Purchase returns time"
+msgstr "Время возврата"
+
+#: goods/models.py:71
+msgid "Back delivery form"
+msgstr "Обратная форма доставки"
+
+#: goods/models.py:73 goods/templates/add_good.html:514
+msgid "Delivery description"
+msgstr "Описание доставки"
+
+#: goods/models.py:76
+msgid "Valid through"
+msgstr "Действителен до"
+
+#: goods/models.py:77
+msgid "Active"
+msgstr "Активен"
+
+#: goods/models.py:199 goods/templates/add_good.html:508
+#: goods/templates/good.html:365 goods/templates/good.html:395
+msgid "Description"
+msgstr "Описание"
+
+#: goods/models.py:200 goods/templates/good.html:372
+msgid "Trade mark"
+msgstr "Торговая марка"
+
+#: goods/models.py:201 goods/templates/good.html:378
+msgid "Material"
+msgstr "Материал"
+
+#: goods/models.py:202 goods/templates/good.html:384
+msgid "Color"
+msgstr "Цвет"
+
+#: goods/models.py:203
+msgid "Equipment"
+msgstr "Комплектация"
+
+#: goods/models.py:204 goods/templates/good.html:374
+msgid "Model"
+msgstr "Модель"
+
+#: goods/models.py:205 goods/templates/good.html:380
+msgid "Size"
+msgstr "Размер"
+
+#: goods/models.py:206
+msgid "Weight (kg.)"
+msgstr "Вес (кг. )"
+
+#: goods/models.py:207
+msgid "Vendor"
+msgstr "Производитель"
+
+#: goods/models.py:217
+msgid "Language code"
+msgstr "Языковой код"
+
+#: goods/models.py:218
+msgid "Translated text"
+msgstr "Переведенный текст"
+
+#: goods/models.py:230
+msgid "Image"
+msgstr "Изображение"
+
+#: goods/models.py:269
+msgid "User price"
+msgstr "Цена пользователя"
+
+#: goods/models.py:270
+msgid "Bid accepted"
+msgstr "Ставка принята"
+
+#: goods/templates/add_good.html:9
+msgid "Add good"
+msgstr "Добавить товар"
+
+#: goods/templates/add_good.html:162 goods/templates/add_good.html:172
+#: goods/templates/add_good.html:225
+msgid "You should delete some item"
+msgstr "Вам следует удалить некоторые фото"
+
+#: goods/templates/add_good.html:276
+msgid "Add"
+msgstr "Добавить"
+
+#: goods/templates/add_good.html:280
+msgid "Photo"
+msgstr "Фото"
+
+#: goods/templates/add_good.html:330
+msgid "auction"
+msgstr "аукцион"
+
+#: goods/templates/add_good.html:333
+msgid "start price"
+msgstr "начальная цена"
+
+#: goods/templates/add_good.html:336
+msgid "reserve price"
+msgstr "резервная цена"
+
+#: goods/templates/add_good.html:339
+msgid "end price"
+msgstr "итоговая цена"
+
+#: goods/templates/add_good.html:343 goods/templates/add_good.html:357
+#: goods/templates/add_good.html:375
+msgid "enter product name"
+msgstr "введите название товара"
+
+#: goods/templates/add_good.html:346 goods/templates/add_good.html:360
+#: goods/templates/add_good.html:378
+msgid "product quantity"
+msgstr "количество товара"
+
+#: goods/templates/add_good.html:350
+msgid "buy-sell"
+msgstr "купля-продажа"
+
+#: goods/templates/add_good.html:364
+msgid "sale"
+msgstr "распродажа"
+
+#: goods/templates/add_good.html:391
+msgid "status"
+msgstr "состояние"
+
+#: goods/templates/add_good.html:394
+msgid "new"
+msgstr "новый"
+
+#: goods/templates/add_good.html:395
+msgid "used"
+msgstr "б/у"
+
+#: goods/templates/add_good.html:400
+msgid "The term of the lot"
+msgstr "Действителен до"
+
+#: goods/templates/add_good.html:417 goods/templates/good.html:404
+msgid "Delivery type"
+msgstr "Тип доставки"
+
+#: goods/templates/add_good.html:420
+msgid "mail"
+msgstr "почта"
+
+#: goods/templates/add_good.html:421
+msgid "courier"
+msgstr "курьер"
+
+#: goods/templates/add_good.html:422
+msgid "hands"
+msgstr "из рук в руки"
+
+#: goods/templates/add_good.html:423
+msgid "pickup"
+msgstr "самовывоз"
+
+#: goods/templates/add_good.html:424
+msgid "Transport companies"
+msgstr "Транспортными компаниями"
+
+#: goods/templates/add_good.html:428
+msgid "Estimated delivery time"
+msgstr "Ожидаемое время доставки"
+
+#: goods/templates/add_good.html:434
+msgid "refund"
+msgstr "возврат"
+
+#: goods/templates/add_good.html:437 goods/templates/good.html:462
+msgid "Reimbursement of the cost of goods"
+msgstr "Возмещение стоимости товара"
+
+#: goods/templates/add_good.html:440
+msgid "monetary equivalent"
+msgstr "денежный эквивалент"
+
+#: goods/templates/add_good.html:441
+msgid "commodity exchange"
+msgstr "замена товара"
+
+#: goods/templates/add_good.html:445
+msgid "Term of return of goods"
+msgstr "Срок возврата товара"
+
+#: goods/templates/add_good.html:449 goods/templates/good.html:466
+msgid "redelivery"
+msgstr "Обратная доставка"
+
+#: goods/templates/add_good.html:452
+msgid "by buyer"
+msgstr "покупателем"
+
+#: goods/templates/add_good.html:453
+msgid "by seller"
+msgstr "продавцом"
+
+#: goods/templates/add_good.html:463
+msgid "Hashtags"
+msgstr "теги"
+
+#: goods/templates/add_good.html:477
+msgid "Do you want create a hashtag?"
+msgstr "Вы хотите добавить тег?"
+
+#: goods/templates/add_good.html:481
+msgid "Enter name"
+msgstr "Введите имя"
+
+#: goods/templates/add_good.html:489
+msgid "Product properties"
+msgstr "Свойства товара"
+
+#: goods/templates/add_good.html:510
+msgid "Product description"
+msgstr "Описание товара"
+
+#: goods/templates/add_good.html:519
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: goods/templates/delete_confirmation.html:7
+msgid "Are you sure you want to delete"
+msgstr "Вы действительно хотите удалить"
+
+#: goods/templates/good.html:267
+msgid "write"
+msgstr "написать"
+
+#: goods/templates/good.html:280 goods/templates/wish_list.html:235
+#: goods/templates/wish_list.html:351
+msgid "left until the end"
+msgstr "осталось до конца"
+
+#: goods/templates/good.html:316 goods/templates/good.html:403
+#: goods/templates/good.html:408
+msgid "Delivery"
+msgstr "Доставка"
+
+#: goods/templates/good.html:317 goods/templates/good_modal.html:214
+msgid "Number of items available: "
+msgstr "Число товара в наличии:"
+
+#: goods/templates/good.html:326
+msgid "bid"
+msgstr "ставка"
+
+#: goods/templates/good.html:339 goods/templates/good_modal.html:229
+#: goods/templates/wish_list.html:285 goods/templates/wish_list.html:401
+msgid "In cart"
+msgstr "В корзине"
+
+#: goods/templates/good.html:341 goods/templates/good_modal.html:231
+#: goods/templates/wish_list.html:287 goods/templates/wish_list.html:403
+msgid "Add to cart"
+msgstr "В корзину"
+
+#: goods/templates/good.html:366
+msgid "Shipping and payment"
+msgstr "Доставка и оплата"
+
+#: goods/templates/good.html:367
+msgid "About seller"
+msgstr "О продавце"
+
+#: goods/templates/good.html:370
+msgid "characteristics"
+msgstr "характеристики"
+
+#: goods/templates/good.html:386 goods/templates/search_categories.html:441
+msgid "weight"
+msgstr "вес"
+
+#: goods/templates/good.html:390 goods/templates/search_categories.html:444
+msgid "equipment"
+msgstr "комплектация"
+
+#: goods/templates/good.html:392 goods/templates/search_categories.html:445
+msgid "vendor"
+msgstr "производитель"
+
+#: goods/templates/good.html:396 goods/templates/good.html:471
+msgid "show the original text"
+msgstr "показать оригинальный текст"
+
+#: goods/templates/good.html:397 goods/templates/good.html:473
+msgid ""
+"Automatic translation is performed Google Translate service, and may not be "
+"accurate."
+msgstr ""
+"Автоматический перевод осуществлен сервисом Google Translate, и может быть "
+"неточным."
+
+#: goods/templates/good.html:410
+msgid "Exception"
+msgstr "Исклбчение"
+
+#: goods/templates/good.html:449
+msgid ""
+"\n"
+"                                            Estimated delivery time includes "
+"processing time of the order by the seller,\n"
+"                                            the postal code and the "
+"recipient of the sender, the time of receipt of order delivery service,\n"
+"                                            depending on the selected "
+"service delivery and timing of payments processed.\n"
+"                                            Delivery times may vary, "
+"particularly during peak periods.\n"
+"                                        "
+msgstr ""
+"\n"
+"                                            Ожидаемое время доставки включает "
+"время обработки заказа продавцом,\n"
+"время поступления в службу доставки,\n"
+"                                            и зависит от "
+"выбранного поставщика услуг и времени обработки платежа.\n"
+"                                            Сроки доставки могут меняться, "
+"особенно в пиковые периоды.\n"
+"                                        "
+
+#: goods/templates/good.html:458
+msgid "Purchase returns"
+msgstr "Возврат товара"
+
+#: goods/templates/good.html:470 goods/templates/search_categories.html:315
+#: goods/templates/search_sellers.html:25
+msgid "More"
+msgstr "Еще"
+
+#: goods/templates/good.html:500
+msgid "Website"
+msgstr ""
+
+#: goods/templates/good.html:512
+msgid "Last logged in"
+msgstr "Последнее время входа"
+
+#: goods/templates/good.html:527
+msgid "Other goods with same tags"
+msgstr "Другие товары с этими тегами"
+
+#: goods/templates/good.html:542
+msgid "No goods with sam tag"
+msgstr "Нет товаров с этими тегами"
+
+#: goods/templates/good.html:546
+msgid "And more"
+msgstr "И еще"
+
+#: goods/templates/good.html:549
+msgid "Other showcases this category"
+msgstr "Другие витрины в данной категории"
+
+#: goods/templates/good.html:583 goods/templates/good.html:623
+msgid "No other showcases in this category"
+msgstr "Нет других витрин в данной категории"
+
+#: goods/templates/good.html:587
+msgid "follow"
+msgstr "подписаться"
+
+#: goods/templates/good.html:591
+msgid "Sellers with this tags"
+msgstr "Продавцы с этми тегами"
+
+#: goods/templates/good.html:606
+msgid "No sellers with same tags"
+msgstr "Нет продавцов с этими тегами"
+
+#: goods/templates/good.html:609
+msgid "more"
+msgstr "еще"
+
+#: goods/templates/good.html:631
+msgid "Customers who bought this product also purchased"
+msgstr "Покупатели которые купили этот товар также покупают"
+
+#: goods/templates/good.html:660
+msgid "Same goods"
+msgstr "Похожие товары"
+
+#: goods/templates/good.html:672
+msgid "Send message to"
+msgstr "Отправить сообщение"
+
+#: goods/templates/good.html:676
+msgid "Enter your message"
+msgstr "Введите ваше сообщение"
+
+#: goods/templates/good_ajax.html:45
+#: goods/templates/search_category_ajax.html:107
+msgid "No results found"
+msgstr "Ничего не найдено"
+
+#: goods/templates/good_modal.html:200
+msgid "State: "
+msgstr "Состояние: "
+
+#: goods/templates/good_modal.html:211
+msgid "Delivery: "
+msgstr "Доставка: "
+
+#: goods/templates/good_modal.html:223
+#: goods/templates/search_category_ajax.html:82
+#: goods/templates/wish_list.html:276 goods/templates/wish_list.html:393
+msgid "bids"
+msgstr "ставки"
+
+#: goods/templates/good_modal.html:255
+msgid "More..."
+msgstr "Еще..."
+
+#: goods/templates/good_modal.html:303 goods/templates/wish_list.html:314
+#: goods/templates/wish_list.html:430
+msgid "like this product"
+msgstr "нравитьтся этот товар"
+
+#: goods/templates/good_modal.html:305 goods/templates/wish_list.html:316
+#: goods/templates/wish_list.html:432
+msgid "and"
+msgstr "и"
+
+#: goods/templates/good_modal.html:305 goods/templates/wish_list.html:316
+#: goods/templates/wish_list.html:432
+msgid "others like this product"
+msgstr "другим нравится этот товар"
+
+#: goods/templates/good_modal.html:307 goods/templates/wish_list.html:318
+#: goods/templates/wish_list.html:434
+msgid "Be first who like this product"
+msgstr "Будте первым, кому понравится этот товар"
+
+#: goods/templates/good_modal.html:376
+msgid "Other products in this category"
+msgstr "Другие продукты в категории"
+
+#: goods/templates/search_categories.html:275
+msgid "past"
+msgstr "прошлое"
+
+#: goods/templates/search_categories.html:276
+msgid "present"
+msgstr "настоящее"
+
+#: goods/templates/search_categories.html:277
+msgid "future"
+msgstr "будущее"
+
+#: goods/templates/search_categories.html:329
+msgid "Search by name"
+msgstr "Поиск по имени"
+
+#: goods/templates/search_categories.html:337
+msgid "Price"
+msgstr "Цена"
+
+#: goods/templates/search_categories.html:362
+#: main/templates/calculator.html:142
+msgid "Buy/Sell"
+msgstr "Купля/Продажа"
+
+#: goods/templates/search_categories.html:368
+#: goods/templates/wish_list.html:265 goods/templates/wish_list.html:382
+msgid "Condition"
+msgstr "Состояние"
+
+#: goods/templates/search_categories.html:375
+msgid "Delivery options"
+msgstr "Опции доставки"
+
+#: goods/templates/search_categories.html:413
+msgid "Do you want to add a tag?"
+msgstr "Вы хотите добавить тег?"
+
+#: goods/templates/search_categories.html:429
+msgid "Product features"
+msgstr "Свойства товара"
+
+#: goods/templates/search_categories.html:432
+msgid "trade mark"
+msgstr "торговая марка"
+
+#: goods/templates/search_categories.html:433
+msgid "model"
+msgstr "модель"
+
+#: goods/templates/search_categories.html:436
+msgid "material"
+msgstr "материал"
+
+#: goods/templates/search_categories.html:437
+msgid "size"
+msgstr "размер"
+
+#: goods/templates/search_categories.html:440
+msgid "color"
+msgstr "цвет"
+
+#: goods/templates/search_category_ajax.html:65
+msgid "new price"
+msgstr "новая цена"
+
+#: goods/templates/search_category_ajax.html:71
+msgid "old price"
+msgstr "старая цена"
+
+#: goods/templates/search_category_ajax.html:88
+msgid "fix price"
+msgstr "фиксированная цена"
+
+#: goods/templates/search_category_ajax.html:92
+msgid "Pay"
+msgstr "Оплатить"
+
+#: goods/templates/search_sellers.html:5
+msgid "Sellers in this category"
+msgstr "Продавцы в этой категории"
+
+#: goods/templates/wish_list.html:220
+msgid "Last logged "
+msgstr "Последний раз был на сайте"
+
+#: goods/templates/wish_list.html:269 goods/templates/wish_list.html:386
+msgid "delivery"
+msgstr "доставка"
+
+#: goods/templates/wish_list.html:270 goods/templates/wish_list.html:387
+msgid "The number of goods in stock"
+msgstr "Число товаров в магазине"
+
+#: goods/templates/wish_list.html:270 goods/templates/wish_list.html:387
+msgid "pc."
+msgstr "шт."
+
+#: goods/views.py:305
+msgid "Error adding goods"
+msgstr "Ошибка доьавления товара"
+
+#: goods/views.py:410
+msgid "You cannot delete this good"
+msgstr "Вы не можете удалить этот товар"
+
+#: main/countries_list.py:5
+msgid "United Kingdom"
+msgstr "Великобритания"
+
+#: main/countries_list.py:6
+msgid "Afghanistan"
+msgstr "Афганистан"
+
+#: main/countries_list.py:7
+msgid "Aland Islands"
+msgstr "Аландские острова"
+
+#: main/countries_list.py:8
+msgid "Albania"
+msgstr "Албания"
+
+#: main/countries_list.py:9
+msgid "Algeria"
+msgstr "Алжир"
+
+#: main/countries_list.py:10
+msgid "American Samoa"
+msgstr "Американское Самоа"
+
+#: main/countries_list.py:11
+msgid "Andorra"
+msgstr "Андорра"
+
+#: main/countries_list.py:12
+msgid "Angola"
+msgstr "Ангола"
+
+#: main/countries_list.py:13
+msgid "Anguilla"
+msgstr "Ангилья"
+
+#: main/countries_list.py:14
+msgid "Antarctica"
+msgstr "Антарктика"
+
+#: main/countries_list.py:15
+msgid "Antigua and Barbuda"
+msgstr "Антигуа и Барбуда"
+
+#: main/countries_list.py:16
+msgid "Argentina"
+msgstr "Аргентина"
+
+#: main/countries_list.py:17
+msgid "Armenia"
+msgstr "Армения"
+
+#: main/countries_list.py:18
+msgid "Aruba"
+msgstr "Аруба"
+
+#: main/countries_list.py:19
+msgid "Australia"
+msgstr "Австралия"
+
+#: main/countries_list.py:20
+msgid "Austria"
+msgstr "Австрия"
+
+#: main/countries_list.py:21
+msgid "Azerbaijan"
+msgstr "Азербайджан"
+
+#: main/countries_list.py:22
+msgid "Bahamas"
+msgstr "Багамы"
+
+#: main/countries_list.py:23
+msgid "Bahrain"
+msgstr "Бахрейн"
+
+#: main/countries_list.py:24
+msgid "Bangladesh"
+msgstr "Бангладеш"
+
+#: main/countries_list.py:25
+msgid "Barbados"
+msgstr "Барбадос"
+
+#: main/countries_list.py:26
+msgid "Belarus"
+msgstr "Беларусь"
+
+#: main/countries_list.py:27
+msgid "Belgium"
+msgstr "Белгия"
+
+#: main/countries_list.py:28
+msgid "Belize"
+msgstr "Белиз"
+
+#: main/countries_list.py:29
+msgid "Benin"
+msgstr "Бенин"
+
+#: main/countries_list.py:30
+msgid "Bermuda"
+msgstr "Бермуды"
+
+#: main/countries_list.py:31
+msgid "Bhutan"
+msgstr "Бутан"
+
+#: main/countries_list.py:32
+msgid "Bolivia"
+msgstr "Боливия"
+
+#: main/countries_list.py:33
+msgid "Bosnia and Herzegovina"
+msgstr "Босния и Герцеговина"
+
+#: main/countries_list.py:34
+msgid "Botswana"
+msgstr "Ботсвана"
+
+#: main/countries_list.py:35
+msgid "Bouvet Island"
+msgstr "Остров Буве"
+
+#: main/countries_list.py:36
+msgid "Brazil"
+msgstr "Бразилия"
+
+#: main/countries_list.py:37
+msgid "British Indian Ocean Territory"
+msgstr "Британская территория Индийского океана"
+
+#: main/countries_list.py:38
+msgid "Brunei Darussalam"
+msgstr "Бруней-Даруссалам"
+
+#: main/countries_list.py:39
+msgid "Bulgaria"
+msgstr "Болгария"
+
+#: main/countries_list.py:40
+msgid "Burkina Faso"
+msgstr "Буркина Фасо"
+
+#: main/countries_list.py:41
+msgid "Burundi"
+msgstr "Бурунди"
+
+#: main/countries_list.py:42
+msgid "Cambodia"
+msgstr "Камбоджа"
+
+#: main/countries_list.py:43
+msgid "Cameroon"
+msgstr "Кмерун"
+
+#: main/countries_list.py:44
+msgid "Canada"
+msgstr "Канада"
+
+#: main/countries_list.py:45
+msgid "Cape Verde"
+msgstr "Капэ Вердэ"
+
+#: main/countries_list.py:46
+msgid "Cayman Islands"
+msgstr "Каймановы острова"
+
+#: main/countries_list.py:47
+msgid "Central African Republic"
+msgstr "Центральная Афрканская Республика"
+
+#: main/countries_list.py:48
+msgid "Chad"
+msgstr "Чад"
+
+#: main/countries_list.py:49
+msgid "Chile"
+msgstr "Чили"
+
+#: main/countries_list.py:50
+msgid "China"
+msgstr "Китай"
+
+#: main/countries_list.py:51
+msgid "Christmas Island"
+msgstr "Остров Рождества"
+
+#: main/countries_list.py:52
+msgid "Cocos (Keeling) Islands"
+msgstr "Кокосовые (Килинг) острова"
+
+#: main/countries_list.py:53
+msgid "Colombia"
+msgstr "Колумбия"
+
+#: main/countries_list.py:54
+msgid "Comoros"
+msgstr "Коморские острова"
+
+#: main/countries_list.py:55
+msgid "Congo"
+msgstr "Конго"
+
+#: main/countries_list.py:56
+msgid "Congo, The Democratic Republic of the"
+msgstr "Демократическая республика Конго"
+
+#: main/countries_list.py:57
+msgid "Cook Islands"
+msgstr "Острова Кука"
+
+#: main/countries_list.py:58
+msgid "Costa Rica"
+msgstr "Коста Рика"
+
+#: main/countries_list.py:59
+msgid "Cote d'Ivoire"
+msgstr "Кот д Ивуар"
+
+#: main/countries_list.py:60
+msgid "Croatia"
+msgstr "Хорватия"
+
+#: main/countries_list.py:61
+msgid "Cuba"
+msgstr "Куба"
+
+#: main/countries_list.py:62
+msgid "Cyprus"
+msgstr "Кипр"
+
+#: main/countries_list.py:63
+msgid "Czech Republic"
+msgstr "Чешская республика"
+
+#: main/countries_list.py:64
+msgid "Denmark"
+msgstr "Дания"
+
+#: main/countries_list.py:65
+msgid "Djibouti"
+msgstr "Джибути"
+
+#: main/countries_list.py:66
+msgid "Dominica"
+msgstr "Доминика"
+
+#: main/countries_list.py:67
+msgid "Dominican Republic"
+msgstr "Доминиканская республика"
+
+#: main/countries_list.py:68
+msgid "Ecuador"
+msgstr "Эквадор"
+
+#: main/countries_list.py:69
+msgid "Egypt"
+msgstr "Египет"
+
+#: main/countries_list.py:70
+msgid "El Salvador"
+msgstr "Эль Сальвадор"
+
+#: main/countries_list.py:71
+msgid "Equatorial Guinea"
+msgstr "Экваториальная Гвинея"
+
+#: main/countries_list.py:72
+msgid "Eritrea"
+msgstr "Эритрея"
+
+#: main/countries_list.py:73
+msgid "Estonia"
+msgstr "Эстония"
+
+#: main/countries_list.py:74
+msgid "Ethiopia"
+msgstr "Эфиопия"
+
+#: main/countries_list.py:75
+msgid "Falkland Islands (Malvinas)"
+msgstr "Фолклендские острова"
+
+#: main/countries_list.py:76
+msgid "Faroe Islands"
+msgstr "Фарерские острова"
+
+#: main/countries_list.py:77
+msgid "Fiji"
+msgstr "Фиджи"
+
+#: main/countries_list.py:78
+msgid "Finland"
+msgstr "Финляндия"
+
+#: main/countries_list.py:79
+msgid "France"
+msgstr "Франция"
+
+#: main/countries_list.py:80
+msgid "French Guiana"
+msgstr "Французская Гвинея"
+
+#: main/countries_list.py:81
+msgid "French Polynesia"
+msgstr "Францзская Полинезия"
+
+#: main/countries_list.py:82
+msgid "French Southern Territories"
+msgstr "Южные Французские Территории"
+
+#: main/countries_list.py:83
+msgid "Gabon"
+msgstr "Габон"
+
+#: main/countries_list.py:84
+msgid "Gambia"
+msgstr "Гамбия"
+
+#: main/countries_list.py:85
+msgid "Georgia"
+msgstr "Грузия"
+
+#: main/countries_list.py:86
+msgid "Germany"
+msgstr "Германия"
+
+#: main/countries_list.py:87
+msgid "Ghana"
+msgstr "Гана"
+
+#: main/countries_list.py:88
+msgid "Gibraltar"
+msgstr "Гибралтар"
+
+#: main/countries_list.py:89
+msgid "Greece"
+msgstr "Греция"
+
+#: main/countries_list.py:90
+msgid "Greenland"
+msgstr "Гренладия"
+
+#: main/countries_list.py:91
+msgid "Grenada"
+msgstr "Гренада"
+
+#: main/countries_list.py:92
+msgid "Guadeloupe"
+msgstr "Гваделупе"
+
+#: main/countries_list.py:93
+msgid "Guam"
+msgstr "Гуам"
+
+#: main/countries_list.py:94
+msgid "Guatemala"
+msgstr "Гватемала"
+
+#: main/countries_list.py:95
+msgid "Guernsey"
+msgstr "Гернси"
+
+#: main/countries_list.py:96
+msgid "Guinea"
+msgstr "Гвинея"
+
+#: main/countries_list.py:97
+msgid "Guinea-Bissau"
+msgstr "Гвинея-Биссау"
+
+#: main/countries_list.py:98
+msgid "Guyana"
+msgstr "Гайана"
+
+#: main/countries_list.py:99
+msgid "Haiti"
+msgstr "Гаити"
+
+#: main/countries_list.py:100
+msgid "Heard Island and McDonald Islands"
+msgstr "Остров Херд и острова Макдональд"
+
+#: main/countries_list.py:101
+msgid "Holy See (Vatican City State)"
+msgstr "Святейший Престол (Ватикан)"
+
+#: main/countries_list.py:102
+msgid "Honduras"
+msgstr "Гондурас"
+
+#: main/countries_list.py:103
+msgid "Hong Kong"
+msgstr "Гон Конг"
+
+#: main/countries_list.py:104
+msgid "Hungary"
+msgstr "Венгрия"
+
+#: main/countries_list.py:105
+msgid "Iceland"
+msgstr "Исландия"
+
+#: main/countries_list.py:106
+msgid "India"
+msgstr "Индия"
+
+#: main/countries_list.py:107
+msgid "Indonesia"
+msgstr "Индонезия"
+
+#: main/countries_list.py:108
+msgid "Iran, Islamic Republic of"
+msgstr "Иран"
+
+#: main/countries_list.py:109
+msgid "Iraq"
+msgstr "Ирак"
+
+#: main/countries_list.py:110
+msgid "Ireland"
+msgstr "Ирландия"
+
+#: main/countries_list.py:111
+msgid "Isle of Man"
+msgstr "Остров Мен"
+
+#: main/countries_list.py:112
+msgid "Israel"
+msgstr "Израиль"
+
+#: main/countries_list.py:113
+msgid "Italy"
+msgstr "Италия"
+
+#: main/countries_list.py:114
+msgid "Jamaica"
+msgstr "Ямайка"
+
+#: main/countries_list.py:115
+msgid "Japan"
+msgstr "Япония"
+
+#: main/countries_list.py:116
+msgid "Jersey"
+msgstr "Джерси"
+
+#: main/countries_list.py:117
+msgid "Jordan"
+msgstr "Иордан"
+
+#: main/countries_list.py:118
+msgid "Kazakhstan"
+msgstr "Казахстан"
+
+#: main/countries_list.py:119
+msgid "Kenya"
+msgstr "Кения"
+
+#: main/countries_list.py:120
+msgid "Kiribati"
+msgstr "Кирибати"
+
+#: main/countries_list.py:121
+msgid "Korea, Democratic People's Republic of"
+msgstr "Корейская Народная Демократическая Республика"
+
+#: main/countries_list.py:122
+msgid "Korea, Republic of"
+msgstr "Республика Корея"
+
+#: main/countries_list.py:123
+msgid "Kuwait"
+msgstr "Кувейт"
+
+#: main/countries_list.py:124
+msgid "Kyrgyzstan"
+msgstr "Кыргызстан"
+
+#: main/countries_list.py:125
+msgid "Lao People's Democratic Republic"
+msgstr "Лаосская Народно-Демократическая Республика"
+
+#: main/countries_list.py:126
+msgid "Latvia"
+msgstr "Латвия"
+
+#: main/countries_list.py:127
+msgid "Lebanon"
+msgstr "Лебанон"
+
+#: main/countries_list.py:128
+msgid "Lesotho"
+msgstr "Лесото"
+
+#: main/countries_list.py:129
+msgid "Liberia"
+msgstr "Либерия"
+
+#: main/countries_list.py:130
+msgid "Libyan Arab Jamahiriya"
+msgstr "Ливийская арабская джамахирия"
+
+#: main/countries_list.py:131
+msgid "Liechtenstein"
+msgstr "Лихтенштейн"
+
+#: main/countries_list.py:132
+msgid "Lithuania"
+msgstr "Литва"
+
+#: main/countries_list.py:133
+msgid "Luxembourg"
+msgstr "Люксембург"
+
+#: main/countries_list.py:134
+msgid "Macao"
+msgstr "Макао"
+
+#: main/countries_list.py:135
+msgid "Macedonia, The Former Yugoslav Republic of"
+msgstr "Македония"
+
+#: main/countries_list.py:136
+msgid "Madagascar"
+msgstr "Мадагаскар"
+
+#: main/countries_list.py:137
+msgid "Malawi"
+msgstr "малави"
+
+#: main/countries_list.py:138
+msgid "Malaysia"
+msgstr "Малазия"
+
+#: main/countries_list.py:139
+msgid "Maldives"
+msgstr "Мальдивы"
+
+#: main/countries_list.py:140
+msgid "Mali"
+msgstr "Мали"
+
+#: main/countries_list.py:141
+msgid "Malta"
+msgstr "Мальта"
+
+#: main/countries_list.py:142
+msgid "Marshall Islands"
+msgstr "Маршаловы острова"
+
+#: main/countries_list.py:143
+msgid "Martinique"
+msgstr "Мартиника"
+
+#: main/countries_list.py:144
+msgid "Mauritania"
+msgstr "Мавритания"
+
+#: main/countries_list.py:145
+msgid "Mauritius"
+msgstr "Маврикий"
+
+#: main/countries_list.py:146
+msgid "Mayotte"
+msgstr "Майотта"
+
+#: main/countries_list.py:147
+msgid "Mexico"
+msgstr "Мексика"
+
+#: main/countries_list.py:148
+msgid "Micronesia, Federated States of"
+msgstr "Микронезия"
+
+#: main/countries_list.py:149
+msgid "Moldova"
+msgstr "Молдова"
+
+#: main/countries_list.py:150
+msgid "Monaco"
+msgstr "Монако"
+
+#: main/countries_list.py:151
+msgid "Mongolia"
+msgstr "Монголия"
+
+#: main/countries_list.py:152
+msgid "Montenegro"
+msgstr "Черногория"
+
+#: main/countries_list.py:153
+msgid "Montserrat"
+msgstr "Монсеррат"
+
+#: main/countries_list.py:154
+msgid "Morocco"
+msgstr "Мороко"
+
+#: main/countries_list.py:155
+msgid "Mozambique"
+msgstr "Мозамбик"
+
+#: main/countries_list.py:156
+msgid "Myanmar"
+msgstr "Мьянма"
+
+#: main/countries_list.py:157
+msgid "Namibia"
+msgstr "Намибия"
+
+#: main/countries_list.py:158
+msgid "Nauru"
+msgstr "Науру"
+
+#: main/countries_list.py:159
+msgid "Nepal"
+msgstr "Непал"
+
+#: main/countries_list.py:160
+msgid "Netherlands"
+msgstr "Нидерланды"
+
+#: main/countries_list.py:161
+msgid "Netherlands Antilles"
+msgstr "Нидерландские Антильские острова"
+
+#: main/countries_list.py:162
+msgid "New Caledonia"
+msgstr "Новая Каледония"
+
+#: main/countries_list.py:163
+msgid "New Zealand"
+msgstr "Новая Зеландия"
+
+#: main/countries_list.py:164
+msgid "Nicaragua"
+msgstr "Никарагуа"
+
+#: main/countries_list.py:165
+msgid "Niger"
+msgstr "Нигер"
+
+#: main/countries_list.py:166
+msgid "Nigeria"
+msgstr "Нигерия"
+
+#: main/countries_list.py:167
+msgid "Niue"
+msgstr "Ниу"
+
+#: main/countries_list.py:168
+msgid "Norfolk Island"
+msgstr "Остров Норфолк"
+
+#: main/countries_list.py:169
+msgid "Northern Mariana Islands"
+msgstr "Северные Марианские острова"
+
+#: main/countries_list.py:170
+msgid "Norway"
+msgstr "Норвегия"
+
+#: main/countries_list.py:171
+msgid "Oman"
+msgstr "Оман"
+
+#: main/countries_list.py:172
+msgid "Pakistan"
+msgstr "Пакистан"
+
+#: main/countries_list.py:173
+msgid "Palau"
+msgstr "палау"
+
+#: main/countries_list.py:174
+msgid "Palestinian Territory, Occupied"
+msgstr "Палестинская территория"
+
+#: main/countries_list.py:175
+msgid "Panama"
+msgstr "Панама"
+
+#: main/countries_list.py:176
+msgid "Papua New Guinea"
+msgstr "папуа Новая Гвинея"
+
+#: main/countries_list.py:177
+msgid "Paraguay"
+msgstr "Парагвай"
+
+#: main/countries_list.py:178
+msgid "Peru"
+msgstr "Перу"
+
+#: main/countries_list.py:179
+msgid "Philippines"
+msgstr "Филипины"
+
+#: main/countries_list.py:180
+msgid "Pitcairn"
+msgstr "Питкэрн"
+
+#: main/countries_list.py:181
+msgid "Poland"
+msgstr "Польша"
+
+#: main/countries_list.py:182
+msgid "Portugal"
+msgstr "Португалия"
+
+#: main/countries_list.py:183
+msgid "Puerto Rico"
+msgstr "Пуэрто Рико"
+
+#: main/countries_list.py:184
+msgid "Qatar"
+msgstr "Катар"
+
+#: main/countries_list.py:185
+msgid "Reunion"
+msgstr "Реюнион"
+
+#: main/countries_list.py:186
+msgid "Romania"
+msgstr "Румыния"
+
+#: main/countries_list.py:187
+msgid "Russian Federation"
+msgstr "Россия"
+
+#: main/countries_list.py:188
+msgid "Rwanda"
+msgstr "Руанда"
+
+#: main/countries_list.py:189
+msgid "Saint Barthelemy"
+msgstr "Сен-Бартельми"
+
+#: main/countries_list.py:190
+msgid "Saint Helena"
+msgstr "Остров Святой Елены"
+
+#: main/countries_list.py:191
+msgid "Saint Kitts and Nevis"
+msgstr "Сент-Китс и Невис"
+
+#: main/countries_list.py:192
+msgid "Saint Lucia"
+msgstr "Остров Святой Люсии"
+
+#: main/countries_list.py:193
+msgid "Saint Martin"
+msgstr "Остров святого Мартина"
+
+#: main/countries_list.py:194
+msgid "Saint Pierre and Miquelon"
+msgstr "Сен-Пьер и Микелон"
+
+#: main/countries_list.py:195
+msgid "Saint Vincent and the Grenadines"
+msgstr "Святой Винсент и Гренадины"
+
+#: main/countries_list.py:196
+msgid "Samoa"
+msgstr "Самоа"
+
+#: main/countries_list.py:197
+msgid "San Marino"
+msgstr "Сан Марино"
+
+#: main/countries_list.py:198
+msgid "Sao Tome and Principe"
+msgstr "Сан-Томе и Принсипи"
+
+#: main/countries_list.py:199
+msgid "Saudi Arabia"
+msgstr "Саудовская Аравия"
+
+#: main/countries_list.py:200
+msgid "Senegal"
+msgstr "Сенегал"
+
+#: main/countries_list.py:201
+msgid "Serbia"
+msgstr "Сербия"
+
+#: main/countries_list.py:202
+msgid "Seychelles"
+msgstr "Сейшелы"
+
+#: main/countries_list.py:203
+msgid "Sierra Leone"
+msgstr "Сьера Леоне"
+
+#: main/countries_list.py:204
+msgid "Singapore"
+msgstr "Сингапур"
+
+#: main/countries_list.py:205
+msgid "Slovakia"
+msgstr "Словакия"
+
+#: main/countries_list.py:206
+msgid "Slovenia"
+msgstr "Словения"
+
+#: main/countries_list.py:207
+msgid "Solomon Islands"
+msgstr "Соломоновы острова"
+
+#: main/countries_list.py:208
+msgid "Somalia"
+msgstr "Сомали"
+
+#: main/countries_list.py:209
+msgid "South Africa"
+msgstr "ЮАР"
+
+#: main/countries_list.py:210
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "Южная Джорджия и Южные Сандвичевы острова"
+
+#: main/countries_list.py:211
+msgid "Spain"
+msgstr "Испания"
+
+#: main/countries_list.py:212
+msgid "Sri Lanka"
+msgstr "Шри Ланка"
+
+#: main/countries_list.py:213
+msgid "Sudan"
+msgstr "Судан"
+
+#: main/countries_list.py:214
+msgid "Suriname"
+msgstr "Суринам"
+
+#: main/countries_list.py:215
+msgid "Svalbard and Jan Mayen"
+msgstr "Шпицберген и Ян-Майен"
+
+#: main/countries_list.py:216
+msgid "Swaziland"
+msgstr "Свазиленд"
+
+#: main/countries_list.py:217
+msgid "Sweden"
+msgstr "Швеция"
+
+#: main/countries_list.py:218
+msgid "Switzerland"
+msgstr "Швейцария"
+
+#: main/countries_list.py:219
+msgid "Syrian Arab Republic"
+msgstr "Сирийская Арабская Республика"
+
+#: main/countries_list.py:220
+msgid "Taiwan, Province of China"
+msgstr "Тайвань"
+
+#: main/countries_list.py:221
+msgid "Tajikistan"
+msgstr "Таджикистан"
+
+#: main/countries_list.py:222
+msgid "Tanzania, United Republic of"
+msgstr "танзания"
+
+#: main/countries_list.py:223
+msgid "Thailand"
+msgstr "Тайланд"
+
+#: main/countries_list.py:224
+msgid "Timor-Leste"
+msgstr "Тимор-Лешти"
+
+#: main/countries_list.py:225
+msgid "Togo"
+msgstr "Того"
+
+#: main/countries_list.py:226
+msgid "Tokelau"
+msgstr "Токелау"
+
+#: main/countries_list.py:227
+msgid "Tonga"
+msgstr "Тонга"
+
+#: main/countries_list.py:228
+msgid "Trinidad and Tobago"
+msgstr "Тринидад и Тобаго"
+
+#: main/countries_list.py:229
+msgid "Tunisia"
+msgstr "Тунис"
+
+#: main/countries_list.py:230
+msgid "Turkey"
+msgstr "Турция"
+
+#: main/countries_list.py:231
+msgid "Turkmenistan"
+msgstr "Туркменистан"
+
+#: main/countries_list.py:232
+msgid "Turks and Caicos Islands"
+msgstr "Острова Теркс и Кайкос"
+
+#: main/countries_list.py:233
+msgid "Tuvalu"
+msgstr "Тувалу"
+
+#: main/countries_list.py:234
+msgid "Uganda"
+msgstr "Уганда"
+
+#: main/countries_list.py:235
+msgid "Ukraine"
+msgstr "Украина"
+
+#: main/countries_list.py:236
+msgid "United Arab Emirates"
+msgstr "Объединенные Арабские Эмираты"
+
+#: main/countries_list.py:237
+msgid "United States"
+msgstr "США"
+
+#: main/countries_list.py:238
+msgid "United States Minor Outlying Islands"
+msgstr "США Внешние малые острова"
+
+#: main/countries_list.py:239
+msgid "Uruguay"
+msgstr "Уругвай"
+
+#: main/countries_list.py:240
+msgid "Uzbekistan"
+msgstr "Узбекистан"
+
+#: main/countries_list.py:241
+msgid "Vanuatu"
+msgstr "Вануату"
+
+#: main/countries_list.py:242
+msgid "Venezuela"
+msgstr "Венесуэла"
+
+#: main/countries_list.py:243
+msgid "Viet Nam"
+msgstr "Вьетнам"
+
+#: main/countries_list.py:244
+msgid "Virgin Islands, British"
+msgstr "Британские Виргинские острова"
+
+#: main/countries_list.py:245
+msgid "Virgin Islands, U.S."
+msgstr "Виргинские острова, США"
+
+#: main/countries_list.py:246
+msgid "Wallis and Futuna"
+msgstr "Уоллис и Футуна"
+
+#: main/countries_list.py:247
+msgid "Western Sahara"
+msgstr "Западная Сахара"
+
+#: main/countries_list.py:248
+msgid "Yemen"
+msgstr "Йемен"
+
+#: main/countries_list.py:249
+msgid "Zambia"
+msgstr "Замбия"
+
+#: main/countries_list.py:250
+msgid "Zimbabwe"
+msgstr "зимбабве"
+
+#: main/forms.py:9
+msgid "Search in Sell-n-Buy"
+msgstr "Поиск на Sell-n-Buy"
+
+#: main/templates/calculator.html:9 main/templates/calculator.html:135
+msgid "Calculator"
+msgstr "Калькулятор"
+
+#: main/templates/calculator.html:119 main/templates/sign_in.html:5
+msgid "SIGN UP"
+msgstr "регистрация"
+
+#: main/templates/calculator.html:141
+msgid "Select the type of deal"
+msgstr "Выберите тип сделки"
+
+#: main/templates/calculator.html:143
+msgid "Acution"
+msgstr "Аукцион"
+
+#: main/templates/calculator.html:146
+msgid "Enter a currency and the price of goods"
+msgstr "Введите валюту и цену товара"
+
+#: main/templates/calculator.html:150
+msgid "The price of the product"
+msgstr "Цена товара"
+
+#: main/templates/calculator.html:158 main/templates/calculator.html:173
+msgid "Starting price"
+msgstr "начальная цена"
+
+#: main/templates/calculator.html:162
+msgid "Reserve price"
+msgstr "Резервная цена"
+
+#: main/templates/calculator.html:166
+msgid "Final price"
+msgstr "Конечная цена"
+
+#: main/templates/calculator.html:177
+msgid "Price with discount"
+msgstr "Цена со скидкой"
+
+#: main/templates/calculator.html:183
+msgid "Enter the postage"
+msgstr "Стоимость доставки"
+
+#: main/templates/calculator.html:188
+msgid "Your final price"
+msgstr "Ваша финальная цена"
+
+#: main/templates/calculator.html:189
+msgid "Total cost"
+msgstr "Всего стоимость"
+
+#: main/templates/calculator.html:191
+msgid "Commission"
+msgstr "Коммисия"
+
+#: main/templates/calculator.html:193
+msgid "Total"
+msgstr "Итого"
+
+#: main/templates/calculator.html:195
+msgid "Your profit"
+msgstr "Ваша прибыль"
+
+#: main/templates/calculator.html:197 main/templates/calculator.html:198
+#: main/templates/calculator.html:199
+msgid "Calculate"
+msgstr "Вычислить"
+
+#: main/templates/calculator.html:200
+msgid "Reset"
+msgstr "Сбросить"
+
+#: main/templates/calculator.html:236 main/templates/calculator.html:253
+msgid "Snap a card"
+msgstr "Привязать карту"
+
+#: main/templates/calculator.html:240
+msgid "Enter your card data"
+msgstr "Введите данные вашей карты"
+
+#: main/templates/calculator.html:241
+msgid "Enter card number"
+msgstr "Введите номер карты"
+
+#: main/templates/calculator.html:245
+msgid "Enter card month"
+msgstr "Введите месяц карты"
+
+#: main/templates/calculator.html:249
+msgid "Enter card year"
+msgstr "Введите год карты"
+
+#: main/templates/calculator.html:259 main/templates/social_links.html:3
+msgid "Join us"
+msgstr "Присоединяйтесь к нам"
+
+#: main/templates/index.html:27
+msgid "For your business"
+msgstr "Для вашего бизнеса"
+
+#: main/templates/index.html:28
+msgid "Advertising"
+msgstr "реклама"
+
+#: main/templates/index.html:44
+msgid "Rules"
+msgstr "Правила"
+
+#: main/templates/index.html:45
+msgid "Terms and Privacy"
+msgstr "Условия и конфиденциальность"
+
+#: orders/models.py:17
+msgid "Delivery address"
+msgstr "Адрес доставки"
+
+#: pages/models.py:19
+msgid "Content"
+msgstr "Контент"
+
+#: pages/models.py:20
+msgid "URL"
+msgstr ""

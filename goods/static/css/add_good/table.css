@@ -1,0 +1,75 @@
+
+.days {
+	display:table-row;
+}
+.days li {
+	display:table-cell;
+}
+.days li {
+	float:none;
+	border: 1px solid #c0bebf;
+	width: 40px;
+	height:40px;
+	font-size: 16px;
+	font-weight: bold;
+    font-family: Arial, sans-serif;
+	text-transform: uppercase;
+	color: #e1dfe0;
+	text-align: center;
+	vertical-align: middle;
+}
+.days-calendar {
+	  margin-top: 20px;
+}
+
+.pin-container.location {
+	width:34%;
+
+}
+.pin-container.location .pin-container-input.price-input {
+width:270px;
+margin-left: 0;
+}
+.col-33 {
+width:33.3%;
+float:left;
+box-sizing:border-box;
+
+}
+.price {
+	padding: 0 20px;
+	text-align: center;
+}
+.number.standalone {
+	width: 287px;
+	text-align:center;
+}
+
+.row.center {
+  clear: both;
+  text-align: center;
+  padding-top: 10px;
+}
+.delivery-terms-label {
+	line-height:15px;
+	text-align: center;
+}
+.centered {
+	text-align: center;
+}
+.block-subcategory p {
+  font-size: 8px;
+  color: #000000;
+  text-align: center;
+  display: inline-block;
+  width: 25%;
+  margin-left: -4px;
+  min-height: 17px;
+  padding: 3px 0;
+  vertical-align: top;
+}
+.block-subcategory .dress-section {
+	display:block;
+	padding-bottom: 10px;
+    padding-top: 10px;
+}

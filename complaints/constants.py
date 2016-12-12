@@ -1,0 +1,6 @@
+# Complaint types constants
+COMPLAINT_NOT_DEFINED  = 0
+OWNER_IMPERSONATE = 1
+FRAUD = 2
+SPAM = 3
+ADVERTISE = 4

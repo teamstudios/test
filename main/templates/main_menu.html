@@ -1,0 +1,67 @@
+{% load staticfiles %}
+{% load main_tags %}
+{% load chat_tags %}
+<ul>
+    <li class="green-photos">
+        <div class="search-modal">
+            <img src="{% static 'images/user_search/search-green-icon_03.png' %}">
+        </div>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'accounts:show_subscriptions' %}">
+            <img src="{% static 'images/user_search/2-green-menu.png' %}">
+        </a>
+        {{ request.user|show_count_subscriptions|safe }}
+    </li>
+    <li class="green-photos">
+        <a href="#">
+            <img src="{% static 'images/user_search/3-green-menu.png' %}">
+        </a>
+        <span>258</span>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'chat:show_thread_list' %}">
+            <img class="image-correct" src="{% static 'images/user_search/4-green-menu.png' %}">
+        </a>
+        {{ request.user|show_unread_message_count|safe }}
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'goods:show_wishlist' %}">
+            <img src="{% static 'images/user_search/5-green-menu.png' %}">
+        </a>
+        {{ request.user|show_count_goods_in_wishlist|safe }}
+    </li>
+    <li class="green-photos central-photo">
+        <a href="{{ request.user.profile.get_absolute_url }}">
+            <img src="{% static 'images/user_search/avatar-green-menu.png' %}">
+        </a>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'main:calculator' %}">
+            <img src="{% static 'images/user_search/6-green-menu.png' %}">
+        </a>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'accounts:user_search' %}">
+            <img src="{% static 'images/user_search/7-green-menu.png' %}">
+        </a>
+    </li>
+    <li class="green-photos">
+        <a href="#">
+            <img src="{% static 'images/user_search/8-green-menu.png' %}">
+        </a>
+        <span>258</span>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'accounts:profile' %}">
+            <img src="{% static 'images/user_search/9-green-menu.png' %}">
+        </a>
+    </li>
+    <li class="green-photos">
+        <a href="{% url 'accounts:logout' %}">
+            <div>
+                <img src="{% static 'images/user_search/world-green-icon_03.png' %}">
+            </div>
+        </a>
+    </li>
+</ul>

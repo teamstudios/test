@@ -1,0 +1,12 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[branch "master"]
+[remote "store"]
+	url = https://nonama@bitbucket.org/storesb/storesb.git
+	fetch = +refs/heads/*:refs/remotes/store/*
+[remote "ssb"]
+	url = git@bitbucket.org:nonama/ssb.git
+	fetch = +refs/heads/*:refs/remotes/ssb/*

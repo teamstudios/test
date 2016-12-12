@@ -1,0 +1,24 @@
+{% load thumbnail %}
+{% load i18n %}
+<div id="sellers" class="ui card">
+    <div class="content">
+        <div class="headSeller">
+            {% trans 'Sellers in this category' %}
+        </div>
+    </div>
+    <div class="content">
+        <ul>
+        {% for seller in sellers %}
+            <li class="clearfix">
+                <a class="image" href="{{ seller.get_absolute_url }}">
+                    <img src="/media/{{ seller.avatar }}">
+                </a>
+                <a class="user_link" href="{{ seller.get_absolute_url }}">{{ seller.user.username }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="content more">
+        <a class="more_link" href="{% url 'accounts:user_search' %}">{% trans 'More' %}</a>
+    </div>
+</div>

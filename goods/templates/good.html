@@ -1,0 +1,951 @@
+{% extends 'basis.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load thumbnail %}
+{% load main_tags %}
+{% load goods_tags %}
+
+{% load cart_tags %}
+
+{% block title %}{{ good.title }}{% endblock %}
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/good/Mstyle.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/good/slider.css' %}" type="text/css" media="all">
+    <link href="{% static 'css/good/jquery.bxslider.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/good/jquery.mCustomScrollbar.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/good/jquery.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/good/productslider.js' %}"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="{% static 'js/good/jquery.bxslider.min.js' %}"></script>
+    <!-- bxSlider CSS file -->
+    <script src="{% static 'js/good/jquery.collagePlus.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/good/good.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/good/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/good/html5.js' %}"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/message_modal_styles.css' %}" type="text/css">
+</head>
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="{% static 'fotorama/fotorama.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/good.css' %}">
+<script type="text/javascript" src="{% static 'fotorama/fotorama.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/good/translate.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/good/good.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% trans 'Unfollow' as unfollow %}
+{% trans 'Follow' as follow %}
+
+    <div id="main_left" class="twelve wide column padless">
+        <div id="right_bar" class="ui right very close rail">
+        	<div class="ui sticky">
+            <div class="ui center aligned segment">
+                <span class="copy">{% trans 'Other goods with same tags' %}</span>
+			    <div class="ui divider"></div>
+			    <div class="fotorama" data-nav="thumbs" data-height="150" thumbmargin="4" data-click="false" data-fit="cover" data-thumbfit="cover" data-clicktransition="{% url 'goods:good_view' good.pk %}">
+                {% for good in random_goods_with_same_tags %}
+                    <a href="{% url 'goods:good_view' good.pk %}">
+                        {% if good.get_first_image %}
+                            <img src="{{ good.get_first_image.image.url }}"  width="50px" height="50px" data-link="{% url 'goods:good_view' good.pk %}">
+                        {% else %}
+                            <img src="{% static 'images/no-good-image.png' %}" width="50px" height="50px">
+                        {% endif %}
+                    </a>
+                {% empty %}
+                    {% trans 'No goods with sam tag' %}
+                {% endfor %}
+			    </div>
+			    <div class="ui divider"></div>
+			    <a href="{% url 'goods:search' %}?filter=1&{% for id in tags_ids %}tag_id[]={{ id }}&{% endfor %}" class="aboutproductmorebutton">{% trans 'And more' %}...</a>
+            </div>
+            <div id="other_shows" class="ui center aligned segment">
+    			<span class="copy">{% trans 'Other showcases this category' %}</span>
+	    		<div class="ui divider"></div>
+                {% for good in random_goods_by_random_seller %}
+                    {% if forloop.first %}
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% if good.get_first_image %}
+                                <img src="{{ good.get_first_image.image.url }}" alt="" class="showcasebigimg">
+                            {% else %}
+                                <img src="{% static 'images/no-good-image.png' %}" class="showcasebigimg">
+                            {% endif %}
+                        </a>
+                        <ul>
+                        {% elif forloop.last %}
+                            <li>
+                                <a href="{% url 'goods:good_view' good.pk %}">
+                                    {% show_good_image good '53' '88' %}
+                                </a>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'goods:good_view' good.pk %}">
+                                {% show_good_image good '53' '88' %}
+                            </a>
+                        </li>
+                    {% endif %}
+                {##}
+                {#<ul>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#			    </ul>#}
+            {% empty %}
+                <p>{% trans 'No other showcases in this category' %}</p>
+            {% endfor %}
+			<div class="clear"></div>
+            {% if random_seller %}
+			    <div id="about-signup" data-id="{{ random_seller.user.pk }}" data-action="{% if random_seller.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">{% trans 'follow' %}</div>
+            {% endif %}
+		</div>
+			<div id="other_sellers" class="ui center aligned segment">
+			<span class="copy">{% trans 'Sellers with this tags' %}</span>
+			<div class="ui divider"></div>
+			<ul id="seller-list">
+                {% for seller in random_sellers %}
+                    <li>
+                        <div id="seller-users">
+                                <img src="{{ seller.avatar.url }}">
+                            <a href="{{ seller.get_absolute_url }}" id="seller-users-ramka"></a>
+                        </div>
+                        <a href="{{ seller.get_absolute_url }}" id="seller-name">{{ seller.user.username }}</a>
+                        <a href="{{ seller.get_absolute_url }}" class="seller-name-second">{{ seller.user.username }}</a>
+                        <div class="clear"></div>
+                    </li>
+                {% empty %}
+                    {% trans 'No sellers with same tags' %}
+                {% endfor %}
+            </ul>
+            <div class="ui divider"></div>
+			<a href="{% url 'accounts:user_search' %}" class="aboutsellermorebutton">{% trans 'more' %}...</a>
+		</div>
+			</div>
+        </div>
+        <div class="ui segment center aligned">
+            <img id="user_avatar" class="ui centered mini circular image" src="{{ profile.avatar.url }}">
+            <a href="#" class="copy">{{ good.user.username }}</a><br>
+            <span>{% trans 'seller' %}</span>
+        </div>
+        <div class="ui segment center aligned">
+            <div class="left comments">{{ comments_count }}</div>
+			<a href="#" class="ui small olive button">{% trans 'write' %}</a>
+			<div class="right likes">{{ good.users_like.count }}</div>
+		</div>
+		<div class="ui segment center aligned">
+		    <div class="fotorama" data-nav="thumbs" data-height="380" data-allowfullscreen="true" thumbmargin="4">
+		        {% for photo in photos %}
+                    <a href="{{ photo.image.url }}">
+                        <img src="{{ photo.image.url }}">
+                    </a>
+                {% empty %}
+                    <a href="{% static 'images/no-good-image.png' %}">
+                        <img src="{% static 'images/no-good-image.png' %}" width="99" height="66">
+                    </a>
+                {% endfor %}
+			</div>
+			<div class="aboutreviewproduct">
+                {% if good.deal == SALE %}
+		            <div class="aboutdiscount">{{ good.get_sale_percent }}%</div>
+                {% elif good.deal == AUCTION %}
+                    <div class="about-auction">
+			            <p>{% trans 'left until the end' %}</p>
+			            <div class="about-auction-first">1</div>
+    		            <div class="about-auction-second">0</div>
+			            <div class="about-auction-first">0</div>
+			            <div class="about-auction-second">5</div>
+			            <div class="about-auction-first">2</div>
+			            <div class="about-auction-last">5</div>
+		            </div>
+                {% endif %}
+		        <h3 id="about_title">{{ good.title }}</h3>
+		        <div id="about_condition">{% trans 'State' %}: {{ good.get_state_display }}</div>
+		        <a href="#" id="about_address"><i class="marker icon"></i>{{ profile.get_country_display }} <br>{{ profile.city }}</a>
+		        <div id="about-delivery">{% trans 'Delivery' %}: {{ good.cooperation|truncatewords:5 }}</div>
+		        <div id="about-number"> {% trans 'Number of items available: ' %}{{ good.quantity }}</div>
+                {% if good.deal == SALE %}
+		            <div id="about-old-price">{{ good.old_price }} $</div>
+		            <div id="about-price">{{ good.new_price }} $</div>
+                {% elif good.deal == AUCTION %}
+                    <div class="about-fix-price">
+                        <p>{{ good.reserve_price }} $</p> <span>fix price</span>
+                    </div>
+		            <div class="about-auction-price">
+                        <p>{{ good.min_price }} $</p> <span>{% with bids_count=good.bids.count %}{{ bids_count }} {% trans 'bid' %}{{ bids_count|pluralize }}{% endwith %}</span>
+                    </div>
+                {% else %}
+                    <div id="about-price2">{{ good.price|floatformat }} $</div>
+                {% endif %}
+                {% if good.user == request.user %}
+		            <a href="#" id="about-sale">{% trans 'Edit' %}</a>
+		            <a href="{% url 'goods:delete_good' good.pk %}" id="about-cart">{% trans 'Delete' %}</a>
+                {% else %}
+                    <a href="#" id="about-sale">{% trans 'Buy' %}</a>
+                    <a href="#" id="about-cart" onclick="addToCart({{ good.id }}); event.preventDefault();" data-id="{{ good.id }}" data-action="{% if good.id in cart.get_list_items %}remove{% else %}add{% endif %}">
+                    {% if good.id in cart.get_list_items %}
+                        {% trans 'In cart' %}
+                    {% else %}
+                        {% trans 'Add to cart' %}
+                    {% endif %}
+                    </a>
+                {% endif %}
+                {#<ul id="about-statistics">#}
+                    {#<li>50</li>#}
+                    {#<li>50</li>#}
+                    {#<li>50</li>#}
+                    {#<li>50</li>#}
+                    {#<li>50</li>#}
+                {#</ul>#}
+                <div id="social">
+					<button class="ui mini circular grey icon button">
+                        <i class="vk icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="facebook f icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="odnoklassniki icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="google plus icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="twitter icon"></i>
+                    </button>
+                    <button class="ui mini circular grey icon button">
+                        <i class="pinterest icon"></i>
+                    </button>
+			    </div>
+            </div>
+		</div>
+		<table id="tab_menu" class="ui very basic fixed table">
+			<tbody>
+				<tr>
+					<td id="tab1" class="center aligned tab olive active">{% trans 'Description' %}</td>
+					<td id="tab2" class="center aligned tab olive">{% trans 'Shipping and payment' %}</td>
+					<td id="tab3" class="center aligned tab olive">{% trans 'About seller' %}</td>
+				</tr>
+			</tbody>
+		</table>
+		<!------------------------------------------------TABS---------------------------------->
+		<div id="desc_tab" class="ui center aligned segment">
+			<h3>{% trans 'characteristics' %}</h3>
+			<table class="ui very basic fixed table">
+				<tbody>
+					<tr class="center aligned">
+						<td>
+							<h4>{% trans 'Trade mark' %}</h4>
+							<span class="copy">{{ properties.trade_mark }}</span>
+							<h4>{% trans 'Model' %}</h4>
+							<span class="copy">{{ properties.model }}</span>
+						</td>
+						<td>
+							<h4>{% trans 'Material' %}</h4>
+							<span class="copy">{{ properties.material }}</span>
+							<h4>{% trans 'Size' %}</h4>
+							<span class="copy">{{ properties.size }}</span>
+						</td>
+						<td>
+							<h4>{% trans 'Color' %}</h4>
+							<span class="copy">{{ properties.color }}</span>
+							<h4>{% trans 'weight' %}</h4>
+							<span class="copy">{{ properties.weight }}</span>
+						</td>
+						<td>
+							<h4>{% trans 'equipment' %}</h4>
+							<span class="copy">{{ properties.equipment }}</span>
+							<h4>{% trans 'vendor' %}</h4>
+							<span class="copy">{{ properties.vendor }}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<h3>{% trans 'Description' %}</h3>
+			<button id="translate" class="ui tiny basic grey button">{% trans 'show the original text' %}</button>
+			<h6>{% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}</h6><br>
+			<div id="good_description">
+                {{ properties.description|linebreaksbr }}
+            </div>
+		</div>
+		
+		<div id="ship_tab" class="ui segment">
+			<h3>{% trans 'Delivery' %}</h3>
+			<p>{% trans 'Delivery type' %}</p>
+			<h4>{{ good.get_delivery_form_display }}</h4>
+			<p>{% trans 'Location' %}</p>
+			<div class="aboutinfoproduct-place"><a href="#">{{ good.location }}</a></div>
+			<p>{% trans 'Delivery' %}</p>
+			<h4>{{ good.cooperation }}</h4>
+			<p>{% trans 'Exception' %}</p>
+			<a href="#">США,</a>
+			<a href="#">Австрия,</a>
+			<a href="#">Бельгия,</a>
+			<a href="#">Болгария,</a>
+			<a href="#">Хорватия,</a>
+			<a href="#">Кипр,</a>
+			<a href="#">Чехия,</a>
+    		<a href="#">Дания,</a>
+			<a href="#">Эстония,</a>
+			<a href="#">Финляндия,</a>
+			<a href="#">Франция,</a>
+			<a href="#">Германия,</a>
+			<a href="#">Греция,</a>
+			<a href="#">Венгрия,</a>
+			<a href="#">Исландия,</a>
+			<a href="#">Ирландия,</a>
+			<a href="#">Италия,</a>
+			<a href="#">Латвия,</a>
+			<a href="#">Лихтенштейн,</a>
+			<a href="#">Литва,</a>
+			<a href="#">Люксембург,</a>
+			<a href="#">Мальта,</a>
+			<a href="#">Нидерланды,</a>
+			<a href="#">Норвегия,</a>
+			<a href="#">Польша,</a>
+			<a href="#">Португалия,</a>
+			<a href="#">Румыния,</a>
+			<a href="#">Словакия,</a>
+			<a href="#">Словения,</a>
+			<a href="#">Испания,</a>
+			<a href="#">Швеция,</a>
+			<a href="#">Швейцария,</a>
+			<a href="#">Великобритания</a>
+    		<br>
+			<br>
+			<p>{% trans 'Delivery time' %}</p>
+			<h4>{{ good.delivery_time }}</h4>
+			<div class="about-text">
+				{% blocktrans %}
+                Estimated delivery time includes processing time of the order by the seller,
+                the postal code and the recipient of the sender, the time of receipt of order delivery service,
+                depending on the selected service delivery and timing of payments processed.
+                Delivery times may vary, particularly during peak periods.
+                {% endblocktrans %}
+			</div>
+			<h3>{% trans 'Refund' %}</h3>
+			<div class="aboutinfoproduct-td1">
+				<p>{% trans 'Purchase returns' %}</p>
+				<h4>{{ good.purchase_returns_time }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td2">
+				<p>{% trans 'Reimbursement of the cost of goods' %}</p>
+				<h4>{{ good.get_refund_display }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td3">
+				<p>{% trans 'redelivery' %}</p>
+				<h4>{{ good.get_back_delivery_form_display }}</h4>
+			</div>
+			<div class="clear"></div>
+			<h3>{% trans 'More' %}</h3>
+			<a href="#" class="aboutinfoproduct-button">{% trans 'show the original text' %}</a>
+			<div class="introtext1">
+                {% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}
+            </div>
+			<div class="introtext2">
+                {{ good.delivery_description|linebreaksbr }}
+            </div>
+		</div>
+		
+		<div id="about_tab" class="ui segment">
+			<div class="tab3-window-td1">
+	    		<p style="margin-bottom:7px;">{% trans 'Address' %}</p>
+    			<div class="aboutinfoproduct-place" style="margin-bottom:20px;">
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.get_country_display }}">
+                        {{ profile.get_country_display }}
+                    </a>,
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.city }}">
+                        {{ profile.city }}
+                    </a>
+                </div>
+		    	<p>{% trans 'Phone' %}</p>
+		    	<h4>{{ profile.phone }}</h4>
+		    	<p>{% trans 'Additional phone' %}</p>
+				<h4>{{ profile.additional_phone }}</h4>
+			</div>
+			<div class="tab3-window-td2">
+				<p>Skype</p>
+				<h4>{{ profile.skype }}</h4>
+				<p>E-mail</p>
+				<h4>{{ profile.user.email }}</h4>
+				<p>{% trans 'Website' %}</p>
+				<h4>{{ profile.site|check_http_prefix }}</h4>
+			</div>
+			<div class="tab3-window-td3">
+				<p>{% trans 'Is an' %}</p>
+				<h4>{{ profile.get_org_form_display }}</h4>
+				<p>{% trans 'Sex' %}</p>
+				<h4>{{ profile.get_sex_display }}</h4>
+				<p>Instagramm</p>
+				<h4>{{ profile.instagram }}</h4>
+			</div>
+			<div class="clear"></div>
+			<p>{% trans 'Last logged in' %}  {{ profile.user.last_login }}</p>
+		</div>
+		<!--------------------------------------------------------TABS END------------------------------------------->
+    </div>
+    <!--<div id="top_right" class="four wide column padless ui sticky">
+        <div id="other_goods" class="ui center aligned segment">
+			<span class="copy">{% trans 'Other goods with same tags' %}</span>
+			<div class="ui divider"></div>
+			<div class="fotorama" data-nav="thumbs" data-height="150" thumbmargin="4" data-click="false" data-fit="cover" data-thumbfit="cover" data-clicktransition="{% url 'goods:good_view' good.pk %}">
+                {% for good in random_goods_with_same_tags %}
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% if good.get_first_image %}
+                                <img src="{{ good.get_first_image.image.url }}"  width="50px" height="50px" data-link="{% url 'goods:good_view' good.pk %}">
+                            {% else %}
+                                <img src="{% static 'images/no-good-image.png' %}" width="50px" height="50px">
+                            {% endif %}
+                        </a>
+                {% empty %}
+                    {% trans 'No goods with sam tag' %}
+                {% endfor %}
+			</div>
+			<div class="ui divider"></div>
+			<a href="{% url 'goods:search' %}?filter=1&{% for id in tags_ids %}tag_id[]={{ id }}&{% endfor %}" class="aboutproductmorebutton">{% trans 'And more' %}...</a>
+		</div>
+		<div id="other_shows" class="ui center aligned segment">
+			<span class="copy">{% trans 'Other showcases this category' %}</span>
+			<div class="ui divider"></div>
+            {% for good in random_goods_by_random_seller %}
+                {% if forloop.first %}
+                    <a href="{% url 'goods:good_view' good.pk %}">
+                        {% if good.get_first_image %}
+                                <img src="{{ good.get_first_image.image.url }}" alt="" class="showcasebigimg">
+                        {% else %}
+                            <img src="{% static 'images/no-good-image.png' %}" class="showcasebigimg">
+                        {% endif %}
+                    </a>
+                    <ul>
+                {% elif forloop.last %}
+                    <li>
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% show_good_image good '53' '88' %}
+                        </a>
+                    </li>
+                    </ul>
+                {% else %}
+                    <li>
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% show_good_image good '53' '88' %}
+                        </a>
+                    </li>
+                {% endif %}
+{##}
+{#			    <ul>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#			    </ul>#}
+            {% empty %}
+                <p>{% trans 'No other showcases in this category' %}</p>
+            {% endfor %}
+			<div class="clear"></div>
+            {% if random_seller %}
+			    <div id="about-signup" data-id="{{ random_seller.user.pk }}" data-action="{% if random_seller.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">{% trans 'follow' %}</div>
+            {% endif %}
+		</div>
+		<div id="other_sellers" class="ui center aligned segment">
+			<span class="copy">{% trans 'Sellers with this tags' %}</span>
+			<div class="ui divider"></div>
+			<ul id="seller-list">
+                {% for seller in random_sellers %}
+                    <li>
+                        <div id="seller-users">
+                                <img src="{{ seller.avatar.url }}">
+                            <a href="{{ seller.get_absolute_url }}" id="seller-users-ramka"></a>
+                        </div>
+                        <a href="{{ seller.get_absolute_url }}" id="seller-name">{{ seller.user.username }}</a>
+                        <a href="{{ seller.get_absolute_url }}" class="seller-name-second">{{ seller.user.username }}</a>
+                        <div class="clear"></div>
+                    </li>
+                {% empty %}
+                    {% trans 'No sellers with same tags' %}
+                {% endfor %}
+            </ul>
+            <div class="ui divider"></div>
+			<a href="{% url 'accounts:user_search' %}" class="aboutsellermorebutton">{% trans 'more' %}...</a>
+		</div>
+    </div>
+    <div id="tab1" class="four wide center aligned column tab olive active">{% trans 'Description' %}</div>
+	<div id="tab2" class="four wide center aligned column tab olive">{% trans 'Shipping and payment' %}</div>
+	<div id="tab3" class="four wide center aligned column tab olive">{% trans 'About seller' %}</div>
+	<div class="twelve wide column padless">
+		<div id="desc_tab" class="ui segment">
+			<h3>{% trans 'characteristics' %}</h3>
+			<div class="tab1-window-td1">
+				<p>{% trans 'Trade mark' %}</p>
+				<h4>{{ properties.trade_mark }}</h4>
+				<p>{% trans 'Model' %}</p>
+				<h4>{{ properties.model }}</h4>
+			</div>
+			<div class="tab1-window-td2">
+				<p>{% trans 'Material' %}</p>
+				<h4>{{ properties.material }}</h4>
+				<p>{% trans 'Size' %}</p>
+				<h4>{{ properties.size }}</h4>
+			</div>
+			<div class="tab1-window-td3">
+				<p>{% trans 'Color' %}</p>
+				<h4>{{ properties.color }}</h4>
+				<p>{% trans 'weight' %}</p>
+				<h4>{{ properties.weight }} Kg</h4>
+			</div>
+			<div class="tab1-window-td4">
+				<p>{% trans 'equipment' %}</p>
+				<h4>{{ properties.equipment }}</h4>
+				<p>{% trans 'vendor' %}</p>
+				<h4>{{ properties.vendor }}</h4>
+			</div>
+			<h3>{% trans 'Description' %}</h3>
+			<a href="#" class="aboutinfoproduct-button">{% trans 'show the original text' %}</a>
+			<div class="introtext1">{% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}</div>
+			<div class="introtext2">
+                {{ properties.description|linebreaksbr }}
+            </div>
+		</div>
+	</div>
+	<div class="twelve wide column padless">
+		<div id="ship_tab" class="ui segment">
+			<h3>{% trans 'Delivery' %}</h3>
+			<p>{% trans 'Delivery type' %}</p>
+			<h4>{{ good.get_delivery_form_display }}</h4>
+			<p>{% trans 'Location' %}</p>
+			<div class="aboutinfoproduct-place"><a href="#">{{ good.location }}</a></div>
+			<p>{% trans 'Delivery' %}</p>
+			<h4>{{ good.cooperation }}</h4>
+			<p>{% trans 'Exception' %}</p>
+			<a href="#">США,</a>
+			<a href="#">Австрия,</a>
+			<a href="#">Бельгия,</a>
+			<a href="#">Болгария,</a>
+			<a href="#">Хорватия,</a>
+			<a href="#">Кипр,</a>
+			<a href="#">Чехия,</a>
+    		<a href="#">Дания,</a>
+			<a href="#">Эстония,</a>
+			<a href="#">Финляндия,</a>
+			<a href="#">Франция,</a>
+			<a href="#">Германия,</a>
+			<a href="#">Греция,</a>
+			<a href="#">Венгрия,</a>
+			<a href="#">Исландия,</a>
+			<a href="#">Ирландия,</a>
+			<a href="#">Италия,</a>
+			<a href="#">Латвия,</a>
+			<a href="#">Лихтенштейн,</a>
+			<a href="#">Литва,</a>
+			<a href="#">Люксембург,</a>
+			<a href="#">Мальта,</a>
+			<a href="#">Нидерланды,</a>
+			<a href="#">Норвегия,</a>
+			<a href="#">Польша,</a>
+			<a href="#">Португалия,</a>
+			<a href="#">Румыния,</a>
+			<a href="#">Словакия,</a>
+			<a href="#">Словения,</a>
+			<a href="#">Испания,</a>
+			<a href="#">Швеция,</a>
+			<a href="#">Швейцария,</a>
+			<a href="#">Великобритания</a>
+    		<br>
+			<br>
+			<p>{% trans 'Delivery time' %}</p>
+			<h4>{{ good.delivery_time }}</h4>
+			<div class="about-text">
+				{% blocktrans %}
+                Estimated delivery time includes processing time of the order by the seller,
+                the postal code and the recipient of the sender, the time of receipt of order delivery service,
+                depending on the selected service delivery and timing of payments processed.
+                Delivery times may vary, particularly during peak periods.
+                {% endblocktrans %}
+			</div>
+			<h3>{% trans 'Refund' %}</h3>
+			<div class="aboutinfoproduct-td1">
+				<p>{% trans 'Purchase returns' %}</p>
+				<h4>{{ good.purchase_returns_time }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td2">
+				<p>{% trans 'Reimbursement of the cost of goods' %}</p>
+				<h4>{{ good.get_refund_display }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td3">
+				<p>{% trans 'redelivery' %}</p>
+				<h4>{{ good.get_back_delivery_form_display }}</h4>
+			</div>
+			<div class="clear"></div>
+			<h3>{% trans 'More' %}</h3>
+			<a href="#" class="aboutinfoproduct-button">{% trans 'show the original text' %}</a>
+			<div class="introtext1">
+                {% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}
+            </div>
+			<div class="introtext2">
+                {{ good.delivery_description|linebreaksbr }}
+            </div>
+		</div>
+	</div>
+	<div class="twelve wide column padless">
+		<div id="about_tab" class="ui segment">
+			<div class="tab3-window-td1">
+	    		<p style="margin-bottom:7px;">{% trans 'Address' %}</p>
+    			<div class="aboutinfoproduct-place" style="margin-bottom:20px;">
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.get_country_display }}">
+                        {{ profile.get_country_display }}
+                    </a>,
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.city }}">
+                        {{ profile.city }}
+                    </a>
+                </div>
+		    	<p>{% trans 'Phone' %}</p>
+		    	<h4>{{ profile.phone }}</h4>
+		    	<p>{% trans 'Additional phone' %}</p>
+				<h4>{{ profile.additional_phone }}</h4>
+			</div>
+			<div class="tab3-window-td2">
+				<p>Skype</p>
+				<h4>{{ profile.skype }}</h4>
+				<p>E-mail</p>
+				<h4>{{ profile.user.email }}</h4>
+				<p>{% trans 'Website' %}</p>
+				<h4>{{ profile.site|check_http_prefix }}</h4>
+			</div>
+			<div class="tab3-window-td3">
+				<p>{% trans 'Is an' %}</p>
+				<h4>{{ profile.get_org_form_display }}</h4>
+				<p>{% trans 'Sex' %}</p>
+				<h4>{{ profile.get_sex_display }}</h4>
+				<p>Instagramm</p>
+				<h4>{{ profile.instagram }}</h4>
+			</div>
+			<div class="clear"></div>
+			<p>{% trans 'Last logged in' %}  {{ profile.user.last_login }}</p>
+		</div>
+	</div>-->
+
+{% endblock %}
+
+<!--<div id="top_right" class="four wide column padless ui sticky">
+        <div id="other_goods" class="ui center aligned segment">
+			<span class="copy">{% trans 'Other goods with same tags' %}</span>
+			<div class="ui divider"></div>
+			<div class="fotorama" data-nav="thumbs" data-height="150" thumbmargin="4" data-click="false" data-fit="cover" data-thumbfit="cover" data-clicktransition="{% url 'goods:good_view' good.pk %}">
+                {% for good in random_goods_with_same_tags %}
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% if good.get_first_image %}
+                                <img src="{{ good.get_first_image.image.url }}"  width="50px" height="50px" data-link="{% url 'goods:good_view' good.pk %}">
+                            {% else %}
+                                <img src="{% static 'images/no-good-image.png' %}" width="50px" height="50px">
+                            {% endif %}
+                        </a>
+                {% empty %}
+                    {% trans 'No goods with sam tag' %}
+                {% endfor %}
+			</div>
+			<div class="ui divider"></div>
+			<a href="{% url 'goods:search' %}?filter=1&{% for id in tags_ids %}tag_id[]={{ id }}&{% endfor %}" class="aboutproductmorebutton">{% trans 'And more' %}...</a>
+		</div>
+		<div id="other_shows" class="ui center aligned segment">
+			<span class="copy">{% trans 'Other showcases this category' %}</span>
+			<div class="ui divider"></div>
+            {% for good in random_goods_by_random_seller %}
+                {% if forloop.first %}
+                    <a href="{% url 'goods:good_view' good.pk %}">
+                        {% if good.get_first_image %}
+                                <img src="{{ good.get_first_image.image.url }}" alt="" class="showcasebigimg">
+                        {% else %}
+                            <img src="{% static 'images/no-good-image.png' %}" class="showcasebigimg">
+                        {% endif %}
+                    </a>
+                    <ul>
+                {% elif forloop.last %}
+                    <li>
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% show_good_image good '53' '88' %}
+                        </a>
+                    </li>
+                    </ul>
+                {% else %}
+                    <li>
+                        <a href="{% url 'goods:good_view' good.pk %}">
+                            {% show_good_image good '53' '88' %}
+                        </a>
+                    </li>
+                {% endif %}
+{##}
+{#			    <ul>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#				    <li><a href="#"><img src="tmp/3imgr.jpg" alt=""></a></li>#}
+{#			    </ul>#}
+            {% empty %}
+                <p>{% trans 'No other showcases in this category' %}</p>
+            {% endfor %}
+			<div class="clear"></div>
+            {% if random_seller %}
+			    <div id="about-signup" data-id="{{ random_seller.user.pk }}" data-action="{% if random_seller.user in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">{% trans 'follow' %}</div>
+            {% endif %}
+		</div>
+		<div id="other_sellers" class="ui center aligned segment">
+			<span class="copy">{% trans 'Sellers with this tags' %}</span>
+			<div class="ui divider"></div>
+			<ul id="seller-list">
+                {% for seller in random_sellers %}
+                    <li>
+                        <div id="seller-users">
+                                <img src="{{ seller.avatar.url }}">
+                            <a href="{{ seller.get_absolute_url }}" id="seller-users-ramka"></a>
+                        </div>
+                        <a href="{{ seller.get_absolute_url }}" id="seller-name">{{ seller.user.username }}</a>
+                        <a href="{{ seller.get_absolute_url }}" class="seller-name-second">{{ seller.user.username }}</a>
+                        <div class="clear"></div>
+                    </li>
+                {% empty %}
+                    {% trans 'No sellers with same tags' %}
+                {% endfor %}
+            </ul>
+            <div class="ui divider"></div>
+			<a href="{% url 'accounts:user_search' %}" class="aboutsellermorebutton">{% trans 'more' %}...</a>
+		</div>
+    </div>
+    <div id="tab1" class="four wide center aligned column tab olive active">{% trans 'Description' %}</div>
+	<div id="tab2" class="four wide center aligned column tab olive">{% trans 'Shipping and payment' %}</div>
+	<div id="tab3" class="four wide center aligned column tab olive">{% trans 'About seller' %}</div>
+	<div class="twelve wide column padless">
+		<div id="desc_tab" class="ui segment">
+			<h3>{% trans 'characteristics' %}</h3>
+			<div class="tab1-window-td1">
+				<p>{% trans 'Trade mark' %}</p>
+				<h4>{{ properties.trade_mark }}</h4>
+				<p>{% trans 'Model' %}</p>
+				<h4>{{ properties.model }}</h4>
+			</div>
+			<div class="tab1-window-td2">
+				<p>{% trans 'Material' %}</p>
+				<h4>{{ properties.material }}</h4>
+				<p>{% trans 'Size' %}</p>
+				<h4>{{ properties.size }}</h4>
+			</div>
+			<div class="tab1-window-td3">
+				<p>{% trans 'Color' %}</p>
+				<h4>{{ properties.color }}</h4>
+				<p>{% trans 'weight' %}</p>
+				<h4>{{ properties.weight }} Kg</h4>
+			</div>
+			<div class="tab1-window-td4">
+				<p>{% trans 'equipment' %}</p>
+				<h4>{{ properties.equipment }}</h4>
+				<p>{% trans 'vendor' %}</p>
+				<h4>{{ properties.vendor }}</h4>
+			</div>
+			<h3>{% trans 'Description' %}</h3>
+			<a href="#" class="aboutinfoproduct-button">{% trans 'show the original text' %}</a>
+			<div class="introtext1">{% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}</div>
+			<div class="introtext2">
+                {{ properties.description|linebreaksbr }}
+            </div>
+		</div>
+	</div>
+	<div class="twelve wide column padless">
+		<div id="ship_tab" class="ui segment">
+			<h3>{% trans 'Delivery' %}</h3>
+			<p>{% trans 'Delivery type' %}</p>
+			<h4>{{ good.get_delivery_form_display }}</h4>
+			<p>{% trans 'Location' %}</p>
+			<div class="aboutinfoproduct-place"><a href="#">{{ good.location }}</a></div>
+			<p>{% trans 'Delivery' %}</p>
+			<h4>{{ good.cooperation }}</h4>
+			<p>{% trans 'Exception' %}</p>
+			<a href="#">США,</a>
+			<a href="#">Австрия,</a>
+			<a href="#">Бельгия,</a>
+			<a href="#">Болгария,</a>
+			<a href="#">Хорватия,</a>
+			<a href="#">Кипр,</a>
+			<a href="#">Чехия,</a>
+    		<a href="#">Дания,</a>
+			<a href="#">Эстония,</a>
+			<a href="#">Финляндия,</a>
+			<a href="#">Франция,</a>
+			<a href="#">Германия,</a>
+			<a href="#">Греция,</a>
+			<a href="#">Венгрия,</a>
+			<a href="#">Исландия,</a>
+			<a href="#">Ирландия,</a>
+			<a href="#">Италия,</a>
+			<a href="#">Латвия,</a>
+			<a href="#">Лихтенштейн,</a>
+			<a href="#">Литва,</a>
+			<a href="#">Люксембург,</a>
+			<a href="#">Мальта,</a>
+			<a href="#">Нидерланды,</a>
+			<a href="#">Норвегия,</a>
+			<a href="#">Польша,</a>
+			<a href="#">Португалия,</a>
+			<a href="#">Румыния,</a>
+			<a href="#">Словакия,</a>
+			<a href="#">Словения,</a>
+			<a href="#">Испания,</a>
+			<a href="#">Швеция,</a>
+			<a href="#">Швейцария,</a>
+			<a href="#">Великобритания</a>
+    		<br>
+			<br>
+			<p>{% trans 'Delivery time' %}</p>
+			<h4>{{ good.delivery_time }}</h4>
+			<div class="about-text">
+				{% blocktrans %}
+                Estimated delivery time includes processing time of the order by the seller,
+                the postal code and the recipient of the sender, the time of receipt of order delivery service,
+                depending on the selected service delivery and timing of payments processed.
+                Delivery times may vary, particularly during peak periods.
+                {% endblocktrans %}
+			</div>
+			<h3>{% trans 'Refund' %}</h3>
+			<div class="aboutinfoproduct-td1">
+				<p>{% trans 'Purchase returns' %}</p>
+				<h4>{{ good.purchase_returns_time }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td2">
+				<p>{% trans 'Reimbursement of the cost of goods' %}</p>
+				<h4>{{ good.get_refund_display }}</h4>
+			</div>
+			<div class="aboutinfoproduct-td3">
+				<p>{% trans 'redelivery' %}</p>
+				<h4>{{ good.get_back_delivery_form_display }}</h4>
+			</div>
+			<div class="clear"></div>
+			<h3>{% trans 'More' %}</h3>
+			<a href="#" class="aboutinfoproduct-button">{% trans 'show the original text' %}</a>
+			<div class="introtext1">
+                {% trans 'Automatic translation is performed Google Translate service, and may not be accurate.' %}
+            </div>
+			<div class="introtext2">
+                {{ good.delivery_description|linebreaksbr }}
+            </div>
+		</div>
+	</div>
+	<div class="twelve wide column padless">
+		<div id="about_tab" class="ui segment">
+			<div class="tab3-window-td1">
+	    		<p style="margin-bottom:7px;">{% trans 'Address' %}</p>
+    			<div class="aboutinfoproduct-place" style="margin-bottom:20px;">
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.get_country_display }}">
+                        {{ profile.get_country_display }}
+                    </a>,
+                    <a href="{% url 'goods:search' %}?filter=1&location={{ profile.city }}">
+                        {{ profile.city }}
+                    </a>
+                </div>
+		    	<p>{% trans 'Phone' %}</p>
+		    	<h4>{{ profile.phone }}</h4>
+		    	<p>{% trans 'Additional phone' %}</p>
+				<h4>{{ profile.additional_phone }}</h4>
+			</div>
+			<div class="tab3-window-td2">
+				<p>Skype</p>
+				<h4>{{ profile.skype }}</h4>
+				<p>E-mail</p>
+				<h4>{{ profile.user.email }}</h4>
+				<p>{% trans 'Website' %}</p>
+				<h4>{{ profile.site|check_http_prefix }}</h4>
+			</div>
+			<div class="tab3-window-td3">
+				<p>{% trans 'Is an' %}</p>
+				<h4>{{ profile.get_org_form_display }}</h4>
+				<p>{% trans 'Sex' %}</p>
+				<h4>{{ profile.get_sex_display }}</h4>
+				<p>Instagramm</p>
+				<h4>{{ profile.instagram }}</h4>
+			</div>
+			<div class="clear"></div>
+			<p>{% trans 'Last logged in' %}  {{ profile.user.last_login }}</p>
+		</div>
+	</div>-->
+	<div class="aboutright">
+		
+		
+		
+		<div class="aboutsliderproduct">
+			<ul class="bxslider">
+                {% for slider_good in random_goods_slider %}
+			 	    <li>
+			  		    <span>{{ slider_good.get_good_price_by_deal }} $</span>
+			  		    <a href="{% url 'goods:good_view' slider_good.pk %}">
+                            {% show_good_image slider_good '236' '173' %}
+				  		    <h3>{{ slider_good.title }}</h3>
+			  		    </a>
+			  		    <a href="#" class="about-slider-button">{% trans 'Buy' %}</a>
+			  	    </li>
+                {% empty %}
+                    {% trans 'No other showcases in this category' %}
+                {% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+
+
+{#	<h3 class="about-title-one">{% trans 'Customers who bought this product also purchased' %}</h3>#}
+{#	<div class="aboutmoresaleusers">#}
+{#		<ul>#}
+{#            {% for good_likes in goods_with_max_likes %}#}
+{#			    <li class="max_likes_goods">#}
+{#                    <a href="{% url 'goods:good_view' good_likes.pk %}">#}
+{#                        {% show_good_image good_likes '88' '82' %}#}
+{#                        <h3>{{ good_likes.title }}</h3>#}
+{#                        <span>{{ good_likes.get_good_price_by_deal }} $</span>#}
+{#                    </a>#}
+{#                    <a href="#" class="aboutmoresaleusers-sale">{% trans 'Buy' %}</a>#}
+{#                    <div id="aboutmoresaleusers-users">#}
+{#                        {% thumbnail good_likes.user.profile.avatar "36x36" as im %}#}
+{#                            <img src="{{ im.url }}">#}
+{#                        {% endthumbnail %}#}
+{#                        <a href="{{ good_likes.user.profile.get_absolute_url }}" id="aboutmoresaleusers-users-ramka"></a>#}
+{#                    </div>#}
+{#                    <div class="aboutmoresaleusers-status">{% trans 'seller' %}</div><br>#}
+{#                    <a href="{{ good_likes.user.profile.get_absolute_url }}" class="aboutmoresaleusers-name">{{ good_likes.user.username }}</a>#}
+{#			    </li>#}
+{#            {% empty %}#}
+{#                No goods#}
+{#            {% endfor %}#}
+{#		</ul>#}
+{#		<div class="clear"></div>#}
+{#	</div>#}
+{#	<a href="#" class="about-banner">#}
+{#		<img src="{% static 'images/good/tmp/banner.jpg' %}" alt="">#}
+{#	</a>#}
+
+
+	<h3 class="about-title-two">{% trans 'Same goods' %}</h3>
+	    <div class="similar-product">
+		    <div id="category-container">
+                {% include "good_ajax.html" %}
+                <div class="clear"></div>
+            </div>
+	    </div>
+    </div>
+    
+    
+    <!-- The Card modal -->
+    <div id="message-modal" class="message-modal">
+        <div class="message-modal-content">
+            <div class="message-modal-header">
+                <h4>{% trans 'Send message to' %} {{ good.user.username }}</h4>
+                <span class="close" id="message-close" onclick="closeMessage()">×</span>
+            </div>
+            <div class="message-modal-body">
+                <h4>{% trans 'Enter your message' %}</h4>
+                <span id="message_errors"></span>
+                <br>
+                <textarea id="id_message"></textarea>
+                <button type="submit" class="add-message-button" onclick="sendMessageChat({{ good.user.pk }})">
+                    {% trans 'Send' %}
+                </button>
+            </div>
+        </div>
+    </div>

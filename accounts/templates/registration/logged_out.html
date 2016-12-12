@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Logged out' %}{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/login/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/login/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="css/styleIE.css" type="text/css" media="all">
+	    <script type="text/javascript" src="js/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        var i = 1;
+	        $('#display-pass').click(function(){
+	            if(i==1) {
+		            $('#id_password').attr('type', 'text');
+		            i = 2;
+	            } else {
+		            $('#id_password').attr('type', 'password');
+		            i = 1;
+	            }
+	        });
+	    }); //Конец ready
+    </script>
+{% endblock %}
+{% block content %}
+    <body style="background:#636363 !important;">
+    <div id="wrapper" class="green">
+        <div id="form-box">
+            <p>{% trans 'Logged out' %}</p>
+            <p>
+                You have been successfully logged out.
+                <br>
+                You can <a href="{% url "accounts:login" %}">log-in again</a>.
+            </p>
+			<div id="social-title">{% trans 'Or you can sign in via' %}</div>
+			<ul id="social">
+				<li><a href="{% url 'social:begin' 'vk-oauth2' %}"></a></li>
+				<li><a href="{% url 'social:begin' 'facebook' %}"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#"></a></li>
+				<li><a href="{% url 'social:begin' 'pinterest' %}"></a></li>
+			</ul>
+			<div id="line"></div>
+			<div id="rev1">{% trans 'More than a 1000 items' %}</div>
+			<div id="rev2">
+                {% blocktrans %}
+                    Register in <span>45</span> seconds!
+                {% endblocktrans %}
+            </div>
+		</div>
+	</div>
+    </body>
+{% endblock %}

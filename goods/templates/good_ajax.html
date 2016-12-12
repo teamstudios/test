@@ -1,0 +1,46 @@
+{% load main_tags %}
+{% load goods_tags %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% for good_same in goods %}
+
+    <div class="ui card">
+        <a class="image" href="{% url 'goods:good_view' good_same.pk %}">
+            {% show_good_image good_same %}
+        </a>
+        <div class="content">
+            <a href="{{ good_same.user.profile.site|check_http_prefix }}" id="site-min">
+                {{ good_same.user.profile.site }}
+            </a>
+            <div class="rev-min">{{ good_same.title }}</div>
+            <div class="place-min">
+                <i class="marker icon"></i>
+                <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.get_country_display }}</a>,
+                <a href="{% url 'goods:search' %}?filter=1&location={{ good_same.user.profile.get_country_display }}">{{ good_same.user.profile.city }}</a>
+            </div>
+        </div>
+        <div class="content">
+            {% for tag in good_same.tags.all %}
+                <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.id }}" class="ui grey small label">{{ tag.name }}</a>
+            {% empty %}
+                Good without tags
+            {% endfor %}
+{#							<ul id="modal-statistics">#}
+{#								<li>50</li>#}
+{#								<li>50</li>#}
+{#								<li>50</li>#}
+{#								<li>50</li>#}
+{#								<li>50</li>#}
+{#								<div class="clear"></div>#}
+{#							</ul>#}
+        </div>
+        <div class="content">
+            <img class="ui avatar image left floated meta" src="{{ good_same.user.profile.avatar.url }}">
+            <a class="user_link" href="{{ good_same.user.profile.get_absolute_url }}">{{ good_same.user.username }}</a><br>
+            <span class="user_status">{{ good_same.user.profile.get_status_display }}</span>
+            <div class="right floated meta header price-min">{{ good_same.get_good_price_by_deal|floatformat }}</div>
+        </div>
+</div>
+
+{% endfor %}

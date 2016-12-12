@@ -1,0 +1,449 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load thumbnail %}
+{% load main_tags %}
+{% load goods_tags %}
+{% load cart_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s
+        {% if section %} subscriptions
+        {% else %}wishlist{% endif %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/wishlist/Mstyle.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/wishlist/slider.css' %}" type="text/css" media="all">
+    <script src="{% static 'js/wishlist/jquery.min.js' %}"></script>
+    <!-- from 1 product page -->
+    <script src="{% static 'js/wishlist/wishlist-slider.js' %}"></script>
+    <!-- from other product page -->
+    <script src="{% static 'js/wishlist/slider.js' %}"></script>
+
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/wishlist/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/wishlist/html5.js' %}"></script>
+	<![endif]-->
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#up').fadeIn();
+                } else {
+                    $('#up').fadeOut();
+                }
+            });
+            $('#up').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+
+        // Send AJAX to remove/add to users likes
+        function likeProduct (id) {
+            var likeId ='#like' + id;
+            $.post('{% url "goods:add_user_like" %}', {
+                pk: $(likeId).data('id'),
+                action: $(likeId).data('action')
+            }, function (data, status, xhr) {
+                if (data['status'] == 'ok') {
+                    var previous_action = $(likeId).data('action');
+                    $(likeId).data('action', previous_action == 'add' ? 'remove' : 'add');
+                    if (previous_action == 'add') {
+                        $(likeId).toggleClass("likes-icon-check");
+                    } else {
+                        $(likeId).toggleClass("likes-icon-check");
+                    }
+                }
+            });
+        }
+
+        // Send AJAX to remove from wish list
+        function removeFromWish (id) {
+            var wishId = '#wish' + id;
+            $(wishId).preventDefault();
+            $.post('{% url "goods:add_to_wishlist" %}',
+                    {
+                        pk: $(wishId).data('id'),
+                        action: 'remove'
+                    },
+                    function (data, status, xhr) {
+                        if (data['status'] == 'ok') {
+                            location.reload();
+                        }
+                    }
+                );
+        }
+        // End wish scripts
+
+        function addToCart(good_id) {
+            if ($('#wishlist-cart').data('action') == 'add') {
+                var url = '/cart/add-to-cart/';
+                var data_action = 'remove';
+                var a_text = 'In cart';
+            } else {
+                var url = '/cart/remove-from-cart/';
+                var data_action = 'add';
+                var a_text = 'Add to cart';
+            }
+            $.post(url, {id: good_id}, function (data, status, xhr) {
+                if (data['status'] == 'ok') {
+                    $('#wishlist-cart').data('action', data_action);
+                    $('#wishlist-cart').text(a_text);
+                } else {
+                    console.log(data);
+                }
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // Get CSRF cookie protection
+            var csrftoken = $.cookie('csrftoken');
+            function csrfSafeMethod (method) {
+                // These HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        // Set X-CSRFToken HTTP Header
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            // Like button scripts
+            // Check action atribute and set image
+            var likesElements = $('.wishlist-like');
+            for (var i = 0; i < likesElements.length; i++) {
+                if ($(likesElements[i]).data('action') != 'add') {
+                    $(likesElements[i]).toggleClass("likes-icon-check");
+                }
+            }
+
+
+            $('.wishlist-container-column2').masonry({
+                // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	            itemSelector: '.wishlist-column2',
+                // указываем класс элемента являющегося блоком в нашей сетке
+                singleMode: true,
+                // true - если у вас все блоки одинаковой ширины
+	            isResizable: true,
+                // перестраивает блоки при изменении размеров окна
+	            isAnimated: true,
+                // анимируем перестроение блоков
+                animationOptions: {
+                    queue: true,
+                    duration: 500
+	            }
+                // опции анимации - очередь и продолжительность анимации
+	        });
+
+	    }); //Конец ready
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="green">
+        <div id="up"></div>
+        {% include 'cart_showcase_block.html' %}
+        <header class="black">
+            <ul>
+                <li><div></div></li>
+                <li>
+                    <a href="{% url 'accounts:show_subscriptions' %}"></a>
+                    {{ request.user|show_count_subscriptions|safe }}
+                </li>
+			    <li>
+                    <a href="#"></a>
+                    <span>258</span>
+                </li>
+			    <li>
+                    <a href="{% url 'chat:show_thread_list' %}"></a>
+                    {{ request.user|show_unread_message_count|safe }}
+                </li>
+			    <li>
+                    <a href="{% url 'goods:show_wishlist' %}"></a>
+                    {{ request.user|show_count_goods_in_wishlist|safe }}>
+                </li>
+			    <li>
+                    <a href="{{ request.user.profile.get_absolute_url }}"></a>
+                </li>
+			    <li>
+                    <a href="{% url 'main:calculator' %}"></a>
+                </li>
+			    <li>
+                    <a href="{% url 'accounts:user_search' %}"></a>
+                </li>
+			    <li>
+                    <a href="#"></a>
+                    <span>258</span>
+                </li>
+			    <li>
+                    <a href="{% url 'accounts:profile' %}"></a>
+                </li>
+			    <li>
+                    <a href="{% url 'accounts:logout' %}">
+                        <div></div>
+                    </a>
+                </li>
+		    </ul>
+		    <div class="clear"></div>
+	    </header>
+        <div class="wishlist">
+            {% if  goods_count == 0 %}
+                <p>{% if section %}
+                        You haven't any subscriptions
+                    {% else %}
+                        You haven't goods in your wishlist
+                    {% endif %}
+                </p>
+            {% elif goods_count == 1%}
+                <div class="wishlist-left-block">
+                    <div class="wishlist-ava">
+                        <div id="wishlist-user-block">
+                            <div id="wishlist-avatar">
+                                {% if goods.0.user.profile.avatar %}
+                                    {% thumbnail goods.0.user.profile.avatar "43x43" as im %}
+                                        <img src="{{ im.url }}">
+                                    {% endthumbnail %}
+                                {% endif %}
+                            </div>
+                            <a href="{{ goods.0.user.profile.get_absolute_url }}" id="wishlist-avatar-border-main"></a>
+                        </div>
+                    </div>
+                    <div class="wishlist-info">
+                        <a href="{% url 'user_page' goods.0.user.profile.slug %}" id="wishlist-user-name">{{ goods.0.user.username }}</a>
+                        <a href="{{ goods.0.user.profile.site|check_http_prefix }}" id="wishlist-from-site-column">с {{ goods.0.user.profile.site }}</a>
+                        <div class="wishlist-time">{% trans 'Last logged '%}{{ goods.0.user.last_login|date:"Y-m-d" }}</div>
+                        <div id="wishlist-tags">
+                            {% for tag in goods.0.user.profile.get_user_tags %}
+                                <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.id }}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="wishlist-right-block">
+                    {% with good_deal=goods.0.deal %}
+                        {% if good_deal == SALE %}
+                            <div class="discount">{{ goods.0.get_sale_percent }}%</div>
+                        {% elif good_deal == AUCTION %}
+                            <div class="auction">
+                                <p>{% trans 'left until the end' %}</p>
+                                <div class="auction-first">1</div>
+                                <div class="auction-second">0</div>
+                                <div class="auction-first">0</div>
+                                <div class="auction-second">5</div>
+                                <div class="auction-first">2</div>
+                                <div class="auction-last">5</div>
+                            </div>
+                        {% endif %}
+                        <img src="#" width="398" height="292" id="big-main-wishlist-slider">
+                        <div id="wishlist-slider-button">
+                            <ul>
+                                {% for photo in goods.0.goods_photos.all %}
+                                    <li>
+                                        <a href="{{ photo.image.url }}" id="mini-thumbs-wishlist-slider">
+                                            {% thumbnail photo.image "74x49" as im %}
+                                                <img src="{{ im.url }}"></a>
+                                            {% endthumbnail %}
+                                    </li>
+                                {% empty %}
+                                    <li>
+                                        <a href="{% static 'images/no-good-image.png' %}" id="mini-thumbs-wishlist-slider">
+                                            <img src="{% static 'images/no-good-image.png' %}" width="74px" height="49px">
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        <div id="wishlist-title">{{ goods.0.title }}</div>
+                        <div id="wishlist-condition">{% trans 'Condition' %}: {{ goods.0.get_state_display }}</div>
+                        <a href="{% url 'goods:search' %}?filter=1&location={{ goods.0.user.profile.get_country_display }}" id="wishlist-adress">
+                            {{ goods.0.user.profile.get_country_display }}, {{ goods.0.user.profile.city }}
+                        </a>
+                        <div id="wishlist-delivery">{% trans 'delivery' %}: {{ goods.0.cooperation }}</div>
+                        <div id="wishlist-number">{% trans 'The number of goods in stock' %}: {{ goods.0.quantity }} {% trans 'pc.' %}</div>
+                        {% if good_deal == SALE %}
+                            <div id="wishlist-old-price">{{ goods.0.old_price }} $</div>
+                            <div id="wishlist-price">{{ goods.0.new_price }} $</div>
+                        {% elif good_deal == AUCTION %}
+                            <div class="fix-price"><p>{{ goods.0.max_price }} $</p> <span>fix price</span></div>
+                            <div class="auction-price"><p>{{ goods.0.reserve_price }} $</p> <span>{{ goods.0.bids.count }} {% trans 'bids' %}</span></div>
+                            <div class="clear"></div>
+                        {% else %}
+                            <div id="wishlist-price2">{{ goods.0.price }} $</div>
+                        {% endif %}
+                    {% endwith %}
+                    <a href="#" id="wishlist-sale">{% trans 'Buy' %}</a>
+                    <a href="#" id="wishlist-cart" onclick="addToCart({{ good.id }}); event.preventDefault();" data-id="{{ good.id }}" data-action="{% if good.id in cart.get_list_items %}remove{% else %}add{% endif %}">
+                        {% if goods.0.id in cart.get_list_items %}
+                            {% trans 'In cart' %}
+                        {% else %}
+                            {% trans 'Add to cart' %}
+                        {% endif %}
+                    </a>
+{#                    <ul id="wishlist-statistics">#}
+{#                        <li>50</li>#}
+{#                        <li>50</li>#}
+{#                        <li>50</li>#}
+{#                        <li>50</li>#}
+{#                        <li>50</li>#}
+{#                        <div class="clear"></div>#}
+{#                    </ul>#}
+                    <ul id="social">
+                        <li><a href="{{ site_root|social_share:VK }}{{ goods.0.get_absolute_url }}"></a></li>
+                        <li><a href="{{ site_root|social_share:FACEBOOK }}{{ goods.0.get_absolute_url }}"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="{{ site_root|social_share:PINTEREST }}{{ goods.0.get_absolute_url }}"></a></li>
+                        <div class="clear"></div>
+                    </ul>
+                    <div id="wishlist-likes-block">
+                        {% with users_likes=goods.0.users_like.all likes_count=goods.0.users_like.count %}
+                            <span class="wishlist-like" data-action="{% if request.user in users_likes  %}remove{% else %}add{% endif %}" data-id="{{ good.pk }}" onclick="likeProduct({{ good.pk }})" id="like{{ good.pk }}"></span>
+                            {% for like in users_likes|slice:":2" %}
+                                <a href="{{ like.profile.get_absolute_url }}">{{ like.username }}</a>
+                            {% endfor %}
+                            {% if likes_count > 0 and likes_count <= 2 %}
+                                {% trans 'like this product' %}
+                            {% elif likes_count >= 3 %}
+                                {% trans 'and' %} {{ likes_count|add:"-2" }} {% trans 'others like this product' %}
+                            {% else %}
+                                {% trans 'Be first who like this product' %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            {% else %}
+                <div class="{% if goods_count == 2 %}wishlist-container-column2 {% else %} wishlist-container-column3 {% endif %}">
+                    {% for good in goods %}
+                        <div class="{% if goods_count == 2 %}wishlist-column2 {% else %} wishlist-column3 {% endif %}">
+                            <div id="wishlist-user-block-column2">
+                                <div id="wishlist-avatar">
+                                    {% if good.user.profile.avatar %}
+                                        {% thumbnail good.user.profile.avatar "43x43" as im %}
+                                            <img src="{{ im.url }}">
+                                        {% endthumbnail %}
+                                    {% endif %}
+                                </div>
+                                <a href="{{ good.user.profile.get_absolute_url }}" id="wishlist-avatar-border"></a>
+                            </div>
+                            <a href="{{ good.user.profile.get_absolute_url }}" id="wishlist-user-name-column2">{{ good.user.username }}</a>
+                            <a href="{{ good.user.profile.site|check_http_prefix }}" id="wishlist-from-site-column2">с {{ good.user.profile.site }}</a>
+                            <div id="wishlist-tags-column2">
+                                {% for tag in good.user.profile.get_user_tags %}
+                                    <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.id }}">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="wishlist-time-column2">{{ good.user.last_login }}</div>
+                            <div class="clear"></div>
+                            {% if good.deal == SALE %}
+                                <div class="discount-column2">{{ good.get_sale_percent }}%</div>
+                            {% elif good.deal == AUCTION %}
+                                <div class="auction-column2">
+                                    <p>{% trans 'left until the end' %}</p>
+                                    <div class="auction-first-column2">1</div>
+                                    <div class="auction-second-column2">0</div>
+                                    <div class="auction-first-column2">0</div>
+                                    <div class="auction-second-column2">5</div>
+                                    <div class="auction-first-column2">2</div>
+                                    <div class="auction-last-column2">5</div>
+                                </div>
+                            {% endif %}
+                            <div class="slider">
+                                <img src="#" width="258" height="190">
+                                <ul>
+                                    {% for photo in good.goods_photos.all %}
+                                        <li>
+                                            <a href="{{ photo.image.url }}">
+                                                {% thumbnail photo.image "49x33" as im %}
+                                                    <img src="{{ im.url }}">
+                                                {% endthumbnail %}
+                                            </a>
+                                        </li>
+                                    {% empty %}
+                                        <li>
+                                            <a href="{% static 'images/no-good-image.png' %}">
+                                                <img src="{% static 'images/no-good-image.png' %}" width="49px" height="33px">
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                            <div id="wishlist-title">{{ good.title }}</div>
+                            <div id="wishlist-condition">{% trans 'Condition' %}: {{ good.get_state_display }}</div>
+                            <a href="{% url 'goods:search' %}?filter=1&location={{ good.user.profile.get_country_display }}" id="wishlist-adress">
+                                {{ good.user.profile.get_country_display }}, {{ good.user.profile.city }}
+                            </a>
+                            <div id="wishlist-delivery">{% trans 'delivery' %}: {{ good.cooperation }}</div>
+                            <div id="wishlist-number">{% trans 'The number of goods in stock' %}: {{ good.quantity }} {% trans 'pc.' %}</div>
+                            {% if good.deal == SALE %}
+                                <div id="wishlist-old-price">{{ good.old_price }} $</div>
+                                <div id="wishlist-price">{{ good.new_price }} $</div>
+                            {% elif good.deal == AUCTION %}
+                                <div class="fix-price fix-price-column2"><p>{{ good.max_price }} $</p> <span>fix price</span></div>
+                                <div class="auction-price"><p>{{ good.reserve_price }} $</p> <span>{{ good.bids.count }} {% trans 'bids' %}</span></div>
+                                <div class="clear"></div>
+                            {% else %}
+                                <div id="wishlist-price2">{{ good.price }} $</div>
+                            {% endif %}
+                            <a href="#" id="wishlist-sale">{% trans 'Buy' %}</a>
+                            <a href="#" id="wishlist-cart" onclick="addToCart({{ good.id }}); event.preventDefault();" data-id="{{ good.id }}" data-action="{% if good.id in cart.get_list_items %}remove{% else %}add{% endif %}">
+                                {% if goods.0.id in cart.get_list_items %}
+                                    {% trans 'In cart' %}
+                                {% else %}
+                                    {% trans 'Add to cart' %}
+                                {% endif %}
+                            </a>
+{#                            <ul id="wishlist-statistics">#}
+{#                                <li>50</li>#}
+{#                                <li>50</li>#}
+{#                                <li>50</li>#}
+{#                                <li>50</li>#}
+{#                                <li>50</li>#}
+{#                                <div class="clear"></div>#}
+{#                            </ul>#}
+                            <ul id="social">
+                                <li><a href="{{ site_root|social_share:VK }}{{ good.get_absolute_url }}"></a></li>
+                                <li><a href="{{ site_root|social_share:FACEBOOK }}{{ good.get_absolute_url }}"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="{{ site_root|social_share:PINTEREST }}{{ good.get_absolute_url }}"></a></li>
+                                <div class="clear"></div>
+                            </ul>
+                            <div id="wishlist-likes-block" class="wishlist-likes-block-column2">
+                                {% with users_likes=good.users_like.all likes_count=good.users_like.count %}
+                                    <span class="wishlist-like" data-action="{% if request.user in users_likes  %}remove{% else %}add{% endif %}" data-id="{{ good.pk }}" onclick="likeProduct({{ good.pk }})" id="like{{ good.pk }}"></span>
+                                    {% for like in users_likes|slice:":2" %}
+                                        <a href="{{ like.profile.get_absolute_url }}">{{ like.username }}</a>
+                                    {% endfor %}
+                                    {% if likes_count > 0 and likes_count <= 2 %}
+                                        {% trans 'like this product' %}
+                                    {% elif likes_count >= 3 %}
+                                        {% trans 'and' %} {{ likes_count|add:"-2" }} {% trans 'others like this product' %}
+                                    {% else %}
+                                        {% trans 'Be first who like this product' %}
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="clear"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <footer>
+        {% include 'social_links.html' %}
+    </footer>
+</body>
+</html>

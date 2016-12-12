@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans 'Registration' %}{% endblock%}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static 'css/index/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/index/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/index/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/index/html5.js' %}"></script>
+    <![endif]-->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+		    $('.reg-button').css('cursor', 'default');
+            function disable() {
+                setTimeout(enable, 45000);
+            }
+            function enable() {
+                $('.reg-button').removeAttr('disabled');
+                $('.id_accept').removeAttr('disabled');
+            }
+            $('#id_confirm_code').keyup(function () {
+                $('.reg-button').removeAttr('disabled');
+                $('.id_accept').removeAttr('disabled');
+            });
+            {% if timer_active %}
+                disable();
+            {% endif %}
+	    }); //Конец ready
+    </script>
+{% endblock %}
+{% block content %}
+    <body style="background:#636363 !important;">
+	    <div id="wrapper" class="green">
+		    <div id="form-box" class="rf2">
+			    <div id="reg-title">{% trans 'Sign up via e-mail' %}</div>
+			    <form action="." method="post">
+                    {% csrf_token %}
+                    {{ form.email|add_class_to_formfield:"mail" }}
+				    <a href="#" id="input-link"></a>
+				    <div class="clear"></div>
+				    <div id="introtext">
+                        {{ form.email.errors.as_text }}
+                        {% if email_form_text %}
+                            {{ email_form_text }}
+                        {% endif %}
+                    </div>
+				    <div id="reg-title">{% trans 'Sign up with your phone' %}</div>
+                    {{ form.phone|add_class_to_formfield:"mail" }}
+				    <a href="#" id="input-link"></a>
+				    <div class="clear"></div>
+                    {{ form.confirm_code|add_class_to_formfield:"mail code" }}
+				    <a href="#" id="button-code"></a>
+				    <div class="clear"></div>
+				    <div id="introtext">
+                        {{ form.phone.errors.as_text }}
+                        {% if phone_form_text %}
+                            {{ phone_form_text }}
+                        {% endif %}
+                    </div>
+				    <div id="check-box">
+					    <label>
+                            {{ form.accept }}
+                            <span></span>
+                        </label>
+					    <a href="#" id="introtext">
+                            {{ form.accept.label }}
+                            {{ form.accept.errors.as_text }}
+                        </a>
+				    </div>
+				    <input type="submit" class="reg-button" value="{% trans 'Create account' %}" style="background: #b1fe00;" {% if timer_active %}disabled{% endif %}>
+			    </form>
+		    </div>
+	    </div>
+    </body>
+{% endblock %}

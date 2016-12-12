@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load main_tags %}
+{% block title %}{% trans "Welcome" %}{% endblock %}
+{% block scripts%}
+    <link rel="stylesheet" href="{% static 'css/index/Mstyle.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/index/jquery.min.js' %}"></script>
+    <!--[if IE]>
+	    <link rel="stylesheet" href="{% static 'css/index/styleIE.css' %}" type="text/css" media="all">
+	    <script type="text/javascript" src="{% static 'js/index/html5.js' %}"></script>
+	<![endif]-->
+{% endblock %}
+{% block content %}
+    {% if theme_id == 0 %}
+        <div id="wrapper" class="green">
+    {% else %}
+	    <div id="wrapper" class="orange">
+    {% endif %}
+		<div id="logo">
+			<form action="{% url 'goods:search' %}" method="get">
+                {{ form.query|add_class_to_formfield:"search" }}
+			</form>
+		</div>
+		<nav id="main-menu">
+			<ul>
+				<li><a href="{% url 'pages:page_view' 'your-business' %}">{% trans 'For your business' %}</a></li>
+				<li><a href="{% url 'pages:page_view' 'advertising' %}">{% trans 'Advertising' %}</a></li>
+				<li>
+{#                    <a href="#">{% trans 'Language' %}</a>#}
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                        <select name="language" class="{% if theme_id == 0 %}select-green{% else %}select-orange{% endif %}" onchange="this.form.submit()">
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </li>
+				<li><a href="{% url 'pages:page_view' 'rules' %}">{% trans 'Rules' %}</a></li>
+				<li><a href="{% url 'pages:page_view' 'terms-and-privacy' %}">{% trans 'Terms and Privacy' %}</a></li>
+			</ul>
+		</nav>
+	</div>
+{% endblock %}

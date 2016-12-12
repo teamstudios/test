@@ -1,0 +1,48 @@
+{% load staticfiles %}
+{% load thumbnail %}
+{% load i18n %}
+{% for usr in users %}
+    <section class="results-block-item">
+        <div class="results-block-item-header clearfix">
+            <a href="{{ usr.profile.get_absolute_url }}">
+                <div class="results-block-item-header-logo">
+                    {% if usr.profile.avatar %}
+                        {% thumbnail usr.profile.avatar "58x56" as im %}
+                            <img src="{{ im.url }}">
+                        {% endthumbnail %}
+                    {% else %}
+                        <img src="{% static 'images/user_search/empty_logo2.png' %}">
+                    {% endif %}
+                </div>
+            </a>
+            <div class="results-block-item-header-name">
+                <a href="{{ usr.profile.get_absolute_url }}">
+                    <h4 class="results-block-item-header-name-shop">{{ usr.username }}</h4>
+                    <h5 class="results-block-item-header-name-person">{{ usr.username }}</h5>
+                </a>
+            </div>
+            <div class="results-block-item-header-cta">
+                <a href="#" class="results-block-item-header-cta-wrapper" id="follow{{ usr.pk }}" onclick="followClicked({{ usr.pk }}); event.preventDefault();" data-action="{% if usr in request.user.subscribers.users.all  %}remove{% else %}add{% endif %}">
+                    {% trans 'Follow' %}
+                </a>
+            </div>
+        </div>
+        <div class="results-block-gallery clearfix">
+            {% for good in usr.goods.all|slice:":3" %}
+                <div class="results-block-gallery-item">
+                    {% if good.get_first_image %}
+                        <img src="{{ good.get_first_image.image.url }}" width="160px" height="161px">
+                    {% else %}
+                        <img src="{% static 'images/no-good-image.png' %}" width="160px" height="161px">
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="results-block-gallery-item"></div>
+                <div class="results-block-gallery-item"></div>
+                <div class="results-block-gallery-item"></div>
+            {% endfor %}
+        </div>
+    </section>
+{% empty %}
+    <p>No users matches your query</p>
+{% endfor %}

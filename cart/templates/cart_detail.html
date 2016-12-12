@@ -1,0 +1,354 @@
+{% load staticfiles %}
+{% load i18n %}
+{% load thumbnail %}
+{% load main_tags %}
+{% load goods_tags %}
+{% load cart_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% trans 'Cart detail' %}</title>
+    <link rel="stylesheet" href="{% static 'css/Mstyle.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/cart_styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!--[if IE]>
+        <link rel="stylesheet" href="{% static 'css/styleIE.css' %}" type="text/css" media="all">
+        <script type="text/javascript" src="{% static 'js/html5.js' %}"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" media="all">
+    <script type="text/javascript" src="{% static 'js/delete_cart.js' %}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+                if($(this).scrollTop() != 0) {
+                    $('#up').fadeIn();
+                } else {
+                    $('#up').fadeOut();
+                }
+            });
+            $('#up').click(function() {
+                $('body,html').animate({scrollTop:0},800);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+{#        $(window).load(function(){#}
+{#            $('.category-container-tab1').masonry({#}
+{#                // указываем элемент-контейнер в котором расположены блоки для динамической верстки#}
+{#	            itemSelector: '#category',#}
+{#                // указываем класс элемента являющегося блоком в нашей сетке#}
+{#                singleMode: true,#}
+{#                // true - если у вас все блоки одинаковой ширины#}
+{#	            isResizable: true,#}
+{#                // перестраивает блоки при изменении размеров окна#}
+{#	            isAnimated: true,#}
+{#                // анимируем перестроение блоков#}
+{#                animationOptions: {#}
+{#	                queue: true,#}
+{#	                duration: 500#}
+{#	            }#}
+{#	            // опции анимации - очередь и продолжительность анимации#}
+{#	        });#}
+{#	    });#}
+
+        $(document).ready(function(){
+{#            var inBlock = $('#category-container').html();#}
+{#            if(inBlock){#}
+{#                $('#category-container').append('<div id="non-content">У ВАС ПОКА НЕТ ТОВАРОВ</div>');#}
+{#            }#}
+
+            // This code commented because it;s destroy markup
+            //$('#wrapper-tabs a').click(function() {
+            //    if ($(this).attr('class') != $('#wrapper-tabs').attr('class') ) {
+            //        $('#wrapper-tabs').attr('class',$(this).attr('class'));
+            //    }
+            //});
+
+            $('#wrapper-tabs a').click(function() {
+                $('.category-container-tab2').masonry({
+                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки
+	                itemSelector: '#category',
+                    // указываем класс элемента являющегося блоком в нашей сетке
+                    singleMode: true,
+                    // true - если у вас все блоки одинаковой ширины
+	                isResizable: true,
+                    // перестраивает блоки при изменении размеров окна
+	                isAnimated: true,
+                    // анимируем перестроение блоков
+                    animationOptions: {
+	                    queue: true,
+	                    duration: 500
+                    }
+                    // опции анимации - очередь и продолжительность анимации
+	            });
+	        });
+
+{#            $('#wrapper-tabs a').click(function() {#}
+{#                $('.category-container-tab1').masonry({#}
+{#                    // указываем элемент-контейнер в котором расположены блоки для динамической верстки#}
+{#	                itemSelector: '#category',#}
+{#                    // указываем класс элемента являющегося блоком в нашей сетке#}
+{#                    singleMode: true,#}
+{#                    // true - если у вас все блоки одинаковой ширины#}
+{#	                isResizable: true,#}
+{#                    // перестраивает блоки при изменении размеров окна#}
+{#	                isAnimated: true,#}
+{#                    // анимируем перестроение блоков#}
+{#                    animationOptions: {#}
+{#                        queue: true,#}
+{#                        duration: 500#}
+{#	                }#}
+{#                    // опции анимации - очередь и продолжительность анимации#}
+{#	            });#}
+{#	        });#}
+
+{#	        $('#wrapper-tabs a').click(function() {#}
+{#	            $('.category-container-tab3').masonry({#}
+{#	                // указываем элемент-контейнер в котором расположены блоки для динамической верстки#}
+{#	                itemSelector: '#category',#}
+{#                    // указываем класс элемента являющегося блоком в нашей сетке#}
+{#                    singleMode: true,#}
+{#                    // true - если у вас все блоки одинаковой ширины#}
+{#	                isResizable: true,#}
+{#                    // перестраивает блоки при изменении размеров окна#}
+{#	                isAnimated: true,#}
+{#                    // анимируем перестроение блоков#}
+{#                    animationOptions: {#}
+{#                        queue: true,#}
+{#                        duration: 500#}
+{#	                }#}
+{#                    // опции анимации - очередь и продолжительность анимации#}
+{#	            });#}
+{#	        });#}
+            // Get CSRF cookie protection
+            var csrftoken = $.cookie('csrftoken');
+            function csrfSafeMethod (method) {
+                // These HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        // Set X-CSRFToken HTTP Header
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            // Modal window
+
+{#            var btn = document.getElementById("myBtn");#}
+            var modal = document.getElementById('bid-modal');
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper" class="green">
+        <div id="up"></div>
+        {% include 'cart_showcase_block.html' %}
+        <header class="black">
+            {% if request.user.is_authenticated %}
+                <ul>
+                    <li><div></div></li>
+                    <li>
+                        <a href="{% url 'accounts:show_subscriptions' %}"></a>
+                        {{ request.user|show_count_subscriptions|safe }}
+                    </li>
+                    <li>
+                        <a href="#"></a>
+                        <span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'chat:show_thread_list' %}"></a>
+                        {{ request.user|show_unread_message_count|safe }}
+                    </li>
+                    <li>
+                        <a href="{% url 'goods:show_wishlist' %}"></a>
+                        {{ request.user|show_count_goods_in_wishlist|safe }}
+                    </li>
+                    <li>
+                        <a href="{{ request.user.profile.get_absolute_url }}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'main:calculator' %}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:user_search' %}"></a>
+                    </li>
+                    <li>
+                        <a href="#"></a><span>258</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:profile' %}"></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'accounts:logout' %}">
+                            <div></div>
+                        </a>
+                    </li>
+                </ul>
+            {% else %}
+                {% include 'sign_in.html' %}
+            {% endif %}
+            <div class="clear"></div>
+        </header>
+        <div id="post-header">
+            <a href="#" id="post-header-button1"><h4>{% now 'm' %}</h4><h5>{% now 'd' %}</h5></a>
+            <a href="#" id="post-header-button2"></a>
+            <a href="#" id="post-header-button3"></a>
+            <div class="clear"></div>
+        </div>
+        <div id="wrapper-tabs" class="tab1">
+{#            <span>#}
+{#                <a href="#" class="tab1">прошлые</a>#}
+{#                <a href="#" class="tab2">настоящие</a>#}
+{#                <a href="#" class="tab3">будущие</a>#}
+{#                <div class="clear"></div>#}
+{#            </span>#}
+            <div id="sort-min">
+                <div id="sort-min-price">
+                    <a href="#" id="sort-down" class="sort-price"></a>
+                    <span>{% trans 'price' %}</span>
+                    <a href="#" id="sort-up" class="sort-price"></a>
+                </div>
+                <div id="sort-min-price-title"><span id="goods_count">{{ count }}</span> lots</div>
+                <div id="sort-min-data">
+                    <a href="#" id="sort-down" class="sort-data"></a>
+                    <span>{% trans 'date' %}</span>
+                    <a href="#" id="sort-up" class="sort-data"></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+{#            <div class="tab1">#}
+{#                <div id="category-container" class="category-container-tab1">#}
+{#                </div>#}
+{#            </div>#}
+            <div class="tab2">
+                <div id="category-container" class="category-container-tab2">
+                    {% for good in goods %}
+                        <div id="category" data-goodid="{{ good.id }}">
+                            {% show_good_image good '164' %}
+                            <a href="{{ good.user.profile.site|check_http_prefix }}" id="site-min">{{ good.user.profile.site }}</a>
+                            <div id="rev-min">{{ good.title }}</div>
+                            <div id="place-min">
+                                <a href="{% url 'goods:search' %}?filter=1&location={{ good.user.profile.get_country_display }}">{{ good.user.profile.get_country_display }}</a>,
+                                <a href="{% url 'goods:search' %}?filter=1&location={{ good.user.profile.city }}">{{ good.user.profile.city }}</a>
+                            </div>
+                            <div id="tags-min-block">
+                                {% for tag in good.tags.all %}
+                                    <a href="{% url 'goods:search' %}?filter=1&tag_id[]={{ tag.name }}" class="tags-min">{{ tag.name }}</a>,
+                                {% endfor %}
+                                <ul id="modal-statistics">
+                                    <li>50</li>
+                                    <li>50</li>
+                                    <li>50</li>
+                                    <li>50</li>
+                                    <li>50</li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <a href="{{ good.user.profile.get_absolute_url }}" id="icon-min">
+                                {% thumbnail good.user.profile.avatar "25x25" as avatar %}
+                                    <img src="{{ avatar.url }}">
+                                {% endthumbnail %}
+                            </a>
+                            <h4>
+                                <a href="{{ good.user.profile.get_absolute_url }}">{{ good.user.username }}</a>
+                            </h4>
+                            <span>{{ good.user.profile.get_status_display }}</span>
+                            <div id="price-min">
+                                {% if good.deal == AUCTION %}
+                                    {% if good|show_good_bid:request.user.username != None %}
+                                        {{ good|show_good_bid:request.user.username }}
+                                    {% else %}
+                                        {{ good.get_good_price_by_deal }}$
+                                    {% endif %}
+                                {% else %}
+                                    {{ good.get_good_price_by_deal }}$
+                                {% endif %}
+                            </div>
+                            <div class="clear"></div>
+                            {% if good.deal == AUCTION %}
+                                {% if not good.has_accepted_bids %}
+                                    <a href="#" class="cart-btn buy-btn" id="myBtn{{ good.id }}" onclick="addBid({{ good.id }}, {{ good.get_max_bid.0 }}, '{{ good.get_max_bid.1 }}')">
+                                        {% trans 'Punch' %}
+                                    </a>
+                                {% endif %}
+                                <br>
+                                {% if good|check_accepted_bid:request.user.username %}
+                                    <a href="#" class="cart-btn delete-btn">{% trans 'Checkout (Bid is accepted)' %}</a>
+                                {% else %}
+                                    <a href="#" class="cart-btn delete-btn" onclick="rejectBid({{ good.id }}); event.preventDefault();">{% trans 'Reject' %}</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="#" class="cart-btn buy-btn">{% trans 'Buy' %}</a>
+                                <br>
+                                <a href="#" class="cart-btn delete-btn" onclick="deleteFromCart({{ good.id }}); event.preventDefault();">
+                                    {% trans 'Delete' %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% empty %}
+                        <div style="text-align: center;">
+                            <p class="custom-caption">{% trans 'No goods in cart' %}</p>
+                        </div>
+                    {% endfor %}
+					<div class="clear"></div>
+				</div>
+            </div>
+        </div>
+        <div id="pagination-block">
+            <ul>
+                {% if goods.has_previous %}
+                    <li><a href="?page={{ goods.previous_page_number }}" class="prev">{% trans 'Previous' %} </a></li>
+                {% endif %}
+                <li><a href="?page={{ goods.number }}" class="active-pag">{{ goods.number }}</a></li>
+                {% if goods.has_next %}
+                    <li><a href="?page={{ goods.next_page_number }}" class="next">{% trans 'Next' %}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+{#        <div id="banner-block">#}
+{#            <a href="#" id="banner1">Баннер</a>#}
+{#            <a href="#" id="banner2">Баннер</a>#}
+{#            <a href="#" id="banner3">Баннер</a>#}
+{#            <div class="clear"></div>#}
+{#        </div>#}
+    </div>
+    <div class="clear"></div>
+    <!-- The Bid modal -->
+    <div id="bid-modal" class="bid-modal">
+        <div class="bid-modal-content">
+            <div class="bid-modal-header">
+                <h4>{% trans 'Make a bid' %}</h4>
+                <span class="close">×</span>
+            </div>
+            <div class="bid-modal-body">
+                <h4>{% trans 'Enter your bid' %}</h4>
+                <p id="bid_p">{% trans 'Last bid:' %} <span id="bid_price"></span>&nbsp;{% trans 'by' %}&nbsp;<span id="bid_user"></span> </p>
+                <input type="hidden" value="" name="id_bid" id="id_good_bid">
+                <input type="number" min="0" name="price" id="id_price">
+                <button type="submit" class="add-bid-button" onclick="makeBid()">
+                    {% trans 'Add bid' %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        {% include 'social_links.html' %}
+    </footer>
+    <script type="text/javascript" src="{% static 'js/masonry.pkgd.js' %}"></script>
+    <script src="{% static 'js/add_bid.js' %}" type="text/javascript"></script>
+</body>
+</html>

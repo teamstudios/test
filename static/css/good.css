@@ -1,0 +1,86 @@
+h3{
+    font-weight: 700!important;
+    text-transform: uppercase!important;
+    font-size: 16px!important;
+    color: #7a7a7a!important;
+}
+
+#user_avatar{
+    height: 50px;
+    width: 50px;
+}
+
+a{
+    text-decoration: none;
+    color:#777;
+}
+
+.left.comments{
+    float: left;
+}
+
+.right.likes{
+    float: right;
+}
+
+#row{
+    display: block;
+    margin:0;
+}
+
+#main_left{
+    padding-right: 3px!important;
+    margin-top: 3px;
+}
+
+#top_right{
+    padding-left: 3px!important;
+    margin-top: 3px;
+}
+
+#about_title{
+    text-transform: uppercase;
+    margin: 5px;
+}
+
+#about_address{
+    margin: 10px;
+}
+
+
+#social{
+    margin:15px;
+}
+
+#tab_menu{
+    margin-bottom: -5px;
+    margin-top: 0;
+}
+
+#tab1, #tab2, #tab3{
+    font-size: 16px;
+    font-weight: 700;
+    color:#7a7a7a!important;
+    border-bottom:4px solid white;
+    text-transform: uppercase;
+    background-color: #fff!important;
+    cursor: pointer;
+}
+
+#tab1.olive.active, #tab2.olive.active, #tab3.olive.active{
+    color:#b1fe00!important;
+    border-bottom:4px solid #b1fe00;
+}
+
+#tab1.orange.active, #tab2.orange.active, #tab3.orange.active{
+    color:#f60!important;
+    border-bottom:4px solid #f60;
+}
+
+#right_bar{
+    width: 34%;
+    padding-top: 0;
+    padding-left: 5px;
+    margin-top: 5px;
+    padding-right: 4px;
+}
